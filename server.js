@@ -1,7 +1,7 @@
 var express     = require('express'),
     bodyParser  = require('body-parser'),
     morgan      = require('morgan'),
-    handler     = require('/server/utils/requestHandler.js');
+    handler     = require('./server/utils/requestHandler.js');
 
 var app = express();
 var PORT = 1337;
@@ -46,21 +46,22 @@ app.delete('/decks',
   }
 );
 
-app.get('/decks/default',
+app.get('/decks/*',
   // Get a specific deck
   function(req, res) {
-    res.send('Get cards!')
+    res.send(200, 'Get cards in ' + req.path)
   }
 );
 
-app.post('/decks/default',
+app.post('/decks/*',
   // Update or create cards in a deck
   function(req, res) {
-    res.send('Create a card!')
+    var path = req.path;
+    res.send('Create a card in ' + path)
   }
 );
 
-app.delete('/decks/default',
+app.delete('/decks/*',
   // Delete a card (or cards)
   function(req, res) {
     res.send('Remove a card!')
