@@ -1,6 +1,7 @@
 var express     = require('express'),
     bodyParser  = require('body-parser'),
-    morgan      = require('morgan');
+    morgan      = require('morgan'),
+    handler     = require('/server/utils/requestHandler.js');
 
 var app = express();
 var PORT = 1337;
