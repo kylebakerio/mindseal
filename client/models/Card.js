@@ -1,7 +1,7 @@
 Card = Card || {};
 
 Card.vm = function (props) {
-  // ViewModel for editing cards
+  // ViewModel for editing cards 
   props = props || {};
 
   return {  
