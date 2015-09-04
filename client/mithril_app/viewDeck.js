@@ -1,11 +1,10 @@
 var viewDeck = {};
 
 viewDeck.view = function(){
-  return 
-    m(".container", [
+  return m(".container",[
       m(".starter-template", [
-        m("h1", "Bootstrap starter template"),
-        m("p.lead", ["Use this document as a way to quickly start any new project.",m("br")," All you get is this text and a mostly barebones HTML document."]),
+        m("h1", "Let's look at cards!!!"),
+        m("p.lead", ["wheeeeeee......!!!111!1!!!1337",m("br")," nullundefined."]),
         m(".center-block", [
           m(".card.front.center-block", "card front"),
           m(".card.back.center-block", "card back"),
