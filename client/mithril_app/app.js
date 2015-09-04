@@ -1,6 +1,22 @@
 App = {};
 
+
 App.view = function(){
+
+  var active = m.prop("active");
+  var r = m.route();
+  var navTable = {
+    "viewDeck": m.prop(),
+    "addCards": m.prop(),
+    "#": m.prop(),
+    "about": m.prop()
+  }
+  
+  for (var key in navTable){
+    if (r.split('/')[1] === key) navTable[key]("active")
+    else navTable[key]("")
+  }
+
   return m("",
     [m("nav.navbar.navbar-inverse.navbar-fixed-top", [
       m(".container", [
@@ -15,14 +31,14 @@ App.view = function(){
         ]),
         m(".collapse.navbar-collapse[id='navbar']", [
           m("ul.nav.navbar-nav", [
-            m("li.active", [m("a[href='/addCards/1']", "Add Cards")]),
-            m("li", [m("a[href='#/viewDeck/1']", "See Deck")]),
-            m("li", [m("a[href='#']", "About")])
+            m("li", {class: navTable["addCards"]()},[m("a[href='#/addCards/1']", "Add Cards")]),
+            m("li", {class: navTable["viewDeck"]()},[m("a[href='#/viewDeck/1']", "See Deck")]),
+            m("li", {class: navTable["about"]()},[m("a[href='#']", "About")])
           ])
         ])
       ])
-    ])//,
-    // m("div[id='views']")
+    ]),
+    m("div[id='views']")
   ])
 }
 
