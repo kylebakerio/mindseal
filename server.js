@@ -54,7 +54,7 @@ app.get('/decks/*',
   }
 );
 
-app.post('/decks/*',
+app.post('/decks/*/cards',
   // Update or create cards in a deck
   function(req, res) {
     var path = req.path;
@@ -62,7 +62,7 @@ app.post('/decks/*',
   }
 );
 
-app.delete('/decks/*',
+app.delete('/decks/*/cards',
   // Delete a card (or cards)
   function(req, res) {
     res.send('Remove a card!')
