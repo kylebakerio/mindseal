@@ -3,6 +3,7 @@ Card = Card || {};
 Card.vm = function (props) {
   // ViewModel for editing cards 
   props = props || {};
+  // if passed in, props should include .front, .back, .id and .flag properties
 
   return {  
     front: m.prop(props.front || ''),
