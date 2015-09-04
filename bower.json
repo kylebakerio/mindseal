@@ -1,0 +1,20 @@
+{
+  "name": "codename-iggy",
+  "version": "0.0.0",
+  "homepage": "https://github.com/undefined-NaN/codename-iggy",
+  "authors": [
+    "finetype <finesttype@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "mithril": "~0.2.0"
+  }
+}
