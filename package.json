@@ -12,6 +12,8 @@
   "dependencies": {
     "body-parser": "^1.13.3",
     "express": "^4.13.3",
-    "morgan": "^1.6.1"
+    "mongodb": "^2.0.42",
+    "morgan": "^1.6.1",
+    "promised-mongo": "^1.2.0"
   }
 }
