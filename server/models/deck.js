@@ -38,4 +38,5 @@ Deck.getCards = function (user) { //calls user.js to get all deck ids for that u
 Deck.removeCards = function () { //MVP: does nothing
 }
 
-Deck.create('new');
+//test code
+Deck.create('new'); 
