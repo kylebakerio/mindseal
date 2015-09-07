@@ -15,7 +15,7 @@ Deck.find = function (id) {
 
 Deck.create = function (name, user) { //creates a new empty deck. MVP: pre-create one.
   user = user || 'MvpTester'; //hardcoded user for MVP
-  db.deck.insert({ name: name, cards: [] });
+  db.decks.insert({ name: name, cards: [] });
 }
 
 Deck.addCards = function (id, card) { //add cards (one at a time) to an existing deck.
