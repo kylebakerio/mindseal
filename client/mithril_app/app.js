@@ -43,15 +43,6 @@ App.view = function(){
 }
 
 App.controller = function(){
-  App.userDecks = m.prop({});
-  //need to figure out how to pass information from one view to the other?
-
-  m.request(method:"GET", url: "/decks") //will need to form request with user ID 
-  .then(function(error, data){
-    App.userDecks = data;
-  })
-   //should now be stored in App.controller.
-  
   //should handle (non routing) button press functionality
 }
 
