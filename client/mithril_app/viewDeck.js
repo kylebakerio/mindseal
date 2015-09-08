@@ -26,7 +26,7 @@ viewDeck.controller = function(){
     var newModel = new Contacts.model()
     ctrl.contacts().push(newModel)
   }
-  
+
   ctrl.remove = function (idx) {
     ctrl.contacts().splice(idx, 1)
   }
