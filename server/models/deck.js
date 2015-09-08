@@ -4,39 +4,39 @@ var pmongo = require('promised-mongo');
 // Connection URL
 var url = 'mongodb://localhost:27017/test';
 
-var db = pmongo(url, ['test']);
+var db = pmongo(url, ['decks']);
+var collection = db.collection('decks');
 
-var Deck = module.exports;
+var decksMethods = module.exports; // decksMethods change name
 
+decksMethods.find = function (id) {
+  return collection.findOne({ _id: pmongo.ObjectId(id) })
+          .then(function(doc) { console.log(doc, "i"); });
+          }
 
-Deck.find = function (id) {
-  return db.decks.findOne({ _id: pmongo.ObjectId(id) });
-}
-
-Deck.create = function (name, user) { //creates a new empty deck. MVP: pre-create one.
+decksMethods.create = function (name, user) { //creates a new empty deck. MVP: pre-create one.
   user = user || 'MvpTester'; //hardcoded user for MVP
-  db.decks.insert({ name: name, cards: [] });
+  collection.insert({ name: name, cards: {} });
 }
 
-Deck.addCards = function (id, card) { //add cards (one at a time) to an existing deck.
-  id = id || "55edd797ba73cb4b51a3a262" //MVP: single hard coded value, only send the id string
-  Deck.find(id)
+decksMethods.addCards = function (id, card) { //add cards (one at a time) to an existing deck.
+  id = id || "55ee4e4fba73cb4b51a3a264" //MVP: single hard coded value, only send the id string
+  decksMethods.find(id)
   .then(function(deck){
-    deck.update({ $push: { card: card } });
+    // deck.update({ $push: { card: card } });
+    deck.update( { $push: { cards: {order: "card3" } }}, { cards: { card3: card } } );
   })
 }
 
-Deck.getCards = function (user) { //calls user.js to get all deck ids for that user MVP: default user
+decksMethods.getCards = function (user) { //calls user.js to get all deck ids for that user MVP: default user
   user = user || 'MvpTester'; //arg undefined for MVP
-  allDecks = //single hardcoded value for MVP, send only the id string
-  Deck.find(allDecks)
-  .then(function(deck){
-    return result = deck.cards;
+  allDecks = "55edd797ba73cb4b51a3a262" //should be an array of deck ids. single hardcoded value for MVP, send only the id string
+  decksMethods.find(allDecks)
+  .then(function(deck){ //decks objects
+    return deck; //array of deck
   })
 }
 
-Deck.removeCards = function () { //MVP: does nothing
+decksMethods.removeCards = function () { //MVP: does nothing
 }
 
-//test code
-Deck.create('new'); 
