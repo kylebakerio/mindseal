@@ -43,7 +43,8 @@ App.view = function(){
 }
 
 App.controller = function(){
-  //should handle (non routing) button press functionality
+  //should handle retrieving all decks on sign in.
+  //
 }
 
 
