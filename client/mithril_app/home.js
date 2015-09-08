@@ -5,5 +5,5 @@ Home.view = function(){
 }
 
 Home.controller = function(){
-
+  
 }

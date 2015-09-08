@@ -48,9 +48,6 @@ app.delete('/decks',
   }
 );
 
-//we should probably never need to use this,
-//and instead get all user decks on every load, 
-//I think.
 app.get('/decks/*',
   // Get a specific deck
   function(req, res) {

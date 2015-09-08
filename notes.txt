@@ -18,6 +18,12 @@ to discuss:
 --local storage of decks (should be deemed high priority)
 --syncing decks
 
+-basic data movement pattern, frequency of syncs...
+--we should only ever be retrieving decks
+---retrieve all on login, confirm sync'd before read/write?
+--we should POST a create deck that is empty when we make a new deck
+--otherwise, we should only ever be writing individual cards.
+
 
 project path:
 ==========================
