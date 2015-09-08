@@ -14,6 +14,17 @@ Card.vm = function (props) {
 }
 
 
+/* var Posts = 
+exports = {
+  model: function () {
+    this.id = m.prop('');
+    this.title = m.prop('');
+    this.content = m.prop('');
+    this.summary = m.prop('');
+    this.author = m.prop('');
+  }
+} */
+
 // these functions need to be redefined, but we should save these
 //implementations for reference.
 

@@ -1,6 +1,6 @@
 App = {};
 
-
+//the context in which all other sub pages are displayed within:
 App.view = function(){
 
   var active = m.prop("active");
@@ -11,7 +11,7 @@ App.view = function(){
     "#": m.prop(),
     "about": m.prop()
   }
-  
+
   for (var key in navTable){
     if (r.split('/')[1] === key) navTable[key]("active")
     else navTable[key]("")
@@ -43,14 +43,22 @@ App.view = function(){
 }
 
 App.controller = function(){
+  App.userDecks = m.prop({});
+  //need to figure out how to pass information from one view to the other?
+
+  m.request(method:"GET", url: "/decks") //will need to form request with user ID 
+  .then(function(error, data){
+    App.userDecks = data;
+  })
+   //should now be stored in App.controller.
   
+  //should handle (non routing) button press functionality
 }
 
 
 //setup routes to start w/ the `#` symbol
 m.route.mode = "hash";
 
-// ROUTING is not yet working:
 m.route(document.getElementById("views"), "/", {
   "/": Home,
   "/addCards/:deckID": addCards,
