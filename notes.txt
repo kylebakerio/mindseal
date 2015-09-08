@@ -1,0 +1,25 @@
+notes.txt
+
+some code comments:
+==========================
+app.get /users
+--is this how people are really supposed to log in?
+
+app.get /decks
+--should be calling GetCards
+
+app.post /decks
+--we should be writing cards, reading decks.**to be discussed
+
+
+to discuss:
+==========================
+-database structure/options 
+--local storage of decks (should be deemed high priority)
+--syncing decks
+
+
+project path:
+==========================
+-recreate anki from scratch
+-refactor branch to sync with anki

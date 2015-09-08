@@ -28,6 +28,7 @@ app.post('/users',
 
 app.get('/decks',
   // Get all decks
+  // should expect user ID in request
   function(req, res) {
     res.send('Get decks!')
   }
@@ -47,6 +48,9 @@ app.delete('/decks',
   }
 );
 
+//we should probably never need to use this,
+//and instead get all user decks on every load, 
+//I think.
 app.get('/decks/*',
   // Get a specific deck
   function(req, res) {

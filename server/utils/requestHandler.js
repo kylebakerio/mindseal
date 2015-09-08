@@ -1,5 +1,4 @@
 
-
 module.exports = {
 
   getCards: function(req, res) {
