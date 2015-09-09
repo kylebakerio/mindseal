@@ -11,7 +11,7 @@ app.use(express.static(__dirname + '/client'));
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
 app.use(morgan('dev'));
 
-
+//google auth stuff...
 app.get('/users',
   // Log a user in
   function(req, res) {
@@ -28,14 +28,16 @@ app.post('/users',
 
 app.get('/decks',
   // Get all decks
-  // should expect user ID in request
   function(req, res) {
     handler.getDecks(req,res);
   }
+  // handler.getCards() //should be called here
 );
 
 app.post('/decks',
-  // Update or create a deck
+  // Create a deck
+  //req should look like { deckName: "deckname" }
+  //res will contain new unique ID of newly created deck
   function(req, res) {
     handler.createDeck(req,res);
   }
@@ -57,13 +59,22 @@ app.get('/decks/*',
 
 app.post('/decks/*/cards',
   // Update or create cards in a deck
+  // expects array of card objects that are newly user generated
+  //* === will be primary key of deck
   function(req, res) {
     var path = req.path;
     res.send('Create a card in ' + path)
   }
 );
 
+<<<<<<< HEAD
 app.delete('/decks/*/cards',
+=======
+// app.post('website.com/decks/*/cards',
+  //need something for updating cards
+
+app.delete('/decks/*',
+>>>>>>> ed0abc2... committing my server changes before I pull nathan's new server files, so I can merger them, because git is complaining. (these two updated files are immediately going to be overwritten.)
   // Delete a card (or cards)
   function(req, res) {
     handler.addCards(req, res)
