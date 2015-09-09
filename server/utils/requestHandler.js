@@ -2,7 +2,7 @@
 module.exports = {
 
   getCards: function(req, res) {
-    Decks.getCards()
+    Decks.getCards() 
       .then(function(cards) {
         res.send(cards);
       })
