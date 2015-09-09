@@ -29,8 +29,7 @@ app.post('/users',
 app.get('/decks',
   // Get all decks
   function(req, res) {
-    req.data //=== username, check credentials? --kyle
-    res.send('Get decks!')
+    handler.getDecks(req,res);
   }
   // handler.getCards() //should be called here
 );
@@ -40,7 +39,7 @@ app.post('/decks',
   //req should look like { deckName: "deckname" }
   //res will contain new unique ID of newly created deck
   function(req, res) {
-    res.send('Create a deck!')
+    handler.createDeck(req,res);
   }
 );
 
@@ -58,7 +57,7 @@ app.get('/decks/*',
   }
 );
 
-app.post('/decks/*',
+app.post('/decks/*/cards',
   // Update or create cards in a deck
   // expects array of card objects that are newly user generated
   //* === will be primary key of deck
@@ -70,11 +69,10 @@ app.post('/decks/*',
 
 // app.post('website.com/decks/*/cards',
   //need something for updating cards
-
-app.delete('/decks/*',
+app.delete('/decks/*/cards',
   // Delete a card (or cards)
   function(req, res) {
-    res.send('Remove a card!')
+    handler.addCards(req, res)
   }
 );
 
