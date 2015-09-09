@@ -23,7 +23,7 @@
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="./misc/ie-emulation-modes-warning.js"></script>
-    <script src="../bower_components/mithril/mithril.min.js"></script>
+    <script src="./bower_components/mithril/mithril.min.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -32,16 +32,19 @@
     <![endif]-->
   </head>
   <body>
+    <div id="navbar"></div>
+    <div id="views"></div>
     <script src="./mithril_app/addCards.js"></script>
     <script src="./mithril_app/viewDeck.js"></script>
+    <script src="./mithril_app/home.js"></script>
     <script src="./mithril_app/app.js"></script>
-    <script type="text/javascript">m.mount(document.body,App)</script>
+    <script type="text/javascript">m.mount(document.getElementById("navbar"),App)</script>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="./misc/ie10-viewport-bug-workaround.js"></script>
   </body>

@@ -1,6 +1,22 @@
 App = {};
 
+
 App.view = function(){
+
+  var active = m.prop("active");
+  var r = m.route();
+  var navTable = {
+    "viewDeck": m.prop(),
+    "addCards": m.prop(),
+    "#": m.prop(),
+    "about": m.prop()
+  }
+  
+  for (var key in navTable){
+    if (r.split('/')[1] === key) navTable[key]("active")
+    else navTable[key]("")
+  }
+
   return m("",
     [m("nav.navbar.navbar-inverse.navbar-fixed-top", [
       m(".container", [
@@ -15,13 +31,14 @@ App.view = function(){
         ]),
         m(".collapse.navbar-collapse[id='navbar']", [
           m("ul.nav.navbar-nav", [
-            m("li.active", [m("a[href='#/addCards']", "Add Cards")]),
-            m("li", [m("a[href='#/viewDeck']", "See Deck")]),
-            m("li", [m("a[href='#']", "About")])
+            m("li", {class: navTable["addCards"]()},[m("a[href='#/addCards/1']", "Add Cards")]),
+            m("li", {class: navTable["viewDeck"]()},[m("a[href='#/viewDeck/1']", "See Deck")]),
+            m("li", {class: navTable["about"]()},[m("a[href='#']", "About")])
           ])
         ])
       ])
-    ])
+    ]),
+    m("div[id='views']")
   ])
 }
 
@@ -29,14 +46,16 @@ App.controller = function(){
   
 }
 
-//
-// ROUTING is not yet working:
 
-// m.route(document.body, "/", {
-//   "/": App,
-//   "/addCards": addCards,
-//   "/viewDeck": viewDeck
-// });
+//setup routes to start w/ the `#` symbol
+m.route.mode = "hash";
+
+// ROUTING is not yet working:
+m.route(document.getElementById("views"), "/", {
+  "/": Home,
+  "/addCards/:deckID": addCards,
+  "/viewDeck/:deckID": viewDeck
+});
 
 // var viewDeck = {
 //   controller: function() {
@@ -47,10 +66,7 @@ App.controller = function(){
 //   }
 // }
 
-// //setup routes to start w/ the `#` symbol
-// m.route.mode = "hash";
-
 // //define a route
-// m.route(document.body, "/viewDeck/johndoe", {
+// m.route(document.body, "/viewDeck/:deckID", {
 //   "/viewDeck/:deckID": viewDeck
 // });

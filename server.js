@@ -8,6 +8,7 @@ var PORT = 1337;
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/client'));
+app.use('/bower_components', express.static(__dirname + '/bower_components'));
 app.use(morgan('dev'));
 
 
@@ -53,7 +54,7 @@ app.get('/decks/*',
   }
 );
 
-app.post('/decks/*',
+app.post('/decks/*/cards',
   // Update or create cards in a deck
   function(req, res) {
     var path = req.path;
@@ -61,7 +62,7 @@ app.post('/decks/*',
   }
 );
 
-app.delete('/decks/*',
+app.delete('/decks/*/cards',
   // Delete a card (or cards)
   function(req, res) {
     res.send('Remove a card!')

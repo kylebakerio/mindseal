@@ -1,8 +1,7 @@
 var addCards = {};
 
 addCards.view = function(){
-  return 
-    m(".container", [
+  return m(".container", [
       m(".starter-template", [
         m("h1", "CODENAME: IGGY"),
         m("p.lead", ["Let's make some cards.",m("br")," So you can remember stuff."]),
