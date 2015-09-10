@@ -27,11 +27,3 @@ exports.module = {
 
 };
 
-// For test:
-// var testReq = {
-//   get: function(token) {
-//     return 'ya29.6gF3ZryG6ClCekLxYvD6xZxqsb7THVuX7CmD457pIdLTCDn7WpsVwSVCYNCUgxzfggOr'
-//   }
-// };
-
-// exports.module.auth(testReq);
