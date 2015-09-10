@@ -18,6 +18,10 @@ module.exports = {
   // getDecks: function(req, res) {
   //   // With Auth:
   //   Auth.getId(req)
+  //     .catch(function(err) {
+  //       // Handler for unsuccessful auth with Google
+  //       res.send(401, err);
+  //     })
   //     .then(function(googleId) {
   //       return Decks.getDecks(googleId)
   //     })
@@ -62,6 +66,10 @@ module.exports = {
   //   var deckName = req.body.deckName;
 
   //   Auth.getId(req)
+  //     .catch(function(err) {
+  //       // Handler for unsuccessful auth with Google
+  //       res.send(401, err);
+  //     })
   //     .then(function(googleId) {
   //       return Decks.createDeck(googleId, deckName, req.body);
   //     })
