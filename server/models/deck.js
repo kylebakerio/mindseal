@@ -13,18 +13,16 @@ var testString = "55ee4e4fba73cb4b51a3a264"; //for hardcoded deck id
 
 decksMethods.find = function (id) {
   return collection.findOne({ _id: pmongo.ObjectId(id) });
-          // .then(function(doc) { console.log("in find")}); //since the .then part is happening in calling functions this needs to be removed. tested.
 }
-//can also be used as a new deck creator + deck content, cards arg is optional
 
-decksMethods.createDeck = function (name, user, cards) { //creates a new empty deck. MVP: pre-create one.
+//can also be used as a new deck creator + deck content, cards arg is optional
+decksMethods.createDeck = function (user, name, cards) { //creates a new empty deck. MVP: pre-create one.
   user = user || 'MvpTester'; //hardcoded user for MVP
   cards = cards || {};
-  collection.insert({ name: name, cards: cards });
+  return collection.insert({ name: name, cards: cards });
 }
 
 //are we adding/editing cards client side instead and pushing whole deck objects here? Yes. After MVP.
-//TO-DO: 
 decksMethods.addCards = function (id, card) { //add cards (one at a time) to an existing deck.
   var id = id || testString; //MVP: single hard coded value, only send the id string
   // decksMethods.find(id)
@@ -45,15 +43,16 @@ decksMethods.addCards = function (id, card) { //add cards (one at a time) to an 
   });
 }
 
+//TO DO: add multiple decks see what promise returns.
 //change name afterMVP- getDecks
-decksMethods.getCards = function (user) { //calls user.js to get all deck ids for that user MVP: default user
+decksMethods.getDecks = function (user) { //calls user.js to get all deck ids for that user MVP: default user
   user = user || 'MvpTester'; //arg undefined for MVP
   var allDecks = testString; //should be an array of deck ids. single hardcoded value for MVP, send only the id string
-  decksMethods.find(allDecks)
-  .then(function(deck){ //decks objects
-    console.log(deck);
-    return deck;
-  })
+  return decksMethods.find(allDecks)
+  // .then(function(deck){ //decks objects
+  //   console.log(deck);
+  //   // return function(deck){return deck};
+  // })
 }
 
 decksMethods.removeCards = function () { //MVP: does nothing
