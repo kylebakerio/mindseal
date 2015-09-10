@@ -1,4 +1,4 @@
-// var Decks = require('./db')
+Decks = require('../models/deck.js');
 
 module.exports = {
 
@@ -7,10 +7,10 @@ module.exports = {
     var google_id = "mvp_test";
     Decks.getDecks(google_id)
       .then(function(decks) {
-        res.send(cards);
+        res.send(decks);
       })
       .catch(function(err) {
-        console.log(err);
+        console.log(err, "handler");
         res.send(500, err);
       });
   },
@@ -32,7 +32,7 @@ module.exports = {
     // var google_id = req.get('google_id');
     var google_id = 'mvp_test';
     var deckName = req.body.deckName;
-    Decks.createDeck(google_id, deckName, req.body)
+    Decks.createDeck(google_id, deckName, req.body.cards)
       .then(function(deck_id) {
         res.send(201, deck_id)
       })
