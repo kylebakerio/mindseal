@@ -5,11 +5,11 @@ m.route.mode = "hash";
 m.route(document.getElementById("views"), "/", {
 
   "/": {
-    controller: Home.controller,
-
+    controller: function(){
+      Home.controller
+    },
     /*function(args,extras){
       console.log("root controller was run");
-      App.Decks = Deck.fetch();
       console.log("/ controller: App.Decks is (next line): ");
       console.log(App.Decks);
       return {content:"something"}
