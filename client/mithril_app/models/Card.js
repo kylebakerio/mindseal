@@ -13,8 +13,9 @@ Card.vm = function (props) {
   }
 }
 
+// var newCard = new Card.vm({front: '1'})
 
-/* var Posts = 
+/* var Posts =
 exports = {
   model: function () {
     this.id = m.prop('');
@@ -25,8 +26,8 @@ exports = {
   }
 } */
 
-// these functions need to be redefined, but we should save these
-//implementations for reference.
+  // these functions need to be redefined, but we should save these
+  // implementations for reference.
 
   // remove = function(index) {
   //   var toRemove = ctrl.contacts().splice(index, 1);
@@ -36,16 +37,3 @@ exports = {
   //     data: toRemove
   //   });
   // }
-
-  // update = function(index) {
-  //   var toUpdate = ctrl.contacts()[index];
-  //   m.request({
-  //     method: 'POST',
-  //     url: '/decks/' + options.deck,
-  //     data: toUpdate
-  //   })
-  //   .then(function(updatedCard) {
-  //     ctrl.cards()[index] = updatedCard;
-  //   })
-  // }
-  
