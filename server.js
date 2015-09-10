@@ -29,14 +29,14 @@ app.post('/users',
 app.get('/decks',
   // Get all decks
   function(req, res) {
-    res.send('Get decks!')
+    handler.getDecks(req,res);
   }
 );
 
 app.post('/decks',
   // Update or create a deck
   function(req, res) {
-    res.send('Create a deck!')
+    handler.createDeck(req,res);
   }
 );
 
@@ -65,7 +65,7 @@ app.post('/decks/*/cards',
 app.delete('/decks/*/cards',
   // Delete a card (or cards)
   function(req, res) {
-    res.send('Remove a card!')
+    handler.addCards(req, res)
   }
 );
 
