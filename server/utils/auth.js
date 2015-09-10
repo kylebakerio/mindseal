@@ -11,11 +11,12 @@ exports.module = {
         Authorization : 'Bearer ' + token
       }
     };
-
+    console.log(options);
     request(options)
       .then(function(response) {
-        var userInfo = response.body
-        return userInfo;
+        var googleId = JSON.parse(response).id;
+        console.log("ID: ", googleId);
+        return googleId;
       })
       .catch(function(err) {
         console.log(err);
@@ -24,3 +25,12 @@ exports.module = {
   }
 
 };
+
+// For test:
+// var testReq = {
+//   get: function(token) {
+//     return 'ya29.6gF3ZryG6ClCekLxYvD6xZxqsb7THVuX7CmD457pIdLTCDn7WpsVwSVCYNCUgxzfggOr'
+//   }
+// };
+
+// exports.module.auth(testReq);

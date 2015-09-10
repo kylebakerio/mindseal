@@ -16,6 +16,7 @@
     "morgan": "^1.6.1",
     "promised-mongo": "^1.2.0",
     "morgan": "^1.6.1",
+    "request-promise": "^0.4.3",
     "session": "^0.1.0"
   }
 }
