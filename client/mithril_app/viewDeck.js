@@ -1,6 +1,5 @@
 var viewDeck = {};
 
-
 viewDeck.stuff = function(){
   console.log("hi")
 }
@@ -15,8 +14,8 @@ viewDeck.view = function(){
       m("h1", "Let's look at cards!!!"),
       m("p.lead", ["wheeeeeee......!!!111!1!!!1337", m("br")," nullundefined."]),
       m(".center-block", [
-        m(".card.front.center-block"/*, viewDeck.controller().currentCard().front*/), //maybe??
-        m(".card.back.center-block", App.Decks()["mvp"][App.Decks()["mvp"].order[0]].back), //maybe??
+        m(".card.front.center-block", viewDeck.currentCard().front), //maybe??
+        m(".card.back.center-block", viewDeck.currentCard().back), //maybe??
         m("input",{type:'button', onclick: 'console.log("clicked")',value:'I remembered!!'}),
         m("input[type='button'][value='I did not remember'][onclick='ctrl.rate(false)']")
       ])
