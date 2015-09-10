@@ -1,0 +1,69 @@
+
+//setup routes to start w/ the `#` symbol
+m.route.mode = "hash";
+
+m.route(document.getElementById("views"), "/", {
+
+  "/": {
+    controller: Home.controller,
+
+    /*function(args,extras){
+      console.log("root controller was run");
+      App.Decks = Deck.fetch();
+      console.log("/ controller: App.Decks is (next line): ");
+      console.log(App.Decks);
+      return {content:"something"}
+    },*/
+
+    view: function(ctrl,args,extras) {
+      console.log("root view fn() was run")
+      // console.log("ctrl is (next line):")
+      return ('.app', [
+        m.component(App, { decks: App.Decks, content: ctrl.content }),
+        m.component(Home, {})
+      ])
+    }
+  },
+
+  "/viewDeck/:deckID": {
+    controller: function(){
+      this.deck = Deck.find( m.route.param('deckId') ) //grabs an individual deck from the Decks object
+      console.log("this.deck in viewDeck controller: " + this.deck)
+    },
+
+    view: function(ctrl) {
+      console.log(ctrl.deck)
+      return m('.app', [
+        m.component(App, {}),
+        m.component(viewDeck, { currDeck: ctrl.deck })
+      ])
+    }
+  },
+
+  "/addCards/:deckID": {
+    controller: function () {
+      this.deck = Deck.find( m.route.param('deckId') ); //grabs an individual deck from the Decks object
+      console.log(this.deck, " <-- if this is { mvp: {} }, Deck.find is working properly.")
+      // Previous line is equivalent to something like this:
+      // this.deck = m.request({ method: 'GET', url: '/api/decks/10' })
+    },
+
+    view: function (ctrl) {
+      return m('.app', [
+        m.component(App, {}),
+        m.component(addCards, { deck: ctrl.deck() })
+      ]);
+    }
+  }
+
+});
+
+////some reference:
+// var viewDeck = {
+//   controller: function() {
+//       return {id: m.route.param("deckID")};
+//   },
+//   view: function(controller) {
+//       return m("div", controller().id);
+//   }
+// }

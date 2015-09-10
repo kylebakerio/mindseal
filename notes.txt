@@ -2,14 +2,13 @@ notes.txt
 
 some code comments:
 ==========================
-app.get /users
---is this how people are really supposed to log in?
 
-app.get /decks
---should be calling GetCards
+many others with decks: 
+--consistency between URL's for decks and card ID's?
 
-app.post /decks
---we should be writing cards, reading decks.**to be discussed
+server utils:
+--we need a function here to return only a single deck
+--getCards should be getDecks, and should return an array of decks
 
 
 to discuss:
