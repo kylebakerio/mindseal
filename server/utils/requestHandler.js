@@ -4,7 +4,6 @@ var Decks = require('../models/deck.js'),
 module.exports = {
 
   getDecks: function(req, res) {
-    // Auth.getId(req).then(function(googleId) {});
     var googleId = "mvp_test";
     Decks.getDecks(googleId)
       .then(function(decks) {
@@ -16,12 +15,27 @@ module.exports = {
       });
   },
 
+  // getDecks: function(req, res) {
+  //   // With Auth:
+  //   Auth.getId(req)
+  //     .then(function(googleId) {
+  //       return Decks.getDecks(googleId)
+  //     })
+  //     .then(function(decks) {
+  //       res.send(cards);
+  //     })
+  //     .catch(function(err) {
+  //       console.log(err);
+  //       res.send(500, err);
+  //     });
+  // },
+
   addCard: function(req, res) {
     var cards = req.body;
-    var deck_id = req.get('deck_id');
-    Decks.addCards(deck_id, cards)
-      .then(function(card_ids) {
-        res.send(201, card_ids)
+    var deckId = req.get('deck_id');
+    Decks.addCards(deckId, cards)
+      .then(function(cardIds) {
+        res.send(201, cardIds)
       })
       .catch(function(err) {
         console.log(err);
@@ -30,7 +44,6 @@ module.exports = {
   },
 
   createDeck: function(req, res) {
-    // Auth.getId(req).then(function(googleId) {});
     var googleId = req.get('googleId');
     var googleId = 'mvp_test';
     var deckName = req.body.deckName;
@@ -43,7 +56,24 @@ module.exports = {
         res.send(500, err);
       });
   }
-  
+
+  // createDeck: function(req, res) {
+  //   // With Auth:
+  //   var deckName = req.body.deckName;
+
+  //   Auth.getId(req)
+  //     .then(function(googleId) {
+  //       return Decks.createDeck(googleId, deckName, req.body);
+  //     })
+  //     .then(function(deckId) {
+  //       res.send(201, deckId)
+  //     })
+  //     .catch(function(err) {
+  //       console.log(err);
+  //       res.send(500, err);
+  //     });
+  // }
+
   // removeCards: function(req,res) {
   //   var cards = req.body;
   //   Decks.removeCards(cards)
