@@ -1,10 +1,5 @@
 var viewDeck = {};
 
-viewDeck.currentDeck = App.Decks()[Home.selDeck];
-viewDeck.index = 0
-viewDeck.order = App.Decks()[Home.selDeck].order;
-viewDeck.currentCard = m.prop();
-viewDeck.currentCard(viewDeck.currentDeck[viewDeck.order[viewDeck.index]])
 
 viewDeck.stuff = function(){
   console.log("hi")
@@ -30,7 +25,14 @@ viewDeck.view = function(){
 }
 
 viewDeck.controller = function(){
-  var ctrl = this; 
+
+  viewDeck.currentDeck = App.Decks()[Home.selDeck];
+  viewDeck.index = 0
+  viewDeck.order = App.Decks()[Home.selDeck].order;
+  viewDeck.currentCard = m.prop();
+  viewDeck.currentCard(viewDeck.currentDeck[viewDeck.order[viewDeck.index]])
+
+  var ctrl = this;
   console.log("loading deck: " + Home.selectedDeck)
 
   // currentCard(ctrl.deck[ctrl.orderArray[cardIndex]]);
