@@ -34,7 +34,7 @@ decksMethods.addCards = function (id, card) { //add cards (one at a time) to an 
   //   // deck.update( { $push: { cards: { order: "card3" } }}, { cards: { card3: card } } );
   // })
 
-  //another approach
+  //TODO: another approach
   collection.findAndModify({
     query: { _id: id },
     update: { $set: { cards: { card3: card } } },
