@@ -2,7 +2,8 @@ var request = require('request-promise');
 
 exports.module = {
 
-  auth: function(req, res) {
+  getId: function(req) {
+    // Fetches a user ID from google based on api-token header on req
     var token = req.get('api-token');
     var options = {
       uri: 'https://www.googleapis.com/plus/v1/people/me',

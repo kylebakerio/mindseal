@@ -1,11 +1,12 @@
-Decks = require('../models/deck.js');
+var Decks = require('../models/deck.js'),
+    Auth  = require ('./auth.js');
 
 module.exports = {
 
   getDecks: function(req, res) {
-    // var google_id = req.get('api_token') // Once google auth is ready
-    var google_id = "mvp_test";
-    Decks.getDecks(google_id)
+    // Auth.getId(req).then(function(googleId) {});
+    var googleId = "mvp_test";
+    Decks.getDecks(googleId)
       .then(function(decks) {
         res.send(decks);
       })
@@ -29,8 +30,9 @@ module.exports = {
   },
 
   createDeck: function(req, res) {
-    // var google_id = req.get('google_id');
-    var google_id = 'mvp_test';
+    // Auth.getId(req).then(function(googleId) {});
+    var googleId = req.get('googleId');
+    var googleId = 'mvp_test';
     var deckName = req.body.deckName;
     Decks.createDeck(google_id, deckName, req.body.cards)
       .then(function(deck_id) {
@@ -41,6 +43,7 @@ module.exports = {
         res.send(500, err);
       });
   }
+  
   // removeCards: function(req,res) {
   //   var cards = req.body;
   //   Decks.removeCards(cards)
