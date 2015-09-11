@@ -62,3 +62,5 @@ App.controller = function(){
   }
 }
 
+m.mount(document.getElementById("navbar"),App)
+
