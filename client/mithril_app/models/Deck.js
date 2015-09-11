@@ -14,8 +14,8 @@ Deck.vm = function(){ //only able to make new decks from scratch
 Deck.fetch = function() { //should be the server call to get a Decks object
   // return m.request({
   //   method: 'GET', 
-  //   url: '/decks/',
-  //   data: session token
+  //   url: '/decks/'//,
+  //   // data: session token
   // })
   return {
     mvp: { //this is a deck's name
@@ -23,25 +23,33 @@ Deck.fetch = function() { //should be the server call to get a Decks object
       uniquekey2: {                        // this is a card itselfthis.deck in viewDeck controller: [object Object]
         front: "this is card1's front",
         back: "this is card1's back",
-        flag: false //don't remember, needs to be seen
+        tVal: 11, //this is the difference between the next two values
+        toBeSeen: 31,
+        timeLastSeen: 20 //these should be moment.js time values
       },
       uniquekey3: {
         front: "this is card2's front",
         back: "this is card2's back",
-        flag: false //don't remember, needs to be seen
+        tVal: 11, //this is the difference between the next two values,
+        toBeSeen: 31,
+        timeLastSeen: 20 //these should be moment.js time values
       }
     },
-    demoDeck2: {
+    demoDeck2: { //another deck
       order: ["uniquekey5", "uniquekey6"], //these are card unique ID's
       uniquekey6: {                        // this is a card itself
         front: "this is card5's front",
         back: "this is card5's back",
-        flag: false //don't remember, needs to be seen
+        tVal: 11, //this is the difference between the next two values,
+        toBeSeen: 31,
+        timeLastSeen: 20 //these should be moment.js time values
       },
       uniquekey5: {
         front: "this is card6's front",
         back: "this is card6's back",
-        flag: false //don't remember, needs to be seen
+        tVal: 11, //this is the difference between the next two values,
+        toBeSeen: 31,
+        timeLastSeen: 20 //these should be moment.js time values
       }
     }
   } 

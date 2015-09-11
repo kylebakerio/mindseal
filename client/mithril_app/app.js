@@ -33,7 +33,7 @@ App.view = function(){
         m(".collapse.navbar-collapse[id='navbar']", [
           m("ul.nav.navbar-nav", [
             m("li", {class: navTable["addCards"]()},[m("a[href='#/addCards/" + Home.selDeck + "']", "Add Cards")]),
-            m("li", {class: navTable["viewDeck"]()},[m("a[href='#/viewDeck/1']", "See Deck")]),
+            m("li", {class: navTable["viewDeck"]()},[m("a[href='#/viewDeck/" + Home.selDeck + "']", "View Deck")]),
             m("li", {class: navTable["about"]()},[m("a[href='#']", "About")])
           ])
         ])
