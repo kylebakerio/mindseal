@@ -57,9 +57,10 @@ viewDeck.controller = function(){
   // console.log(currentCard)
 
   viewDeck.nextCard = function () {
-    viewDeck.index++;
-    viewDeck.currentCard(viewDeck.currentDeck[viewDeck.order[viewDeck.index]]); //maybe?
-    console.log("new card's front is: " + viewDeck.currentCard().front)
+    if (viewDeck.currentDeck.order.length > viewDeck.index +1)
+      viewDeck.index++;
+      viewDeck.currentCard(viewDeck.currentDeck[viewDeck.order[viewDeck.index]]);
+    }
   }
 
   //should be called on every button press
