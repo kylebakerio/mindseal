@@ -28,11 +28,13 @@ viewDeck.view = function(){
   
   return m(".container",[
     m(".starter-template", [
-      m("h1", "Let's look at cards!!!"),
-      m("p.lead", ["wheeeeeee......!!!111!1!!!1337", m("br")," nullundefined."]),
+      // m("h1", "Let's look at cards!!!"),
+      // m("p.lead", ["wheeeeeee......!!!111!1!!!1337", m("br")," nullundefined."]),
       m(".center-block", [
         m(".card.front.center-block", viewDeck.currentCard().front),
-        m(".card.back.center-block", viewDeck.currentCard().back), 
+        m('br'),
+        m(".card.back.center-block", viewDeck.currentCard().back),
+        m('br'),
         m("input",{type:'button', onclick: m.withAttr("value", viewDeck.rate), value:'Did not remember'}),
         m("input",{type:'button', onclick: m.withAttr("value", viewDeck.rate), value:'Hard'}),
         m("input",{type:'button', onclick: m.withAttr("value", viewDeck.rate), value:'Good'}),
@@ -57,7 +59,7 @@ viewDeck.controller = function(){
   // console.log(currentCard)
 
   viewDeck.nextCard = function () {
-    if (viewDeck.currentDeck.order.length > viewDeck.index +1)
+    if (viewDeck.currentDeck.order.length > viewDeck.index +1) {
       viewDeck.index++;
       viewDeck.currentCard(viewDeck.currentDeck[viewDeck.order[viewDeck.index]]);
     }
