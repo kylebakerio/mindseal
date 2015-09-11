@@ -15,9 +15,7 @@ Home.view = function(){
   var mArray = [];
   for (var deck in App.Decks()){
     mArray.push(
-      // tbd: these buttons should actually also route you to the See Deck view.
-
-      m("a", {href:('#/viewDeck/:' + deck)}, 
+      m("a", {href:('#/viewDeck/' + deck)}, 
         m("input[type='button']",{onclick:m.withAttr("value", Home.stuff), value:deck})
       ),
       m("br"),

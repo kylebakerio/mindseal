@@ -4,14 +4,27 @@ viewDeck.stuff = function(){
   console.log("hi")
 }
 
-viewDeck.rate = function(val){
-  console.log("good job" + val)
+viewDeck.memory = m.prop();
+
+viewDeck.rate = function(button){
+  var convert = {
+    'Did not remember': .9,
+    'Hard': 1.1,
+    'Good': 1.4,
+    'Too Easy': 1.8
+  }
+
+  viewDeck.currentCard().tVal *= convert[button];
+  viewDeck.currentCard().timeLastSeen = "today" //needs moment.js
+  viewDeck.currentCard().toBeSeen = "today" + viewDeck.currentCard().tVal //needs moment.js
+  console.log(viewDeck.currentCard().tVal)
+  viewDeck.nextCard()
 }
 
 viewDeck.view = function(){
 
   // document.getElementById("see-decks").addClass("active")
-  //^potentially different way of handling highlighting parts of the nav bar
+  //^potentially different way of handling highlighting parts of the nav bar?
   
   return m(".container",[
     m(".starter-template", [
@@ -20,14 +33,14 @@ viewDeck.view = function(){
       m(".center-block", [
         m(".card.front.center-block", viewDeck.currentCard().front),
         m(".card.back.center-block", viewDeck.currentCard().back), 
-        m("input",{type:'button', onclick: m.withAttr("val", viewDeck.value), value:'I remembered!!', val:"valzzz"}),
-        m("input[type='button'][value='I did not remember'][onclick='ctrl.rate(false)']")
+        m("input",{type:'button', onclick: m.withAttr("value", viewDeck.rate), value:'Did not remember'}),
+        m("input",{type:'button', onclick: m.withAttr("value", viewDeck.rate), value:'Hard'}),
+        m("input",{type:'button', onclick: m.withAttr("value", viewDeck.rate), value:'Good'}),
+        m("input",{type:'button', onclick: m.withAttr("value", viewDeck.rate), value:'Too Easy'}),
       ])
     ])
   ])
 }
-
-
 
 viewDeck.controller = function(){
 
@@ -43,9 +56,10 @@ viewDeck.controller = function(){
   // currentCard(ctrl.deck[ctrl.orderArray[cardIndex]]);
   // console.log(currentCard)
 
-  ctrl.nextCard = function () {
-    ctrl.index++;
-    ctrl.currentCard(deck[cardIndex]); //maybe?
+  viewDeck.nextCard = function () {
+    viewDeck.index++;
+    viewDeck.currentCard(viewDeck.currentDeck[viewDeck.order[viewDeck.index]]); //maybe?
+    console.log("new card's front is: " + viewDeck.currentCard().front)
   }
 
   //should be called on every button press

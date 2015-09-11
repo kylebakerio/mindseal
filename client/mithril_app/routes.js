@@ -26,7 +26,7 @@ m.route(document.getElementById("views"), "/", {
 
   "/viewDeck/:deckId": {
     controller: function(){
-      this.deck = Deck.find( m.route.param('deckId').slice(1) ) //grabs an individual deck from the Decks object
+      this.deck = Deck.find( m.route.param('deckId')/*.slice(1)*/ ) //grabs an individual deck from the Decks object
       console.log(this.deck)
     },
 
