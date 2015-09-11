@@ -67,14 +67,7 @@ app.post('/decks/*/cards',
   }
 );
 
-<<<<<<< HEAD
 app.delete('/decks/*/cards',
-=======
-// app.post('website.com/decks/*/cards',
-  //need something for updating cards
-
-app.delete('/decks/*',
->>>>>>> ed0abc2... committing my server changes before I pull nathan's new server files, so I can merger them, because git is complaining. (these two updated files are immediately going to be overwritten.)
   // Delete a card (or cards)
   function(req, res) {
     handler.addCards(req, res)
