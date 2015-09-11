@@ -1,4 +1,5 @@
-/* new model for a single collection design */
+/* single collection database design to hold one-to-many 
+non-overlapping information for each user */
 
 //A mongo api that makes use of promises
 var pmongo = require('promised-mongo');
@@ -12,27 +13,25 @@ var collection = db.collection('decks');
 
 //making database model available to the server
 var decksMethods = module.exports; 
-var testString = "55ee4e4fba73cb4b51a3a264";
 
-decksMethods.createDecks = function (user, name, deck) { //create a deck for a specific user
-  var deck =  deck || {}; 
+decksMethods.user = function (userId, userName) {
+  return collection.insert({_id: name}, name: userName, decks: {});
+}
 
-  //adding a new deck to an existing document - update document
-  var deck = {1: "one"};
-  var name = "deckName";
-  // setObject = { $set: { } }
+decksMethods.createDecks = function (userId, deckName, deck) { //create a deck for a specific user
+  var deckName =  deck || {}; 
   var setObject = {};
-  setObject["$set"] = {};
-  setObject["$set"]["decks."+name] = deck; 
+  setObject["$set"] = {}; //creating a variable for the set part of the update query
+  setObject["$set"]["decks."+deckName] = deck; //creating a variable key to take in the name of the deck
 
-  collection.update({_id: user}, setObject);
+  return collection.update({_id: userId}, setObject);
 }
 
-decksMethods.getDecks = function (user) { //get all decks of a user
-  return collection.findOne({_id: user}); //return decks with deckname 
+decksMethods.getDecks = function (userId) { //get all decks of a user
+  return collection.findOne({_id: userId}); //return decks with deckname 
 }
 
-decksMethods.refreshDecks = function (user, decks) { //replaces the current decks in database completely
-  return collection.update({_id: user}, {$set: {decks: decks}}) //returns a success or error
+decksMethods.refreshDecks = function (userId, decks) { //replaces the current decks in database completely
+  return collection.update({_id: userId}, {$set: {decks: decks}}) //returns a success or error
 }
 
