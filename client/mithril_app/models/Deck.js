@@ -20,7 +20,7 @@ Deck.fetch = function() { //should be the server call to get a Decks object
   return {
     mvp: { //this is a deck's name
       order: ["uniquekey2", "uniquekey3"], //these are card unique ID's
-      uniquekey2: {                        // this is a card itself
+      uniquekey2: {                        // this is a card itselfthis.deck in viewDeck controller: [object Object]
         front: "this is card1's front",
         back: "this is card1's back",
         flag: false //don't remember, needs to be seen
@@ -51,9 +51,10 @@ Deck.fetch = function() { //should be the server call to get a Decks object
 Deck.find = function (id) { //
   // Get deck matching id
   //defined for demo purposes, normally this should be the stuff gotten from a server call.
-  console.log("looking for App.Decks[" + id + "]")
-  console.log("App.Decks is: " + App.Decks())
-  return App.Decks[id] || { order:["error"], error:{front:"no decks loaded", back:"no decks loaded", flag:false} }
+  console.log("looking for App.Decks[" + id + "], which is:")
+  // console.log(App.Decks())
+  if(App.Decks()[id] === undefined) {alert("Deck.find failed!" )}
+  return App.Decks()[id]
 }
 
 Deck.createCard = function (deckId, cardProps) {
