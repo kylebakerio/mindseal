@@ -14,11 +14,11 @@ viewDeck.rate = function(button){
     'Too Easy': 1.8
   }
 
-  console.log(convert[button])
   viewDeck.currentCard().tVal *= convert[button];
+  viewDeck.currentCard().timeLastSeen = "today" //needs moment.js
+  viewDeck.currentCard().toBeSeen = "today" + viewDeck.currentCard().tVal //needs moment.js
   console.log(viewDeck.currentCard().tVal)
   viewDeck.nextCard()
-  // m.redraw() shouldn't need, but might work...
 }
 
 viewDeck.view = function(){
