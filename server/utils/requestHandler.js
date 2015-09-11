@@ -1,11 +1,11 @@
-Decks = require('../models/deck.js');
+var Decks = require('../models/deck.js'),
+    Auth  = require ('./auth.js');
 
 module.exports = {
 
   getDecks: function(req, res) {
-    // var google_id = req.get('api_token') // Once google auth is ready
-    var google_id = "mvp_test";
-    Decks.getDecks(google_id)
+    var googleId = "mvp_test";
+    Decks.getDecks(googleId)
       .then(function(decks) {
         res.send(decks);
       })
@@ -15,12 +15,31 @@ module.exports = {
       });
   },
 
+  // getDecks: function(req, res) {
+  //   // With Auth:
+  //   Auth.getId(req)
+  //     .catch(function(err) {
+  //       // Handler for unsuccessful auth with Google
+  //       res.send(401, err);
+  //     })
+  //     .then(function(googleId) {
+  //       return Decks.getDecks(googleId)
+  //     })
+  //     .then(function(decks) {
+  //       res.send(cards);
+  //     })
+  //     .catch(function(err) {
+  //       console.log(err);
+  //       res.send(500, err);
+  //     });
+  // },
+
   addCard: function(req, res) {
     var cards = req.body;
-    var deck_id = req.get('deck_id');
-    Decks.addCards(deck_id, cards)
-      .then(function(card_ids) {
-        res.send(201, card_ids)
+    var deckId = req.get('deck_id');
+    Decks.addCards(deckId, cards)
+      .then(function(cardIds) {
+        res.send(201, cardIds)
       })
       .catch(function(err) {
         console.log(err);
@@ -29,8 +48,8 @@ module.exports = {
   },
 
   createDeck: function(req, res) {
-    // var google_id = req.get('google_id');
-    var google_id = 'mvp_test';
+    var googleId = req.get('googleId');
+    var googleId = 'mvp_test';
     var deckName = req.body.deckName;
     Decks.createDeck(google_id, deckName, req.body.cards)
       .then(function(deck_id) {
@@ -41,6 +60,28 @@ module.exports = {
         res.send(500, err);
       });
   }
+
+  // createDeck: function(req, res) {
+  //   // With Auth:
+  //   var deckName = req.body.deckName;
+
+  //   Auth.getId(req)
+  //     .catch(function(err) {
+  //       // Handler for unsuccessful auth with Google
+  //       res.send(401, err);
+  //     })
+  //     .then(function(googleId) {
+  //       return Decks.createDeck(googleId, deckName, req.body);
+  //     })
+  //     .then(function(deckId) {
+  //       res.send(201, deckId)
+  //     })
+  //     .catch(function(err) {
+  //       console.log(err);
+  //       res.send(500, err);
+  //     });
+  // }
+
   // removeCards: function(req,res) {
   //   var cards = req.body;
   //   Decks.removeCards(cards)
