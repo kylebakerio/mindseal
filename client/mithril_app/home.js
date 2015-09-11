@@ -2,6 +2,7 @@ var Home = {};
 console.log("home.js was loaded")
 
 Home.stuff = function(deck){
+  //this is where the routing from line 18 should happen, I think.
   Home.selDeck = deck;
 }
 
@@ -14,7 +15,11 @@ Home.view = function(){
   var mArray = [];
   for (var deck in App.Decks()){
     mArray.push(
-      m("input[type='button']",{onclick:m.withAttr("value", Home.stuff), value:deck}),
+      // tbd: these buttons should actually also route you to the See Deck view.
+
+      m("a", {href:('#/viewDeck/:' + deck)}, 
+        m("input[type='button']",{onclick:m.withAttr("value", Home.stuff), value:deck})
+      ),
       m("br"),
       m("br")
     )
@@ -22,14 +27,13 @@ Home.view = function(){
 
   return m("",[
     m("p", "Select a deck:"),
-    m("",mArray), //renders our buttons
+    m("", mArray), //renders our buttons
     m("p", "Your selected deck: " + Home.selDeck )//,
-    // m("p", decksArray)
   ]);
 }
 
 Home.controller = function(){
-  console.log("calling Deck.fetch()...")
+  console.log("in Home.controller, calling Deck.fetch()...");
   App.Decks = m.prop();
   App.Decks(Deck.fetch());
   // console.log("/ controller: App.Decks is (next line): ");

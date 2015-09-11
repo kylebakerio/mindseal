@@ -4,6 +4,10 @@ viewDeck.stuff = function(){
   console.log("hi")
 }
 
+viewDeck.rate = function(val){
+  console.log("good job" + val)
+}
+
 viewDeck.view = function(){
 
   // document.getElementById("see-decks").addClass("active")
@@ -14,14 +18,16 @@ viewDeck.view = function(){
       m("h1", "Let's look at cards!!!"),
       m("p.lead", ["wheeeeeee......!!!111!1!!!1337", m("br")," nullundefined."]),
       m(".center-block", [
-        m(".card.front.center-block", viewDeck.currentCard().front), //maybe??
-        m(".card.back.center-block", viewDeck.currentCard().back), //maybe??
-        m("input",{type:'button', onclick: 'console.log("clicked")',value:'I remembered!!'}),
+        m(".card.front.center-block", viewDeck.currentCard().front),
+        m(".card.back.center-block", viewDeck.currentCard().back), 
+        m("input",{type:'button', onclick: m.withAttr("val", viewDeck.value), value:'I remembered!!', val:"valzzz"}),
         m("input[type='button'][value='I did not remember'][onclick='ctrl.rate(false)']")
       ])
     ])
   ])
 }
+
+
 
 viewDeck.controller = function(){
 
@@ -32,7 +38,7 @@ viewDeck.controller = function(){
   viewDeck.currentCard(viewDeck.currentDeck[viewDeck.order[viewDeck.index]])
 
   var ctrl = this;
-  console.log("loading deck: " + Home.selectedDeck)
+  console.log("loading deck: " + Home.selDeck)
 
   // currentCard(ctrl.deck[ctrl.orderArray[cardIndex]]);
   // console.log(currentCard)

@@ -17,41 +17,40 @@ m.route(document.getElementById("views"), "/", {
 
     view: function(ctrl,args,extras) {
       console.log("root view fn() was run")
-      // console.log("ctrl is (next line):")
       return ('.app', [
-        m.component(App, { decks: App.Decks, content: ctrl.content }),
+        m.component(App, { /*decks: App.Decks(), content: ctrl.content */}),
         m.component(Home, {})
       ])
     }
   },
 
-  "/viewDeck/:deckID": {
+  "/viewDeck/:deckId": {
     controller: function(){
-      this.deck = Deck.find( m.route.param('deckId') ) //grabs an individual deck from the Decks object
-      console.log("this.deck in viewDeck controller: " + this.deck)
+      this.deck = Deck.find( m.route.param('deckId').slice(1) ) //grabs an individual deck from the Decks object
+      console.log(this.deck)
     },
 
     view: function(ctrl) {
-      console.log(ctrl.deck)
+      console.log("selected deck: " + Home.selDeck)
       return m('.app', [
         m.component(App, {}),
-        m.component(viewDeck, { currDeck: ctrl.deck })
+        m.component(viewDeck, { currDeck: Home.selDeck })
       ])
     }
   },
 
-  "/addCards/:deckID": {
+  "/addCards/:deckId": {
     controller: function () {
       this.deck = Deck.find( m.route.param('deckId') ); //grabs an individual deck from the Decks object
-      console.log(this.deck, " <-- if this is { mvp: {} }, Deck.find is working properly.")
       // Previous line is equivalent to something like this:
       // this.deck = m.request({ method: 'GET', url: '/api/decks/10' })
+      console.log(this.deck, " <-- if this is { mvp: {} }, Deck.find is working properly.")
     },
 
     view: function (ctrl) {
       return m('.app', [
         m.component(App, {}),
-        m.component(addCards, { deck: ctrl.deck() })
+        m.component(addCards, { deck: App.Decks() })
       ]);
     }
   }
