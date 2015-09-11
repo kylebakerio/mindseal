@@ -30,6 +30,10 @@ viewDeck.view = function(){
     m(".starter-template", [
       // m("h1", "Let's look at cards!!!"),
       // m("p.lead", ["wheeeeeee......!!!111!1!!!1337", m("br")," nullundefined."]),
+      m('strong','cards remaining in deck:'),m('br'),
+      m('strong','minutes studied today:'),m('br'),
+      m('strong','cards studied today:'),m('br'),
+      m('br'),
       m(".center-block", [
         m(".card.front.center-block", viewDeck.currentCard().front),
         m('br'),
