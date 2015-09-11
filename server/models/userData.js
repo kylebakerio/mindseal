@@ -14,45 +14,8 @@ var collection = db.collection('decks');
 var decksMethods = module.exports; 
 var testString = "55ee4e4fba73cb4b51a3a264";
 
-/*
-  data structure
-
-                        { _id: "uniqueUserGoogleId", 
-                          name: "userName", 
-                          decks: { 
-                            deck1: {
-                              name: "deckName",
-                              cards: [{ 
-                                _id: "autoincr1",
-                                front: "this is the title card",
-                                back: "this is the solution card",
-                                flag: 0
-                              },
-                              { _id: "autoincr2",
-                              front: "front of the second card",
-                              back: "back of the second card",
-                              flag: 0
-                              }]
-                            },
-                            deck2: {
-                            }
-                          }
-                        }
-
-*/
-
-// decksMethods.find = function (id) { //internal function
-
-// }
-
-decksMethods.createDecks = function (user, name, deck) { 
-  var deck =  deck || {};
-  //create a deck for a specific user
-  //TODO: autoincrement deck keys or create here, depending on how many exist in collection right now
-
-  //if decks were an array of decks then I would iterate over it to pick out the 
-  //decks and add to an object before sending to server- but this won't be promisified
-  //So the original one should have the keys as name of the decks.
+decksMethods.createDecks = function (user, name, deck) { //create a deck for a specific user
+  var deck =  deck || {}; 
 
   //adding a new deck to an existing document - update document
   var deck = {1: "one"};
@@ -60,7 +23,7 @@ decksMethods.createDecks = function (user, name, deck) {
   // setObject = { $set: { } }
   var setObject = {};
   setObject["$set"] = {};
-  setObject["$set"]["decks."+name] = deck;
+  setObject["$set"]["decks."+name] = deck; 
 
   collection.update({_id: user}, setObject);
 }
