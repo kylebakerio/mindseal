@@ -13,9 +13,21 @@ Card.vm = function (props) {
   }
 }
 
+// var newCard = new Card.vm({front: '1'})
 
-// these functions need to be redefined, but we should save these
-//implementations for reference.
+/* var Posts =
+exports = {
+  model: function () {
+    this.id = m.prop('');
+    this.title = m.prop('');
+    this.content = m.prop('');
+    this.summary = m.prop('');
+    this.author = m.prop('');
+  }
+} */
+
+  // these functions need to be redefined, but we should save these
+  // implementations for reference.
 
   // remove = function(index) {
   //   var toRemove = ctrl.contacts().splice(index, 1);
@@ -24,16 +36,4 @@ Card.vm = function (props) {
   //     url: '/decks/' + options.deck,
   //     data: toRemove
   //   });
-  // }
-
-  // update = function(index) {
-  //   var toUpdate = ctrl.contacts()[index];
-  //   m.request({
-  //     method: 'POST',
-  //     url: '/decks/' + options.deck,
-  //     data: toUpdate
-  //   })
-  //   .then(function(updatedCard) {
-  //     ctrl.cards()[index] = updatedCard;
-  //   })
   // }

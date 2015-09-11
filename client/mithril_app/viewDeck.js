@@ -1,20 +1,65 @@
 var viewDeck = {};
 
-viewDeck.view = function(){
-  return m(".container",[
-      m(".starter-template", [
-        m("h1", "Let's look at cards!!!"),
-        m("p.lead", ["wheeeeeee......!!!111!1!!!1337",m("br")," nullundefined."]),
-        m(".center-block", [
-          m(".card.front.center-block", "card front"),
-          m(".card.back.center-block", "card back"),
-          m("input[type='button'][value='I remembered!']"),
-          m("input[type='button'][value='I did not remember']")
-        ])
-      ])
-    ])
+viewDeck.stuff = function(){
+  console.log("hi")
 }
 
-viewDeck.controller = function(){
+viewDeck.rate = function(val){
+  console.log("good job" + val)
+}
+
+viewDeck.view = function(){
+
+  // document.getElementById("see-decks").addClass("active")
+  //^potentially different way of handling highlighting parts of the nav bar
   
+  return m(".container",[
+    m(".starter-template", [
+      m("h1", "Let's look at cards!!!"),
+      m("p.lead", ["wheeeeeee......!!!111!1!!!1337", m("br")," nullundefined."]),
+      m(".center-block", [
+        m(".card.front.center-block", viewDeck.currentCard().front),
+        m(".card.back.center-block", viewDeck.currentCard().back), 
+        m("input",{type:'button', onclick: m.withAttr("val", viewDeck.value), value:'I remembered!!', val:"valzzz"}),
+        m("input[type='button'][value='I did not remember'][onclick='ctrl.rate(false)']")
+      ])
+    ])
+  ])
+}
+
+
+
+viewDeck.controller = function(){
+
+  viewDeck.currentDeck = App.Decks()[Home.selDeck];
+  viewDeck.index = 0
+  viewDeck.order = App.Decks()[Home.selDeck].order;
+  viewDeck.currentCard = m.prop();
+  viewDeck.currentCard(viewDeck.currentDeck[viewDeck.order[viewDeck.index]])
+
+  var ctrl = this;
+  console.log("loading deck: " + Home.selDeck)
+
+  // currentCard(ctrl.deck[ctrl.orderArray[cardIndex]]);
+  // console.log(currentCard)
+
+  ctrl.nextCard = function () {
+    ctrl.index++;
+    ctrl.currentCard(deck[cardIndex]); //maybe?
+  }
+
+  //should be called on every button press
+  ctrl.rate = function (flag) {
+    var toRate /*= ctrl.contacts().splice(, 1);*/ //should be the card...
+    m.request({
+      method: 'POST',
+      url: '/decks/' + options.deck,
+      data: toRate
+    });
+  //   var newModel = new Contacts.model()
+  //   ctrl.contacts().push(newModel)
+    if (!ctrl.deck[cardIndex + 1].flag) //if the flag of the next card indicates it should be seen...
+      ctrl.nextCard() //then run the next card function
+  }
+
 }

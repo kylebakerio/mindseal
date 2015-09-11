@@ -11,7 +11,7 @@ app.use(express.static(__dirname + '/client'));
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
 app.use(morgan('dev'));
 
-
+//google auth stuff...
 app.get('/users',
   // Log a user in
   function(req, res) {
@@ -31,10 +31,13 @@ app.get('/decks',
   function(req, res) {
     handler.getDecks(req,res);
   }
+  // handler.getCards() //should be called here
 );
 
 app.post('/decks',
-  // Update or create a deck
+  // Create a deck
+  //req should look like { deckName: "deckname" }
+  //res will contain new unique ID of newly created deck
   function(req, res) {
     handler.createDeck(req,res);
   }
@@ -56,6 +59,8 @@ app.get('/decks/*',
 
 app.post('/decks/*/cards',
   // Update or create cards in a deck
+  // expects array of card objects that are newly user generated
+  //* === will be primary key of deck
   function(req, res) {
     var path = req.path;
     res.send('Create a card in ' + path)
