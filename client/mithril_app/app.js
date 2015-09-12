@@ -48,18 +48,34 @@ App.controller = function(){
   var ctrl = this;
   ctrl.username = null; //should be set by signin stuff on home...
 
-  ctrl.getDecks = function(username){ //this gets called by home.js
-    m.request({ 
-      method: 'GET',
-      url: '/decks',
-      data: username //?? credentials system?
-    })
-    .then(function(arrayOfDecks){
-      arrayOfDecks.forEach(function(deck,index){
-        App.decks.push(deck) //is this right?
+  ctrl.getDecks = function(){
+    getToken(function(token) {
+      m.request({ 
+        method: 'GET',
+        url: '/decks',
+        config: function(xhr) {
+          xhr.setRequestHeader('Content-Type', 'application/json');
+          xhr.setRequestHeader('api-token', token);
+        } //?? credentials system?
       })
+      .then(function(arrayOfDecks){
+        arrayOfDecks.forEach(function(deck,index){
+          App.decks.push(deck) //is this right?
+        })
+      })   
     })
   }
+}
+
+function getToken(callback) {
+  // Use this function to either sign in for the first time or grab the current token from Chrome.
+  chrome.identity.getAuthToken({ interactive: true }, function(token) {
+    if (chrome.runtime.lastError) {
+      console.log(chrome.runtime.lastError);
+      return;
+    }
+    callback(token);
+  });
 }
 
 m.mount(document.getElementById("navbar"),App)
