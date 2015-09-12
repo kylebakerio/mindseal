@@ -54,10 +54,9 @@ viewDeck.controller = function(){
   viewDeck.index = 0
   viewDeck.order = App.Decks()[Home.selDeck].order;
   viewDeck.currentCard = m.prop();
-  viewDeck.currentCard(viewDeck.currentDeck[viewDeck.order[viewDeck.index]])
+  viewDeck.currentCard(viewDeck.currentDeck.cards[viewDeck.index])
 
-  var ctrl = this;
-  console.log("loading deck: " + Home.selDeck)
+  console.log("loaded deck: " + Home.selDeck)
 
   // currentCard(ctrl.deck[ctrl.orderArray[cardIndex]]);
   // console.log(currentCard)

@@ -8,12 +8,6 @@ m.route(document.getElementById("views"), "/", {
     controller: function(){
       Home.controller
     },
-    /*function(args,extras){
-      console.log("root controller was run");
-      console.log("/ controller: App.Decks is (next line): ");
-      console.log(App.Decks);
-      return {content:"something"}
-    },*/
 
     view: function(ctrl,args,extras) {
       console.log("root view fn() was run")
@@ -27,14 +21,13 @@ m.route(document.getElementById("views"), "/", {
   "/viewDeck/:deckId": {
     controller: function(){
       this.deck = Deck.find( m.route.param('deckId')/*.slice(1)*/ ) //grabs an individual deck from the Decks object
-      console.log(this.deck)
+      console.log("this.deck is " + this.deck)
     },
-
     view: function(ctrl) {
       console.log("selected deck: " + Home.selDeck)
       return m('.app', [
         m.component(App, {}),
-        m.component(viewDeck, { currDeck: Home.selDeck })
+        m.component(viewDeck, { currDeck: Home.selDeck, currDeck2: ctrl.deck })
       ])
     }
   },
@@ -46,7 +39,6 @@ m.route(document.getElementById("views"), "/", {
       // this.deck = m.request({ method: 'GET', url: '/api/decks/10' })
       console.log(this.deck, " <-- if this is { order: [], uk: {} [etc...] }, Deck.find is working properly.")
     },
-
     view: function (ctrl) {
       return m('.app', [
         m.component(App, {}),
