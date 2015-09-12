@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+
+  "name": "mindseal",
+  "description": "A Chrome extension for creating and reviewing flash cards",
+  "version": "0.1",
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html",
+    "default_title": "Create a card"
+  },
+  "permissions": [
+    "identity", 
+    "https://accounts.google.com/*", 
+    "https://www.googleapis.com/*"
+  ],
+  "oauth2": {
+    "client_id": "359380179216-kldhijqvfs0d5no06vrbnajacrnmfr71.apps.googleusercontent.com",
+    "scopes": ["https://www.googleapis.com/auth/plus.login"]
+  }
+}
