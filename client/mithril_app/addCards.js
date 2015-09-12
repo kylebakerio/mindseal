@@ -1,13 +1,17 @@
 var addCards = {};
 
-addCards.makeCard = function(frontAndBack){
+addCards.makeCard = function(front, back){
   var newCard = {}
 
-  newCard.front = frontAndBack[0]
-  //...
+  newCard.front = front;
+  newCard.back = back;
+  //add other algo fields in here?
 
   Card.vm(newCard)
 }
+
+addCards.frontTxt = m.prop(); //m picks up the text from the input field it's called from
+addCards.backTxt = m.prop(); //m 
 
 addCards.view = function(){
   return m(".container", [
@@ -15,12 +19,12 @@ addCards.view = function(){
         m("h1", "CODENAME: IGGY"),
         m("p.lead", ["Let's make some cards.",
           m("br")," So you can remember stuff."]),
-        m("input[type='text'][class='newFront']"),
+        m("input[type='text'][class='newFront']", {onchange: m.withAttr("value", addCards.frontTxt)}), //m
         m("br"),
-        m("input[type='text'][class='newBack']"),
+        m("input[type='text'][class='newBack']", {onchange: m.withAttr("value", addCards.backTxt)}), //m 
         m("br"),
         m("input[type='button'][value='make a card!']",
-          {onclick:m.withAttr(/*input stuff goes here*/,addCards.makeCard)}
+          {onclick:this.addCards.makeCard.bind(this)} //m change: send both values 
           )
       ])
     ])
@@ -44,3 +48,12 @@ addCards.controller = function(){
   }
 
 }
+/*
+
+Misc tests, things to figure out:
+why specific deck fails on page refresh? Needs router handling or some data was being passed 
+to it from the home page that broke on refresh.
+
+*/
+
+
