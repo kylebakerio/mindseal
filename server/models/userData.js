@@ -5,17 +5,18 @@ non-overlapping information for each user */
 var pmongo = require('promised-mongo');
 
 // Connection URL
-var url = 'mongodb://localhost:27017/test'; 
+var url = 'mongodb://localhost:27017/mindseal'; 
 
 //Defining the specific collection 
-var db = pmongo(url, ['decks']);
-var collection = db.collection('decks');
+var db = pmongo(url, ['userData']);
+var collection = db.collection('userData');
 
 //making database model available to the server
 var decksMethods = module.exports; 
 
 decksMethods.createUser = function (userId, userName) {
   return collection.insert({ _id: name, name: userName, decks: {} });
+
 }
 
 decksMethods.createDecks = function (userId, deckName, deck) { //create a deck for a specific user
