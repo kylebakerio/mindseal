@@ -1,11 +1,17 @@
-var Decks = require('../models/deck.js'),
+var database = require('../models/userData.js'),
     Auth  = require ('./auth.js');
+
+/* Note for Nathan:
+I changed the require variable name to make the its use a bit clearer.
+Updated existing methods.
+To Do: add two new methods: createUser and refreshDecks (this replaces the method addCards)
+details in xls */
 
 module.exports = {
 
   getDecks: function(req, res) {
     var googleId = "mvp_test";
-    Decks.getDecks(googleId)
+    database.getDecks(googleId)
       .then(function(decks) {
         res.send(decks);
       })
@@ -47,11 +53,11 @@ module.exports = {
       });
   },
 
-  createDeck: function(req, res) {
+  createDecks: function(req, res) {
     var googleId = req.get('googleId');
     var googleId = 'mvp_test';
     var deckName = req.body.deckName;
-    Decks.createDeck(google_id, deckName, req.body.cards)
+    database.createDeck(google_id, deckName, req.body.cards)
       .then(function(deck_id) {
         res.send(201, deck_id)
       })
