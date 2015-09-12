@@ -1,11 +1,5 @@
 var viewDeck = {};
 
-viewDeck.stuff = function(){
-  console.log("hi")
-}
-
-viewDeck.memory = m.prop();
-
 viewDeck.rate = function(button){
   var convert = {
     'Did not remember': .9,
@@ -64,22 +58,22 @@ viewDeck.controller = function(){
   viewDeck.nextCard = function () {
     if (viewDeck.currentDeck.order.length > viewDeck.index +1) {
       viewDeck.index++;
-      viewDeck.currentCard(viewDeck.currentDeck[viewDeck.order[viewDeck.index]]);
+      viewDeck.currentCard(viewDeck.currentDeck.cards[viewDeck.index]);
     }
   }
 
   //should be called on every button press
-  ctrl.rate = function (flag) {
-    var toRate /*= ctrl.contacts().splice(, 1);*/ //should be the card...
-    m.request({
-      method: 'POST',
-      url: '/decks/' + options.deck,
-      data: toRate
-    });
-  //   var newModel = new Contacts.model()
-  //   ctrl.contacts().push(newModel)
-    if (!ctrl.deck[cardIndex + 1].flag) //if the flag of the next card indicates it should be seen...
-      ctrl.nextCard() //then run the next card function
-  }
+  // ctrl.rate = function (flag) {
+  //   var toRate /*= ctrl.contacts().splice(, 1);*/ //should be the card...
+  //   m.request({
+  //     method: 'POST',
+  //     url: '/decks/' + options.deck,
+  //     data: toRate
+  //   });
+  // //   var newModel = new Contacts.model()
+  // //   ctrl.contacts().push(newModel)
+  //   if (!ctrl.deck[cardIndex + 1].flag) //if the flag of the next card indicates it should be seen...
+  //     ctrl.nextCard() //then run the next card function
+  // }
 
 }
