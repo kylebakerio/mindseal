@@ -4,9 +4,9 @@ Deck = /*Deck ||*/ {};
 
 // App.newDeck.addCard(/*new card model*/)
 
-Deck.vm = function(){ //only able to make new decks from scratch
+Deck.vm = function(){ // template for a new deck
   return {
-    order:[],
+    cards:[],
     addCard: function(){}
   }
 }
@@ -19,38 +19,48 @@ Deck.fetch = function() { //should be the server call to get a Decks object
   // })
   return {
     mvp: { //this is a deck's name
-      order: ["uniquekey2", "uniquekey3"], //these are card unique ID's
-      uniquekey2: {                        // this is a card itselfthis.deck in viewDeck controller: [object Object]
-        front: "this is card1's front",
-        back: "this is card1's back",
-        tVal: 11, //this is the difference between the next two values
-        toBeSeen: 31,
-        timeLastSeen: 20 //these should be moment.js time values
-      },
-      uniquekey3: {
-        front: "this is card2's front",
-        back: "this is card2's back",
-        tVal: 11, //this is the difference between the next two values,
-        toBeSeen: 31,
-        timeLastSeen: 20 //these should be moment.js time values
-      }
+      cards: [ //these are card unique ID's
+        {                        // this is a card itself
+          front: "this is card1's front",
+          back: "this is card1's back",
+          tVal: 129600000, //this is the difference between the next two values
+          toBeSeen: moment(),
+          timeLastSeen: moment().subtract(36,'h'),
+          cMem:[],
+          cScale:{}      
+        },
+        {
+          front: "this is card2's front",
+          back: "this is card2's back",
+          tVal: 129600000, //this is the difference between the next two values
+          toBeSeen: moment(),
+          timeLastSeen: moment().subtract(36,'h'),
+          cMem:[],
+          cScale:{}      
+        }
+      ]
     },
-    demoDeck2: { //another deck
-      order: ["uniquekey5", "uniquekey6"], //these are card unique ID's
-      uniquekey6: {                        // this is a card itself
-        front: "this is card5's front",
-        back: "this is card5's back",
-        tVal: 11, //this is the difference between the next two values,
-        toBeSeen: 31,
-        timeLastSeen: 20 //these should be moment.js time values
-      },
-      uniquekey5: {
-        front: "this is card6's front",
-        back: "this is card6's back",
-        tVal: 11, //this is the difference between the next two values,
-        toBeSeen: 31,
-        timeLastSeen: 20 //these should be moment.js time values
-      }
+    demoDeck2: { 
+      cards: [ 
+        { 
+          front: "this is card5's front",
+          back: "this is card5's back",
+          tVal: 129600000, 
+          toBeSeen: moment(),
+          timeLastSeen: moment().subtract(36,'h'),
+          cMem:[],
+          cScale:{}      
+        },
+        { 
+          front: "this is card6's front",
+          back: "this is card6's back",
+          tVal: 129600000, 
+          toBeSeen: moment(),
+          timeLastSeen: moment().subtract(36,'h'),
+          cMem:[],
+          cScale:{}      
+        }
+      ]
     }
   } 
 }
@@ -58,10 +68,10 @@ Deck.fetch = function() { //should be the server call to get a Decks object
 
 Deck.find = function (id) { //
   // Get deck matching id
-  //defined for demo purposes, normally this should be the stuff gotten from a server call.
   console.log("looking for App.Decks[" + id + "], which is:")
-  // console.log(App.Decks())
-  if(App.Decks()[id] === undefined) {alert("Deck.find failed!" )}
+  if(App.Decks()[id] === undefined) {
+    alert("Deck.find failed, could not find the requested deck: " + id)
+  }
   return App.Decks()[id]
 }
 
@@ -78,13 +88,3 @@ Deck.createCard = function (deckId, cardProps) {
 //     ctrl.cards().push(addedCard)
 //   })
 }
-
-// {
-//   deck1: {
-//     order:["card1","card3"],
-//     card1: {}
-
-//   }
-
-//   deck2:{}
-// }
