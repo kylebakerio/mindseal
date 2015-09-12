@@ -1,5 +1,8 @@
 Card = Card || {};
 
+
+Card.vm({ front: "front of card", back: "backofCard"  })
+
 Card.vm = function (card) {
   // ViewModel for creating cards 
   card = card || {};
@@ -9,7 +12,7 @@ Card.vm = function (card) {
     back: m.prop(card.back || ''),
     tVal: m.prop(card.tVal || ''), //this is the difference between the next two values
     toBeSeen: m.prop(card.toBeSeen || ''),
-    timeLastSeen: m.prop(card.timeLastSeen || ''),
+    timeLastSeen: m.prop(card.timeLastSeen || moment()),
     cMem: m.prop(card.cMem || []),
     cScale: m.prop(card.cScale || {})    
   }

@@ -17,7 +17,7 @@ Deck.fetch = function() { //should be the server call to get a Decks object
   //   url: '/decks/'//,
   //   // data: session token
   // })
-  return {
+  return { 
     mvp: { //this is a deck's name
       cards: [ //these are card unique ID's
         {                        // this is a card itself

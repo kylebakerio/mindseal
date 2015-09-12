@@ -1,11 +1,5 @@
 var viewDeck = {};
 
-viewDeck.stuff = function(){
-  console.log("hi")
-}
-
-viewDeck.memory = m.prop();
-
 viewDeck.rate = function(button){
   var convert = {
     'Did not remember': .9,
@@ -64,7 +58,7 @@ viewDeck.controller = function(){
   viewDeck.nextCard = function () {
     if (viewDeck.currentDeck.order.length > viewDeck.index +1) {
       viewDeck.index++;
-      viewDeck.currentCard(viewDeck.currentDeck[viewDeck.order[viewDeck.index]]);
+      viewDeck.currentCard(viewDeck.currentDeck.cards[viewDeck.index]);
     }
   }
 
