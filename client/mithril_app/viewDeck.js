@@ -63,17 +63,17 @@ viewDeck.controller = function(){
   }
 
   //should be called on every button press
-  ctrl.rate = function (flag) {
-    var toRate /*= ctrl.contacts().splice(, 1);*/ //should be the card...
-    m.request({
-      method: 'POST',
-      url: '/decks/' + options.deck,
-      data: toRate
-    });
-  //   var newModel = new Contacts.model()
-  //   ctrl.contacts().push(newModel)
-    if (!ctrl.deck[cardIndex + 1].flag) //if the flag of the next card indicates it should be seen...
-      ctrl.nextCard() //then run the next card function
-  }
+  // ctrl.rate = function (flag) {
+  //   var toRate /*= ctrl.contacts().splice(, 1);*/ //should be the card...
+  //   m.request({
+  //     method: 'POST',
+  //     url: '/decks/' + options.deck,
+  //     data: toRate
+  //   });
+  // //   var newModel = new Contacts.model()
+  // //   ctrl.contacts().push(newModel)
+  //   if (!ctrl.deck[cardIndex + 1].flag) //if the flag of the next card indicates it should be seen...
+  //     ctrl.nextCard() //then run the next card function
+  // }
 
 }

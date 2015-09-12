@@ -1,5 +1,14 @@
 var addCards = {};
 
+addCards.makeCard = function(frontAndBack){
+  var newCard = {}
+
+  newCard.front = frontAndBack[0]
+  //...
+
+  Card.vm(newCard)
+}
+
 addCards.view = function(){
   return m(".container", [
       m(".starter-template", [
@@ -10,17 +19,19 @@ addCards.view = function(){
         m("br"),
         m("input[type='text'][class='newBack']"),
         m("br"),
-        m("input[type='button'][value='make a card!'][onclick='function(){}']")
+        m("input[type='button'][value='make a card!']",
+          {onclick:m.withAttr(/*input stuff goes here*/,addCards.makeCard)}
+          )
       ])
     ])
 }
 
 addCards.controller = function(){
-    var ctrl = this;
+  var ctrl = this;
 
-    // ctrl.contacts = m.prop( [new Contacts.model()] );
+  // ctrl.contacts = m.prop( [new Contacts.model()] );
 
-    ctrl.update = function(index) {
+  ctrl.update = function(index) {
     var toUpdate = ctrl.contacts()[index];
     m.request({
       method: 'POST',

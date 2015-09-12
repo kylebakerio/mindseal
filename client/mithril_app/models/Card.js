@@ -1,7 +1,7 @@
 Card = Card || {};
 
 
-Card.vm({ front: "front of card", back: "backofCard"  })
+// Card.vm( { front: "front of card", back: "backofCard"  } )
 
 Card.vm = function (card) {
   // ViewModel for creating cards 
