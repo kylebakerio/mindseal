@@ -15,9 +15,9 @@ viewDeck.rate = function(button){
   }
 
   viewDeck.currentCard().tVal *= convert[button];
-  viewDeck.currentCard().timeLastSeen = "today" //needs moment.js
-  viewDeck.currentCard().toBeSeen = "today" + viewDeck.currentCard().tVal //needs moment.js
-  console.log(viewDeck.currentCard().tVal)
+  viewDeck.currentCard().timeLastSeen = moment() //it was just seen now.
+  viewDeck.currentCard().toBeSeen = ( viewDeck.currentCard().timeLastSeen.clone().add(viewDeck.currentCard().tVal, 'milliseconds') )
+  console.log("Hours to next viewing: " + moment.duration(viewDeck.currentCard().toBeSeen.diff(viewDeck.currentCard().timeLastSeen), 'milliseconds').asHours())
   viewDeck.nextCard()
 }
 
