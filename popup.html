@@ -10,7 +10,7 @@
     
     <script src="./bower_components/mithril/mithril.min.js"></script>
     <script src="./client/mithril_app/addCards.js"></script>
-        <script src="./mithril_app/models/Deck.js"></script>
+    <script src="./client/mithril_app/models/Deck.js"></script>
     <script src="./client/mithril_app/app.js"></script>
     <script src="./client/mithril_app/home.js"></script>
 
@@ -18,10 +18,8 @@
     <a target="_blank" href="./client/index.html">Go to client</a>
     <div id="createCard"></div>
     <div id="decks"></div>
+    <button id="login">Login with Google+</button>
     
-    <script>
-      m.mount(document.getElementById('createCard'), addCards)
-      m.mount(document.getElementById('decks'), Home)
-    </script>
+    <script src="popup.js"></script>
   </body>
 </html>

@@ -78,5 +78,8 @@ function getToken(callback) {
   });
 }
 
-m.mount(document.getElementById("navbar"),App)
-
+// navbar isn't present in the extension popup, so check to see if it exists before mounting.
+var navbar = document.getElementById('navbar');
+if( navbar ) {
+  m.mount(navbar, App)
+}
