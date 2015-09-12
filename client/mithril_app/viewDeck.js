@@ -15,9 +15,9 @@ viewDeck.rate = function(button){
   }
 
   viewDeck.currentCard().tVal *= convert[button];
-  viewDeck.currentCard().timeLastSeen = "today" //needs moment.js
-  viewDeck.currentCard().toBeSeen = "today" + viewDeck.currentCard().tVal //needs moment.js
-  console.log(viewDeck.currentCard().tVal)
+  viewDeck.currentCard().timeLastSeen = moment() //it was just seen now.
+  viewDeck.currentCard().toBeSeen = ( viewDeck.currentCard().timeLastSeen.clone().add(viewDeck.currentCard().tVal, 'milliseconds') )
+  console.log("Hours to next viewing: " + moment.duration(viewDeck.currentCard().toBeSeen.diff(viewDeck.currentCard().timeLastSeen), 'milliseconds').asHours())
   viewDeck.nextCard()
 }
 
@@ -28,11 +28,17 @@ viewDeck.view = function(){
   
   return m(".container",[
     m(".starter-template", [
-      m("h1", "Let's look at cards!!!"),
-      m("p.lead", ["wheeeeeee......!!!111!1!!!1337", m("br")," nullundefined."]),
+      // m("h1", "Let's look at cards!!!"),
+      // m("p.lead", ["wheeeeeee......!!!111!1!!!1337", m("br")," nullundefined."]),
+      m('strong','cards remaining in deck:'),m('br'),
+      m('strong','minutes studied today:'),m('br'),
+      m('strong','cards studied today:'),m('br'),
+      m('br'),
       m(".center-block", [
         m(".card.front.center-block", viewDeck.currentCard().front),
-        m(".card.back.center-block", viewDeck.currentCard().back), 
+        m('br'),
+        m(".card.back.center-block", viewDeck.currentCard().back),
+        m('br'),
         m("input",{type:'button', onclick: m.withAttr("value", viewDeck.rate), value:'Did not remember'}),
         m("input",{type:'button', onclick: m.withAttr("value", viewDeck.rate), value:'Hard'}),
         m("input",{type:'button', onclick: m.withAttr("value", viewDeck.rate), value:'Good'}),
@@ -48,18 +54,18 @@ viewDeck.controller = function(){
   viewDeck.index = 0
   viewDeck.order = App.Decks()[Home.selDeck].order;
   viewDeck.currentCard = m.prop();
-  viewDeck.currentCard(viewDeck.currentDeck[viewDeck.order[viewDeck.index]])
+  viewDeck.currentCard(viewDeck.currentDeck.cards[viewDeck.index])
 
-  var ctrl = this;
-  console.log("loading deck: " + Home.selDeck)
+  console.log("loaded deck: " + Home.selDeck)
 
   // currentCard(ctrl.deck[ctrl.orderArray[cardIndex]]);
   // console.log(currentCard)
 
   viewDeck.nextCard = function () {
-    viewDeck.index++;
-    viewDeck.currentCard(viewDeck.currentDeck[viewDeck.order[viewDeck.index]]); //maybe?
-    console.log("new card's front is: " + viewDeck.currentCard().front)
+    if (viewDeck.currentDeck.order.length > viewDeck.index +1) {
+      viewDeck.index++;
+      viewDeck.currentCard(viewDeck.currentDeck[viewDeck.order[viewDeck.index]]);
+    }
   }
 
   //should be called on every button press

@@ -5,13 +5,16 @@
 .back {
 }
 
-.card {
-  width:100px;
-  height:100px;
+.card { /*this should really be done responsively with bootstrap.*/
+  height:220px;
   border: 1px solid black;
   border-radius: 25px;
-    background: #8AC007;
-    padding: 20px; 
-    width: 200px;
-    height: 150px; 
+  background: lightblue;
+  padding: 20px; 
+  width: 400px;
+}
+
+input {
+  margin-left:5px;
+  margin-right:5px;
 }

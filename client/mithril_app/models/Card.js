@@ -1,19 +1,30 @@
 Card = Card || {};
 
-Card.vm = function (props) {
-  // ViewModel for editing cards 
-  props = props || {};
-  // if passed in, props should include .front, .back, .id and .flag properties
+Card.vm = function (card) {
+  // ViewModel for creating cards 
+  card = card || {};
 
   return {  
-    front: m.prop(props.front || ''),
-    back:  m.prop(props.back || ''),
-    id:    m.prop(props.id || 0),
-    flag:  m.prop(props.flag || '')
+    front: m.prop(card.front || ''),
+    back: m.prop(card.back || ''),
+    tVal: m.prop(card.tVal || ''), //this is the difference between the next two values
+    toBeSeen: m.prop(card.toBeSeen || ''),
+    timeLastSeen: m.prop(card.timeLastSeen || ''),
+    cMem: m.prop(card.cMem || []),
+    cScale: m.prop(card.cScale || {})    
   }
 }
 
 // var newCard = new Card.vm({front: '1'})
+
+  // remove = function(index) {
+  //   var toRemove = ctrl.contacts().splice(index, 1);
+  //   m.request({
+  //     method: 'DELETE',
+  //     url: '/decks/' + options.deck,
+  //     data: toRemove
+  //   });
+  // }
 
 /* var Posts =
 exports = {
@@ -25,15 +36,3 @@ exports = {
     this.author = m.prop('');
   }
 } */
-
-  // these functions need to be redefined, but we should save these
-  // implementations for reference.
-
-  // remove = function(index) {
-  //   var toRemove = ctrl.contacts().splice(index, 1);
-  //   m.request({
-  //     method: 'DELETE',
-  //     url: '/decks/' + options.deck,
-  //     data: toRemove
-  //   });
-  // }
