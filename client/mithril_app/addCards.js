@@ -5,12 +5,11 @@ addCards.makeCard = function(){ //populates the values of the card from the form
   var newCard = {}
 
   newCard.front = this.frontTxt();
-  console.log(newCard.front, " :text value fetched from dom");
   newCard.back = this.backTxt();
+  console.log(newCard.front, " :text value fetched from dom");
   console.log(newCard.back, " :back text value fetched from dom");
   //m add algo fields (default values) in here? 
 
-  //save to a deck variable
   Card.setCard(Card.vm(newCard));
 
 }

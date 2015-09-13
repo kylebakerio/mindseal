@@ -56,7 +56,7 @@ viewDeck.controller = function(){
   // console.log(currentCard)
 
   viewDeck.nextCard = function () {
-    if (viewDeck.currentDeck.order.length > viewDeck.index +1) {
+    if (viewDeck.currentDeck.cards.length > viewDeck.index +1) {
       viewDeck.index++;
       viewDeck.currentCard(viewDeck.currentDeck.cards[viewDeck.index]);
     }
