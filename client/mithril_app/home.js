@@ -23,9 +23,12 @@ Home.view = function(){
   }
 
   return m("div.container center-block",[
+    m("a", {href:('#/newDeck/')}, //m routing to a new deck view
+        m("input[type='button']",{onclick:m.withAttr("value", ), value: }) //need to call a function at all?
+      ), //m creating a button before rendering deck links
     m("p", "Select a deck:"),
     m("", mArray), //renders our buttons
-    m("p", "Your selected deck: " + Home.selDeck )//,
+    m("p", "Your selected deck: " + Home.selDeck )
   ]);
 }
 
@@ -48,3 +51,4 @@ Home.controller = function(){
   // }
   // return ctrl;
 }
+
