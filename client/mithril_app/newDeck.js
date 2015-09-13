@@ -8,12 +8,14 @@ newDeck.view = function(){
   return m(".container", [
       m(".starter-template", [
         m("h1", "CODENAME: IGGY"),
+        m('div', {class: "deck-container"}),
         m("p.lead", "Let's add a new deck.",
-        m("input[type='text'][class='newFront']", {onchange: m.withAttr("value", newDeck.nameTxt)}),
-        m("br"),
-        m("input[type='button'][value='make a card!']",
-          {onclick:this.makeDeck.bind(this)}
-          ))
+          m('br'),
+          m("input[type='text'][class='newDeckName']", {onchange: m.withAttr("value", newDeck.nameTxt)}),
+          m("br"),
+          m("input[type='button'][value='make a card!']",
+            {onclick:this.makeDeck.bind(this)}
+        ))
       ])
     ])
 

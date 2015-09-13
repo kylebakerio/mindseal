@@ -1,3 +1,4 @@
+
 var viewDeck = {};
 
 viewDeck.rate = function(button){

@@ -18,3 +18,27 @@ input {
   margin-left:5px;
   margin-right:5px;
 }
+
+.deck-container {
+  margin: 50px;
+  max-width: 20px;
+}
+
+.newDeckName {
+  margin: 10px;
+  width: 50%;
+  text-align: center;
+}
+
+
+/* 
+    TODO: input box should have data centered
+    width of the input box should be controlled, centered
+    the navbar current and selected should have more contrasting colors
+    background color to deck container
+    background color to body
+    background color to cards (currently blue)
+    settings page: padding betwen settings items (color)
+    cards animation
+
+    ; */
