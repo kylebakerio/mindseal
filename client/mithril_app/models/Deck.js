@@ -48,3 +48,16 @@ Deck.createCard = function (deckId, cardProps) {
 //     ctrl.cards().push(addedCard)
 //   })
 }
+
+// ctrl.getDecks = function(username){ //this gets called by home.js
+//     m.request({ 
+//       method: 'GET',
+//       url: '/decks',
+//       data: username //?? credentials system?
+//     })
+//     .then(function(arrayOfDecks){
+//       arrayOfDecks.forEach(function(deck,index){
+//         App.decks.push(deck) //is this right?
+//       })
+//     })
+//   }
