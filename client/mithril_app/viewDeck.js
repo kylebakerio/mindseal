@@ -23,7 +23,6 @@ viewDeck.view = function(){
   
   return m(".container",[
     m(".starter-template", [
-      m('p', "you are studying:"),
       m("h1", viewDeck.name),
       // m("p.lead", ["wheeeeeee......!!!111!1!!!1337", m("br")," nullundefined."]),
       m('strong','cards remaining in deck:'),m('br'),
