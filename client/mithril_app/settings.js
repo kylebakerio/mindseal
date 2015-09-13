@@ -3,11 +3,11 @@ var settings = {};
 settings.view = function(){
   //creates a button for every deck
   var mArray = [];
-  for (var deck in App.Decks()){
+  for (var deck in App.mindSeal().decks){
     mArray.push(
-      m("a", {href:('#/deckDash/' + deck)}, 
-        m("input[type='button']",{value:deck})
-      ),
+      // m("a", {href:('#/deckDash/' + deck)}, 
+        m("h3",deck),
+      // ),
       m("br"),
       m("br")
     )
@@ -25,10 +25,10 @@ settings.view = function(){
     m("p", "Difficulty:"), //should modify default cScale
     m("br"),
     m("p", "Use individual-learning algorithm:"), //should enable cScale modifiers (advanced algo)
-    m("br")//,
+    m("br"),
     // m("br"),
     // m("h1", "Deck Settings:"),
-    // m("", mArray), 
+    m("", mArray)
   ]);
 }
 
