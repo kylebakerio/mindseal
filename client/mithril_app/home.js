@@ -33,7 +33,8 @@ Home.view = function(){
 Home.controller = function(){
   console.log("in Home.controller, calling Deck.fetch()...");
   App.Decks = m.prop();
-  App.Decks(Deck.fetch());
+  Deck.fetch();
+  App.Decks(window.localStorage.get(mindSeal_userDecks)); 
   // console.log("/ controller: App.Decks is (next line): ");
   // console.log(App.Decks);
 
