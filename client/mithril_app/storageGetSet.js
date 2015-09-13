@@ -19,8 +19,6 @@ console.log( "getter and setter are " + (Storage.prototype.getObject ? "loaded" 
   // to set it: localStorage.setObject('user', userObject); 
   // retrieve it: userObject = localStorage.getObject('user'); 
 
-
-
 // this last tidbit creates a user deck object if none exist...
 // in other words, this should only ever run on initial use.
 // we might want to make this more robust, but I can't initially

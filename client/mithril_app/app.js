@@ -1,7 +1,7 @@
 App = {};
 
 // used throughout the app as the locally modifiable copy of the localstorage JSON version.
-App.Decks = m.prop(localStorage.getObject('mindSeal').decks);
+App.mindSeal = m.prop(localStorage.getObject('mindSeal'));
 
 // specifies the navbar.
 App.view = function(){

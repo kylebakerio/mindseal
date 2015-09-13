@@ -33,12 +33,13 @@ m.route(document.getElementById("views"), "/home", {
 
   "/addCards/:deckId": {
     controller: function () {
-      this.deck = Deck.find( m.route.param('deckId') );
+      this.name = m.route.param('deckId');
+      this.deck = Deck.find( this.name ); 
     },
     view: function (ctrl) {
       return m('.app', [
         m.component(App),
-        m.component(addCards, { deck: ctrl.deck })
+        m.component(addCards, { name: ctrl.name, deck: ctrl.deck })
       ]);
     }
   },

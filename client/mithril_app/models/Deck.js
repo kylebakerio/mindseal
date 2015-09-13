@@ -29,10 +29,10 @@ Deck.sync = function() {
 Deck.find = function (id) { //
   // Get deck matching id
   console.log("looking for App.Decks[" + id + "], which is:")
-  if(App.Decks()[id] === undefined) {
+  if(App.mindSeal().decks[id] === undefined) {
     alert("Deck.find failed, could not find the requested deck: " + id)
   }
-  return App.Decks()[id]
+  return App.mindSeal().decks[id]
 }
 
 Deck.createCard = function (deckId, cardProps) {

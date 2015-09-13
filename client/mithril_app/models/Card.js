@@ -22,29 +22,21 @@ Card.vm = function (card) {
 
 }
 
-Card.setCard = function (card) {
-  //should be a local storage movement.
-  console.log(card);
-  viewDeck.currentDeck.cards.unshift(card);
-  console.log(viewDeck.currentDeck.cards[viewDeck.currentDeck.cards.length-1])
+Card.setCard = function (card, deck) {
+  deck.cards.unshift(card); //should probably actually sort it here, but this will work for now.
+  localStorage.setObject('mindSeal', App.mindSeal)
+  console.log(deck.cards[0]) 
 }
 
-  // remove = function(index) {
-  //   var toRemove = ctrl.contacts().splice(index, 1);
-  //   m.request({
-  //     method: 'DELETE',
-  //     url: '/decks/' + options.deck,
-  //     data: toRemove
-  //   });
-  // }
 
-/* var Posts =
-exports = {
-  model: function () {
-    this.id = m.prop('');
-    this.title = m.prop('');
-    this.content = m.prop('');
-    this.summary = m.prop('');
-    this.author = m.prop('');
-  }
-} */
+
+//probably will not implement this by Monday:
+
+// Card.deleteCard = function(index) {
+//   // var toRemove = ctrl.contacts().splice(index, 1);
+//   // m.request({
+//   //   method: 'DELETE',
+//   //   url: '/decks/' + options.deck,
+//   //   data: toRemove
+//   // });
+// }
