@@ -1,17 +1,19 @@
 var addCards = {};
 
-addCards.makeCard = function(front, back){
+addCards.makeCard = function(){ //populates the values of the card from the form and calls the view
   var newCard = {}
 
-  newCard.front = front;
-  newCard.back = back;
-  //add other algo fields in here?
+  newCard.front = this.frontTxt();
+  console.log(newCard.front, " :text value fetched from dom");
+  newCard.back = this.backTxt();
+  console.log(newCard.back, " :back text value fetched from dom");
+  //m add algo fields (default values) in here? 
 
-  Card.vm(newCard)
+  Card.vm(newCard) //error
 }
 
 addCards.frontTxt = m.prop(); //m picks up the text from the input field it's called from
-addCards.backTxt = m.prop(); //m 
+addCards.backTxt = m.prop();
 
 addCards.view = function(){
   return m(".container", [
@@ -24,7 +26,7 @@ addCards.view = function(){
         m("input[type='text'][class='newBack']", {onchange: m.withAttr("value", addCards.backTxt)}), //m 
         m("br"),
         m("input[type='button'][value='make a card!']",
-          {onclick:this.addCards.makeCard.bind(this)} //m change: send both values 
+          {onclick:this.makeCard.bind(this)} //m change: send both values 
           )
       ])
     ])
@@ -51,7 +53,7 @@ addCards.controller = function(){
 /*
 
 Misc tests, things to figure out:
-why specific deck fails on page refresh? Needs router handling or some data was being passed 
+why page refresh fails on specific deck? Needs router handling or some data was being passed 
 to it from the home page that broke on refresh.
 
 */
