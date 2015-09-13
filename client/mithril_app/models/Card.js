@@ -1,21 +1,31 @@
-Card = Card || {};
+Card = {};
 
 
 // Card.vm( { front: "front of card", back: "backofCard"  } )
+Card.tValDefault = 129600000;
 
 Card.vm = function (card) {
   // ViewModel for creating cards 
   card = card || {};
+  console.log(card, "in vm");
 
   return {  
     front: m.prop(card.front || ''),
     back: m.prop(card.back || ''),
-    tVal: m.prop(card.tVal || ''), //this is the difference between the next two values
-    toBeSeen: m.prop(card.toBeSeen || ''),
+    tVal: m.prop(card.tVal || Card.tValDefault), //this is the difference between the next two values (default value)
     timeLastSeen: m.prop(card.timeLastSeen || moment()),
+    toBeSeen: m.prop(card.toBeSeen || moment().add(Card.tValDefault)),
     cMem: m.prop(card.cMem || []),
-    cScale: m.prop(card.cScale || {})    
+    cScale: m.prop(card.cScale || {0: 0.9, 1: 1.2, 2: 1.8, 3: 2.5})
   }
+
+}
+
+Card.setCard = function (card) {
+  //should be a server call or local storage call
+  console.log(card);
+  viewDeck.currentDeck.cards.unshift(card);
+  console.log(viewDeck.currentDeck.cards[viewDeck.currentDeck.cards.length-1])
 }
 
 // var newCard = new Card.vm({front: '1'})

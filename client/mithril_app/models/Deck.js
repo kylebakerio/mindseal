@@ -11,6 +11,7 @@ Deck.vm = function(){ // template for a new deck
   }
 }
 
+//maybe refresh with server or fetch from local storage
 Deck.fetch = function() { //should be the server call to get a Decks object
   // return m.request({
   //   method: 'GET', 
