@@ -15,7 +15,7 @@ var collection = db.collection('userData');
 var decksMethods = module.exports; 
 
 decksMethods.createUser = function (userId, userName) {
-  return collection.insert({ _id: name, name: userName, decks: {} });
+  return collection.insert({ _id: userId, name: userName, decks: {} });
 
 }
 
