@@ -16,7 +16,7 @@ Home.view = function(){
   return m("div.container center-block",[
     m('br'),
     m("a[href='#/newDeck']", //m routing to a new deck view
-        m("input[type='button']",{value:"New Button"}) //need to call a function at all?
+        m("input[type='button']",{value:"New Deck"}) //need to call a function at all?
       ), //m creating a button before rendering deck links
     m('br'),
     m("p", "Some basic user stats would look great here. Especially any kind of visualization."),

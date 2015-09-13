@@ -53,7 +53,7 @@ m.route(document.getElementById("views"), "/home", {
         m.component(newDeck, { name: ctrl.name })
       ]);
     }
-  }
+  },
 
   "/deckDash/:deckId": {
     controller: function(){
