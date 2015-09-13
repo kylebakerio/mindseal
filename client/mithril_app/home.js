@@ -23,7 +23,7 @@ Home.view = function(){
     )
   }
 
-  return m("",[
+  return m("div.container center-block",[
     m("p", "Select a deck:"),
     m("", mArray), //renders our buttons
     m("p", "Your selected deck: " + Home.selDeck )//,
@@ -34,7 +34,7 @@ Home.controller = function(){
   console.log("in Home.controller, calling Deck.fetch()...");
   App.Decks = m.prop();
   Deck.fetch();
-  App.Decks(window.localStorage.get(mindSeal_userDecks)); 
+  App.Decks(localStorage.getObject('mindSeal').decks); 
   // console.log("/ controller: App.Decks is (next line): ");
   // console.log(App.Decks);
 
