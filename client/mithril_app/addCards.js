@@ -1,13 +1,21 @@
+
 var addCards = {};
 
-addCards.makeCard = function(frontAndBack){
+addCards.makeCard = function(){ //populates the values of the card from the form and calls the view
   var newCard = {}
 
-  newCard.front = frontAndBack[0]
-  //...
+  newCard.front = this.frontTxt();
+  newCard.back = this.backTxt();
+  console.log(newCard.front, " :text value fetched from dom");
+  console.log(newCard.back, " :back text value fetched from dom");
+  //m add algo fields (default values) in here? 
 
-  Card.vm(newCard)
+  Card.setCard(Card.vm(newCard));
+
 }
+
+addCards.frontTxt = m.prop(); //m picks up the text from the input field it's called from
+addCards.backTxt = m.prop();
 
 addCards.view = function(){
   return m(".container", [
@@ -15,19 +23,20 @@ addCards.view = function(){
         m("h1", "CODENAME: IGGY"),
         m("p.lead", ["Let's make some cards.",
           m("br")," So you can remember stuff."]),
-        m("input[type='text'][class='newFront']"),
+        m("input[type='text'][class='newFront']", {onchange: m.withAttr("value", addCards.frontTxt)}), //m
         m("br"),
-        m("input[type='text'][class='newBack']"),
+        m("input[type='text'][class='newBack']", {onchange: m.withAttr("value", addCards.backTxt)}), //m 
         m("br"),
         m("input[type='button'][value='make a card!']",
-          {onclick:m.withAttr(/*input stuff goes here*/,addCards.makeCard)}
+          {onclick:this.makeCard.bind(this)} //m change: send both values 
           )
       ])
     ])
 }
 
-addCards.controller = function(){
+addCards.controller = function(args){
   var ctrl = this;
+  console.log(args.deck)
 
   // ctrl.contacts = m.prop( [new Contacts.model()] );
 
@@ -44,3 +53,14 @@ addCards.controller = function(){
   }
 
 }
+
+/*
+Misc tests, things to figure out:
+why page refresh fails on specific deck? Needs router handling or some data was being passed 
+to it from the home page that broke on refresh.
+
+Can't find the cards script. Where are these included in the landing script?
+Put before the addcard script. 
+*/
+
+

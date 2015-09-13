@@ -11,58 +11,18 @@ Deck.vm = function(){ // template for a new deck
   }
 }
 
+//maybe refresh with server or fetch from local storage
 Deck.fetch = function() { //should be the server call to get a Decks object
   // return m.request({
   //   method: 'GET', 
   //   url: '/decks/'//,
   //   // data: session token
   // })
-  return { 
-    mvp: { //this is a deck's name
-      cards: [ //these are card unique ID's
-        {                        // this is a card itself
-          front: "this is card1's front",
-          back: "this is card1's back",
-          tVal: 129600000, //this is the difference between the next two values
-          toBeSeen: moment(),
-          timeLastSeen: moment().subtract(36,'h'),
-          cMem:[],
-          cScale:{}      
-        },
-        {
-          front: "this is card2's front",
-          back: "this is card2's back",
-          tVal: 129600000, //this is the difference between the next two values
-          toBeSeen: moment(),
-          timeLastSeen: moment().subtract(36,'h'),
-          cMem:[],
-          cScale:{}      
-        }
-      ]
-    },
-    demoDeck2: { 
-      cards: [ 
-        { 
-          front: "this is card5's front",
-          back: "this is card5's back",
-          tVal: 129600000, 
-          toBeSeen: moment(),
-          timeLastSeen: moment().subtract(36,'h'),
-          cMem:[],
-          cScale:{}      
-        },
-        { 
-          front: "this is card6's front",
-          back: "this is card6's back",
-          tVal: 129600000, 
-          toBeSeen: moment(),
-          timeLastSeen: moment().subtract(36,'h'),
-          cMem:[],
-          cScale:{}      
-        }
-      ]
-    }
-  } 
+}
+
+Deck.sync = function() {
+  //should check with server to see if remote version 
+  //is more recent than local version.
 }
 
 
@@ -88,3 +48,16 @@ Deck.createCard = function (deckId, cardProps) {
 //     ctrl.cards().push(addedCard)
 //   })
 }
+
+// ctrl.getDecks = function(username){ //this gets called by home.js
+//     m.request({ 
+//       method: 'GET',
+//       url: '/decks',
+//       data: username //?? credentials system?
+//     })
+//     .then(function(arrayOfDecks){
+//       arrayOfDecks.forEach(function(deck,index){
+//         App.decks.push(deck) //is this right?
+//       })
+//     })
+//   }
