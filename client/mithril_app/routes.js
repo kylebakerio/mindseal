@@ -2,9 +2,9 @@
 //setup routes to start w/ the `#` symbol
 m.route.mode = "hash";
 
-m.route(document.getElementById("views"), "/", {
+m.route(document.getElementById("views"), "/home", {
 
-  "/": {
+  "/home": {
     controller: function(){
       Home.controller
     },
@@ -77,13 +77,3 @@ m.route(document.getElementById("views"), "/", {
   },
 
 });
-
-////some reference:
-// var viewDeck = {
-//   controller: function() {
-//       return {id: m.route.param("deckID")};
-//   },
-//   view: function(controller) {
-//       return m("div", controller().id);
-//   }
-// }
