@@ -44,6 +44,18 @@ m.route(document.getElementById("views"), "/", {
         m.component(addCards, { deck: ctrl.deck })
       ]);
     }
+  }, 
+
+  "/newDeck": {
+    controller: function () {
+      newDeck.controller
+    },
+    view: function (ctrl) {
+      console.log("newDeck view fn was run")
+      return m('.app', [m.component(App, {}),
+        m.component(newDeck, { name: ctrl.name })
+      ]);
+    }
   }
 
 });

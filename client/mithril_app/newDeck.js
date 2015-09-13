@@ -13,7 +13,7 @@ newDeck.view = function(){
         m("br"),
         m("input[type='button'][value='make a card!']",
           {onclick:this.makeDeck.bind(this)}
-          )
+          ))
       ])
     ])
 
@@ -26,11 +26,13 @@ newDeck.makeDeck = function(){ //populates the values of the card from the form 
 
   console.log(newDeck.name, " :name of the deck fetched from the dom");
 
-  Card.setCard(Card.vm(newDeck)); //set the deck instead. Change method call.
+  Deck.createDeck(newDeck.name); //set the deck instead. Change method call.
 }
 
-newDeck.controller = function(){
+newDeck.controller = function(args){
+  var ctrl = this;
+  console.log(args.name);
 
-
+  //ctrl.update to make server request later
 }
 
