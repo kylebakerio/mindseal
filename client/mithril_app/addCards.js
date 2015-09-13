@@ -12,8 +12,8 @@ addCards.makeCard = function(){ //populates the values of the card from the form
   Card.setCard(Card.vm(newCard));
 
 }
-
-addCards.frontTxt = m.prop(); //m picks up the text from the input field it's called from
+//picks up the text from the input field it's called from
+addCards.frontTxt = m.prop(); 
 addCards.backTxt = m.prop();
 
 addCards.view = function(){
@@ -22,12 +22,12 @@ addCards.view = function(){
         m("h1", "CODENAME: IGGY"),
         m("p.lead", ["Let's make some cards.",
           m("br")," So you can remember stuff."]),
-        m("input[type='text'][class='newFront']", {onchange: m.withAttr("value", addCards.frontTxt)}), //m
+        m("input[type='text'][class='newFront']", {onchange: m.withAttr("value", addCards.frontTxt)}),
         m("br"),
-        m("input[type='text'][class='newBack']", {onchange: m.withAttr("value", addCards.backTxt)}), //m 
+        m("input[type='text'][class='newBack']", {onchange: m.withAttr("value", addCards.backTxt)}),
         m("br"),
         m("input[type='button'][value='make a card!']",
-          {onclick:this.makeCard.bind(this)} //m change: send both values 
+          {onclick:this.makeCard.bind(this)}
           )
       ])
     ])
