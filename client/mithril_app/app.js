@@ -51,3 +51,19 @@ App.controller = function(){
   Deck.sync();
 }
 
+function getToken(callback) {
+  // Use this function to either sign in for the first time or grab the current token from Chrome.
+  chrome.identity.getAuthToken({ interactive: true }, function(token) {
+    if (chrome.runtime.lastError) {
+      console.log(chrome.runtime.lastError);
+      return;
+    }
+    callback(token);
+  });
+}
+
+// navbar isn't present in the extension popup, so check to see if it exists before mounting.
+var navbar = document.getElementById('navbar');
+if( navbar ) {
+  m.mount(navbar, App)
+}
