@@ -44,7 +44,20 @@ m.route(document.getElementById("views"), "/", {
         m.component(addCards, { deck: ctrl.deck })
       ]);
     }
-  }
+  },
+
+  "/deckDash/:deckId": {
+    controller: function(){
+      this.name = m.route.param('deckId');
+      this.deck = Deck.find( this.name ); //grabs an individual deck from the Decks object
+    },
+    view: function(ctrl) {
+      return m('.app', [
+        m.component(App, {}),
+        m.component(deckDash, { name: ctrl.name, deck: ctrl.deck })
+      ])
+    }
+  },
 
 });
 

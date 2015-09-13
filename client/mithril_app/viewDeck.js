@@ -22,7 +22,8 @@ viewDeck.view = function(){
   
   return m(".container",[
     m(".starter-template", [
-      // m("h1", "Let's look at cards!!!"),
+      m('p', "you are studying:"),
+      m("h1", viewDeck.name),
       // m("p.lead", ["wheeeeeee......!!!111!1!!!1337", m("br")," nullundefined."]),
       m('strong','cards remaining in deck:'),m('br'),
       m('strong','minutes studied today:'),m('br'),
@@ -51,10 +52,11 @@ viewDeck.nextCard = function () {
 
 viewDeck.controller = function(args){
   var ctrl = this;
-  console.log(args.deck, args.name)
-  viewDeck.currentDeck = args.deck
-  viewDeck.index = 0
-  viewDeck.currentCard = m.prop(viewDeck.currentDeck.cards[viewDeck.index])
+  console.log(args.deck, args.name);
+  viewDeck.currentDeck = args.deck;
+  viewDeck.index = 0;
+  viewDeck.name = args.name;
+  viewDeck.currentCard = m.prop(viewDeck.currentDeck.cards[viewDeck.index]);
 
   //should be called on every button press
   // ctrl.rate = function (flag) {

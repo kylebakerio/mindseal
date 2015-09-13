@@ -35,9 +35,11 @@ App.view = function(){
         ]),
         m(".collapse.navbar-collapse[id='navbar']", [
           m("ul.nav.navbar-nav", [
-            m("li", {class: navTable["addCards"]()},[m("a[href='#/addCards/" + Home.selDeck + "']", "Add Cards")]),
-            m("li", {class: navTable["viewDeck"]()},[m("a[href='#/viewDeck/" + Home.selDeck + "']", "View Deck")]),
-            m("li", {class: navTable["about"]()},[m("a[href='#']", "About")])
+            // m("li", {class: navTable["addCards"]()},[m("a[href='#/addCards/" + Home.selDeck + "']", "Add Cards")]),
+            // m("li", {class: navTable["viewDeck"]()},[m("a[href='#/viewDeck/" + Home.selDeck + "']", "View Deck")]),
+            m("li", {class: navTable["home"]()},[m("a[href='#/settings']", "Home")]),
+            m("li", {class: navTable["settings"]()},[m("a[href='#/settings']", "Settings")]),
+            m("li", {class: navTable["about"]()},[m("a[href='#/about']", "About")])
           ])
         ])
       ])
