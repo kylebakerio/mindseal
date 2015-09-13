@@ -1,5 +1,4 @@
 var Home = {};
-console.log("home.js was loaded")
 
 Home.stuff = function(deck){
   //this is where the routing from line 18 should happen, I think.
@@ -31,15 +30,10 @@ Home.view = function(){
 }
 
 Home.controller = function(){
-  console.log("in Home.controller, calling Deck.fetch()...");
-  App.Decks = m.prop();
-  Deck.fetch();
-  App.Decks(localStorage.getObject('mindSeal').decks); 
+
   // console.log("/ controller: App.Decks is (next line): ");
   // console.log(App.Decks);
 
-  var ctrl = this;
-  console.log("Home.controller was run")
   // ctrl.login = function(username, password){
   //   m.request({ 
   //     method: 'GET',

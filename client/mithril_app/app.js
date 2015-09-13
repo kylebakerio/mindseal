@@ -1,6 +1,9 @@
 App = {};
 
-//the context in which all other sub pages are displayed within:
+// used throughout the app as the locally modifiable copy of the localstorage JSON version.
+App.Decks = m.prop(localStorage.getObject('mindSeal').decks);
+
+// specifies the navbar.
 App.view = function(){
 
   var active = m.prop("active");
@@ -44,27 +47,8 @@ App.view = function(){
 }
 
 App.controller = function(){
-  //acts as a repository for global variables ????
-  var ctrl = this;
-  ctrl.username = null; //should be set by signin stuff on home...
-
-  ctrl.getDecks = function(){
-    getToken(function(token) {
-      m.request({ 
-        method: 'GET',
-        url: '/decks',
-        config: function(xhr) {
-          xhr.setRequestHeader('Content-Type', 'application/json');
-          xhr.setRequestHeader('api-token', token);
-        } //?? credentials system?
-      })
-      .then(function(arrayOfDecks){
-        arrayOfDecks.forEach(function(deck,index){
-          App.decks.push(deck) //is this right?
-        })
-      })   
-    })
-  }
+  console.log("in Home.controller, calling Deck.sync()...");
+  Deck.sync();
 }
 
 function getToken(callback) {

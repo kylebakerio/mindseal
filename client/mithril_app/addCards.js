@@ -34,8 +34,9 @@ addCards.view = function(){
     ])
 }
 
-addCards.controller = function(){
+addCards.controller = function(args){
   var ctrl = this;
+  console.log(args.deck)
 
   // ctrl.contacts = m.prop( [new Contacts.model()] );
 
@@ -52,8 +53,8 @@ addCards.controller = function(){
   }
 
 }
-/*
 
+/*
 Misc tests, things to figure out:
 why page refresh fails on specific deck? Needs router handling or some data was being passed 
 to it from the home page that broke on refresh.
