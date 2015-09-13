@@ -9,8 +9,8 @@ App.view = function(){
   var active = m.prop("active");
   var r = m.route();
   var navTable = {
-    "viewDeck": m.prop(),
-    "addCards": m.prop(),
+    "home": m.prop(),
+    "settings": m.prop(),
     "#": m.prop(),
     "about": m.prop()
   }
@@ -35,9 +35,11 @@ App.view = function(){
         ]),
         m(".collapse.navbar-collapse[id='navbar']", [
           m("ul.nav.navbar-nav", [
-            m("li", {class: navTable["addCards"]()},[m("a[href='#/addCards/" + Home.selDeck + "']", "Add Cards")]),
-            m("li", {class: navTable["viewDeck"]()},[m("a[href='#/viewDeck/" + Home.selDeck + "']", "View Deck")]),
-            m("li", {class: navTable["about"]()},[m("a[href='#']", "About")])
+            // m("li", {class: navTable["addCards"]()},[m("a[href='#/addCards/" + Home.selDeck + "']", "Add Cards")]),
+            // m("li", {class: navTable["viewDeck"]()},[m("a[href='#/viewDeck/" + Home.selDeck + "']", "View Deck")]),
+            m("li", {class: navTable["home"]()},[m("a[href='#/home']", "Home")]),
+            m("li", {class: navTable["settings"]()},[m("a[href='#/settings']", "Settings")]),
+            m("li", {class: navTable["about"]()},[m("a[href='#/about']", "About")])
           ])
         ])
       ])
@@ -60,11 +62,4 @@ function getToken(callback) {
     }
     callback(token);
   });
-}
-
-// note: make sure to talk to Kyle about this.
-// navbar isn't present in the extension popup, so check to see if it exists before mounting.
-var navbar = document.getElementById('navbar');
-if( navbar ) {
-  m.mount(navbar, App)
 }
