@@ -1,13 +1,16 @@
 App = {};
 
-//the context in which all other sub pages are displayed within:
+// used throughout the app as the locally modifiable copy of the localstorage JSON version.
+App.mindSeal = m.prop(localStorage.getObject('mindSeal'));
+
+// specifies the navbar.
 App.view = function(){
 
   var active = m.prop("active");
   var r = m.route();
   var navTable = {
-    "viewDeck": m.prop(),
-    "addCards": m.prop(),
+    "home": m.prop(),
+    "settings": m.prop(),
     "#": m.prop(),
     "about": m.prop()
   }
@@ -32,9 +35,11 @@ App.view = function(){
         ]),
         m(".collapse.navbar-collapse[id='navbar']", [
           m("ul.nav.navbar-nav", [
-            m("li", {class: navTable["addCards"]()},[m("a[href='#/addCards/" + Home.selDeck + "']", "Add Cards")]),
-            m("li", {class: navTable["viewDeck"]()},[m("a[href='#/viewDeck/" + Home.selDeck + "']", "View Deck")]),
-            m("li", {class: navTable["about"]()},[m("a[href='#']", "About")])
+            // m("li", {class: navTable["addCards"]()},[m("a[href='#/addCards/" + Home.selDeck + "']", "Add Cards")]),
+            // m("li", {class: navTable["viewDeck"]()},[m("a[href='#/viewDeck/" + Home.selDeck + "']", "View Deck")]),
+            m("li", {class: navTable["home"]()},[m("a[href='#/home']", "Home")]),
+            m("li", {class: navTable["settings"]()},[m("a[href='#/settings']", "Settings")]),
+            m("li", {class: navTable["about"]()},[m("a[href='#/about']", "About")])
           ])
         ])
       ])
@@ -44,27 +49,8 @@ App.view = function(){
 }
 
 App.controller = function(){
-  //acts as a repository for global variables ????
-  var ctrl = this;
-  ctrl.username = null; //should be set by signin stuff on home...
-
-  ctrl.getDecks = function(){
-    getToken(function(token) {
-      m.request({ 
-        method: 'GET',
-        url: '/decks',
-        config: function(xhr) {
-          xhr.setRequestHeader('Content-Type', 'application/json');
-          xhr.setRequestHeader('api-token', token);
-        } //?? credentials system?
-      })
-      .then(function(arrayOfDecks){
-        arrayOfDecks.forEach(function(deck,index){
-          App.decks.push(deck) //is this right?
-        })
-      })   
-    })
-  }
+  console.log("in Home.controller, calling Deck.sync()...");
+  Deck.sync();
 }
 
 function getToken(callback) {
@@ -76,10 +62,4 @@ function getToken(callback) {
     }
     callback(token);
   });
-}
-
-// navbar isn't present in the extension popup, so check to see if it exists before mounting.
-var navbar = document.getElementById('navbar');
-if( navbar ) {
-  m.mount(navbar, App)
 }

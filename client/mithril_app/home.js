@@ -1,55 +1,27 @@
 var Home = {};
-console.log("home.js was loaded")
-
-Home.stuff = function(deck){
-  //this is where the routing from line 18 should happen, I think.
-  Home.selDeck = deck;
-}
-
-Home.selDeck = "";
 
 Home.view = function(){
-  console.log("Home.view was run")
-  
   //creates a button for every deck
   var mArray = [];
-  for (var deck in App.Decks()){
+  for (var deck in App.mindSeal().decks){
     mArray.push(
-      m("a", {href:('#/viewDeck/' + deck)}, 
-        m("input[type='button']",{onclick:m.withAttr("value", Home.stuff), value:deck})
+      m("a", {href:('#/deckDash/' + deck)}, 
+        m("input[type='button']",{value:deck})
       ),
       m("br"),
       m("br")
     )
   }
 
-  return m("",[
-    m("p", "Select a deck:"),
-    m("", mArray), //renders our buttons
-    m("p", "Your selected deck: " + Home.selDeck )//,
+  return m("div.container center-block",[
+    m('br'),
+    m("p", "Some basic user stats would look great here. Especially any kind of visualization."),
+    m('strong','cards studied today:'),m('br'),m('br'),
+    m("h2", "Select a deck:"),
+    m("", mArray), 
   ]);
 }
 
 Home.controller = function(){
-  console.log("in Home.controller, calling Deck.fetch()...");
-  App.Decks = m.prop();
-  App.Decks(Deck.fetch());
-  // console.log("/ controller: App.Decks is (next line): ");
-  // console.log(App.Decks);
 
-  var ctrl = this;
-  console.log("Home.controller was run")
-  // ctrl.login = function(username, password){
-  //   m.request({ 
-  //     method: 'GET',
-  //     url: '/users', //authentication will be very different.
-  //     data: username
-  //   }) //logged in, so:
-  //   .then( function(username){
-  //       App.getDecks(username);
-  //     }
-  //   )
-  //   //needs error handling for failed login attempt
-  // }
-  // return ctrl;
 }

@@ -2,9 +2,9 @@
 //setup routes to start w/ the `#` symbol
 m.route.mode = "hash";
 
-m.route(document.getElementById("views"), "/", {
+m.route(document.getElementById("views"), "/home", {
 
-  "/": {
+  "/home": {
     controller: function(){
       Home.controller
     },
@@ -12,49 +12,69 @@ m.route(document.getElementById("views"), "/", {
     view: function(ctrl,args,extras) {
       console.log("root view fn() was run")
       return ('.app', [
-        m.component(App, { /*decks: App.Decks(), content: ctrl.content */}),
-        m.component(Home, {})
+        m.component(App),
+        m.component(Home)
       ])
     }
   },
 
   "/viewDeck/:deckId": {
     controller: function(){
-      this.deck = Deck.find( m.route.param('deckId')/*.slice(1)*/ ) //grabs an individual deck from the Decks object
-      console.log("this.deck is " + this.deck)
+      this.name = m.route.param('deckId');
+      this.deck = Deck.find( this.name ); 
     },
     view: function(ctrl) {
-      console.log("selected deck: " + Home.selDeck)
       return m('.app', [
-        m.component(App, {}),
-        m.component(viewDeck, { currDeck: Home.selDeck, currDeck2: ctrl.deck })
+        m.component(App),
+        m.component(viewDeck, { name: ctrl.name, deck: ctrl.deck })
       ])
     }
   },
 
   "/addCards/:deckId": {
     controller: function () {
-      this.deck = Deck.find( m.route.param('deckId') ); //grabs an individual deck from the Decks object
-      // Previous line is equivalent to something like this:
-      // this.deck = m.request({ method: 'GET', url: '/api/decks/10' })
-      console.log(this.deck, " <-- if this is { order: [], uk: {} [etc...] }, Deck.find is working properly.")
+      this.name = m.route.param('deckId');
+      this.deck = Deck.find( this.name ); 
     },
     view: function (ctrl) {
       return m('.app', [
-        m.component(App, {}),
-        m.component(addCards, { deck: App.Decks() })
+        m.component(App),
+        m.component(addCards, { name: ctrl.name, deck: ctrl.deck })
       ]);
     }
-  }
+  },
+
+  "/deckDash/:deckId": {
+    controller: function(){
+      this.name = m.route.param('deckId');
+      this.deck = Deck.find( this.name );
+    },
+    view: function(ctrl) {
+      return m('.app', [
+        m.component(App),
+        m.component(deckDash, { name: ctrl.name, deck: ctrl.deck })
+      ])
+    }
+  },
+
+  "/settings": {
+    // controller: function(){},
+    view: function() {
+      return m('.app', [
+        m.component(App),
+        m.component(settings)
+      ])
+    }
+  },
+
+  "/about": {
+    // controller: function(){},
+    view: function() {
+      return m('.app', [
+        m.component(App),
+        m.component(about)
+      ])
+    }
+  },
 
 });
-
-////some reference:
-// var viewDeck = {
-//   controller: function() {
-//       return {id: m.route.param("deckID")};
-//   },
-//   view: function(controller) {
-//       return m("div", controller().id);
-//   }
-// }
