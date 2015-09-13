@@ -15,6 +15,7 @@ Home.view = function(){
 
   return m("div.container center-block",[
     m('br'),
+    m("p", "Some basic user stats would look great here. Especially any kind of visualization."),
     m("p", "Select a deck:"),
     m("", mArray), 
   ]);
