@@ -1,8 +1,9 @@
 Card = {};
 
+//can be modified in settings page.
+Card.tValDefault = 129600000;
 
 // Card.vm( { front: "front of card", back: "backofCard"  } )
-Card.tValDefault = 129600000;
 
 Card.vm = function (card) {
   // ViewModel for creating cards 
@@ -26,8 +27,6 @@ Card.setCard = function (card) {
   viewDeck.currentDeck.cards.unshift(card);
   console.log(viewDeck.currentDeck.cards[0]);
 }
-
-// var newCard = new Card.vm({front: '1'})
 
   // remove = function(index) {
   //   var toRemove = ctrl.contacts().splice(index, 1);

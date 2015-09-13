@@ -42,25 +42,19 @@ viewDeck.view = function(){
   ])
 }
 
-viewDeck.controller = function(){
-
-  viewDeck.currentDeck = App.Decks()[Home.selDeck];
-  viewDeck.index = 0
-  viewDeck.order = App.Decks()[Home.selDeck].order;
-  viewDeck.currentCard = m.prop();
-  viewDeck.currentCard(viewDeck.currentDeck.cards[viewDeck.index])
-
-  console.log("loaded deck: " + Home.selDeck)
-
-  // currentCard(ctrl.deck[ctrl.orderArray[cardIndex]]);
-  // console.log(currentCard)
-
-  viewDeck.nextCard = function () {
-    if (viewDeck.currentDeck.order.length > viewDeck.index +1) {
-      viewDeck.index++;
-      viewDeck.currentCard(viewDeck.currentDeck.cards[viewDeck.index]);
-    }
+viewDeck.nextCard = function () {
+  if (viewDeck.currentDeck.cards.length > viewDeck.index +1) {
+    viewDeck.index++;
+    viewDeck.currentCard(viewDeck.currentDeck.cards[viewDeck.index]);
   }
+}
+
+viewDeck.controller = function(args){
+  var ctrl = this;
+  console.log(args.deck, args.name)
+  viewDeck.currentDeck = args.deck
+  viewDeck.index = 0
+  viewDeck.currentCard = m.prop(viewDeck.currentDeck.cards[viewDeck.index])
 
   //should be called on every button press
   // ctrl.rate = function (flag) {

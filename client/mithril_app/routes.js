@@ -1,13 +1,4 @@
 
-Storage.prototype.setObject = function(key, value) {
-    this.setItem(key, JSON.stringify(value));
-}
-
-Storage.prototype.getObject = function(key) {
-    var value = this.getItem(key);
-    return value && JSON.parse(value);
-}
-
 //setup routes to start w/ the `#` symbol
 m.route.mode = "hash";
 
@@ -29,14 +20,13 @@ m.route(document.getElementById("views"), "/", {
 
   "/viewDeck/:deckId": {
     controller: function(){
-      this.deck = Deck.find( m.route.param('deckId')/*.slice(1)*/ ) //grabs an individual deck from the Decks object
-      console.log("this.deck is " + this.deck)
+      this.name = m.route.param('deckId');
+      this.deck = Deck.find( this.name ); //grabs an individual deck from the Decks object
     },
     view: function(ctrl) {
-      console.log("selected deck: " + Home.selDeck)
       return m('.app', [
         m.component(App, {}),
-        m.component(viewDeck, { currDeck: Home.selDeck, currDeck2: ctrl.deck })
+        m.component(viewDeck, { name: ctrl.name, deck: ctrl.deck })
       ])
     }
   },
@@ -51,7 +41,7 @@ m.route(document.getElementById("views"), "/", {
     view: function (ctrl) {
       return m('.app', [
         m.component(App, {}),
-        m.component(addCards, { deck: App.Decks() })
+        m.component(addCards, { deck: ctrl.deck })
       ]);
     }
   }
