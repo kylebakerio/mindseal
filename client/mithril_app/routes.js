@@ -58,6 +58,9 @@ m.route(document.getElementById("views"), "/", {
 
 });
 
+// add routes for the home(mindseal) view, settings and about
+
+
 ////some reference:
 // var viewDeck = {
 //   controller: function() {

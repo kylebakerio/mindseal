@@ -23,9 +23,8 @@ Card.vm = function (card) {
 
 Card.setCard = function (card) {
   //should be a server call or local storage call
-  console.log(card);
   viewDeck.currentDeck.cards.unshift(card);
-  console.log(viewDeck.currentDeck.cards[viewDeck.currentDeck.cards.length-1])
+  console.log(viewDeck.currentDeck.cards[0]);
 }
 
 // var newCard = new Card.vm({front: '1'})
