@@ -42,6 +42,18 @@ m.route(document.getElementById("views"), "/home", {
         m.component(addCards, { name: ctrl.name, deck: ctrl.deck })
       ]);
     }
+  }, 
+
+  "/newDeck": {
+    controller: function () {
+      newDeck.controller
+    },
+    view: function (ctrl) {
+      console.log("newDeck view fn was run")
+      return m('.app', [m.component(App, {}),
+        m.component(newDeck, { name: ctrl.name })
+      ]);
+    }
   },
 
   "/deckDash/:deckId": {
@@ -75,6 +87,6 @@ m.route(document.getElementById("views"), "/home", {
         m.component(about)
       ])
     }
-  },
+  }
 
 });

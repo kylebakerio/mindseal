@@ -7,12 +7,13 @@ addCards.makeCard = function(){ //populates the values of the card from the form
   newCard.back = this.backTxt();
   console.log(newCard.front, " :text value fetched from dom");
   console.log(newCard.back, " :back text value fetched from dom");
+
   //m add algo fields (default values) in here? 
   console.log(addCards.name)
   Card.setCard(Card.vm(newCard),addCards.deck);
 }
-
-addCards.frontTxt = m.prop(); //m picks up the text from the input field it's called from
+//picks up the text from the input field it's called from
+addCards.frontTxt = m.prop(); 
 addCards.backTxt = m.prop();
 
 addCards.view = function(){
@@ -29,10 +30,10 @@ addCards.view = function(){
         m('p','Size of your deck: ' + addCards.deck.cards.length),
         m("input[type='text'][class='newFront']", {onchange: m.withAttr("value", addCards.frontTxt)}), //m
         m("br"),
-        m("input[type='text'][class='newBack']", {onchange: m.withAttr("value", addCards.backTxt)}), //m 
+        m("input[type='text'][class='newBack']", {onchange: m.withAttr("value", addCards.backTxt)}),
         m("br"),
         m("input[type='button'][value='make a card!']",
-          {onclick:this.makeCard.bind(this)} //m change: send both values 
+          {onclick:this.makeCard.bind(this)}
           )
       ])
     ])

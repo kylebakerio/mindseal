@@ -15,6 +15,10 @@ Home.view = function(){
 
   return m("div.container center-block",[
     m('br'),
+    m("a[href='#/newDeck']", //m routing to a new deck view
+        m("input[type='button']",{value:"New Deck"}) //need to call a function at all?
+      ), //m creating a button before rendering deck links
+    m('br'),
     m("p", "Some basic user stats would look great here. Especially any kind of visualization."),
     m('strong','cards studied today:'),m('br'),m('br'),
     m("h2", "Select a deck:"),
@@ -25,3 +29,4 @@ Home.view = function(){
 Home.controller = function(){
 
 }
+

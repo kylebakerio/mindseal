@@ -28,8 +28,6 @@ Card.setCard = function (card, deck) {
   console.log(deck.cards[0]) 
 }
 
-
-
 //probably will not implement this by Monday:
 
 // Card.deleteCard = function(index) {

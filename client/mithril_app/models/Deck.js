@@ -4,6 +4,8 @@ Deck = /*Deck ||*/ {};
 
 // App.newDeck.addCard(/*new card model*/)
 
+//add deck function for synching with local object and local storage
+
 Deck.vm = function(){ // template for a new deck
   return {
     cards:[],
@@ -47,6 +49,13 @@ Deck.createCard = function (deckId, cardProps) {
 //   .then(function(addedCard) {
 //     ctrl.cards().push(addedCard)
 //   })
+}
+
+
+Deck.createDeck = function (name) {
+  console.log("the deck name as passed to the Deck.js is: ", name)
+  //create an empty deck object
+
 }
 
 // ctrl.getDecks = function(username){ //this gets called by home.js
