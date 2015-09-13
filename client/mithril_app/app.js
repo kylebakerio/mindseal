@@ -62,6 +62,7 @@ function getToken(callback) {
   });
 }
 
+// note: make sure to talk to Kyle about this.
 // navbar isn't present in the extension popup, so check to see if it exists before mounting.
 var navbar = document.getElementById('navbar');
 if( navbar ) {
