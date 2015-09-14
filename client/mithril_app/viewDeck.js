@@ -13,7 +13,8 @@ viewDeck.view = function(){
     m(".starter-template", [
       m("h1", viewDeck.name),
       m('br'),
-      m('strong','cards remaining in deck:'),m('br'),
+      m('strong','cards remaining in deck:'),
+      m('br'),
       // m('strong','minutes studied today:'),m('br'), //would be nice.
       m('br'),
       m(".center-block", [
@@ -41,7 +42,7 @@ viewDeck.controller = function(args){
       'Too Easy': viewDeck.currentCard().cScale[3]
     }
 
-    viewDeck.currentCard().tVal *= convert[button];
+    viewDeck.currentCard().tVal *= convert[button]; 
     viewDeck.currentCard().timeLastSeen = moment(); //it was just seen now.
     viewDeck.currentCard().toBeSeen = ( 
       viewDeck.currentCard().timeLastSeen.clone().add(viewDeck.currentCard().tVal, 'milliseconds') 

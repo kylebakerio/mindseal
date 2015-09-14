@@ -24,7 +24,7 @@ Card.vm = function (card) {
 
 Card.setCard = function (card, deck) {
   deck.cards.unshift(card); //should probably actually sort it here, but this will work for now.
-  localStorage.setObject('mindSeal', App.mindSeal)
+  localStorage.setObject('mindSeal', App.mindSeal())
   console.log(deck.cards[0]) 
 }
 
