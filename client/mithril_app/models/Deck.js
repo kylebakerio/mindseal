@@ -23,46 +23,51 @@ Deck.fetch = function() { //should be the server call to get a Decks object
 }
 
 Deck.sync = function() {
-  //should check with server to see if remote version 
-  //is more recent than local version.
-  //a get request to the server (db). get back the data, if more recent than local
-  //keep else post to refresh database.
 
-  /* init function:
-    get from server and setObject if remote more recent
-
-    after client use
-    get request
-    compare timestamps
-    setObject if remote more recent
-    post request to the db 
-  */
+  //step1: A GET request to make sure the client and server are synched up
   var xhrConfig = function(xhr) {
     xhr.setRequestHeader("userid", "mvp_test");
   }
+  // var dbTimeStamp = 0;
+  var dbData = m.request({
+                method: 'GET',
+                url: '/decks',
+                config: xhrConfig,
+              })
+              .then(function(data){
+                console.log("server post data below:");
+                console.log(data); 
+                //extract timestamp and save to variable. data.decks.timestamp
+                //or use next() if possible
+                return data;
+              })
 
+  //step2: Compare timestamps
+  //Kyle TODO: add moment.js function to compare
+  if (dbData.userSettings.lastEdit > localStorage.getObject('mindSeal').userSettings.lastEdit) {
+    //step3: Either keep fetched data (refresh localStorage)
+    //make sure the format is the same as db
+    if(prompt("It appears there are remote changes that need to be synced with your machine.\
+      do you want to update your local data with the remote data? You could lose all of your cards.\
+      type 'yes' to continue.") === 'yes'){
+        localStorage.setObject('mindSeal', dbData);
+    }
+  } else {
+    //or POST request (refresh db)
+    //make sure the format is
+    //{ userid string, deck object }, userid only needed until auth takes over
+    var sendData = {'mvp_test', localStorage.getObject('mindSeal').decks}
 
-  m.request({
-    method: 'GET',
-    url: '/decks',
-    config: xhrConfig,
-  })
-  .then(function(response){
-    console.log("server post response below:");
-    console.log(response);
-  })
-
-
-  // m.request({
-  //   method: 'POST',
-  //   url: '/refresh',
-  //   data: testRefreshData,
-  // })
-  // .then(function(response){
-  //   console.log("server post response below:");
-  //   console.log(response);
-  // })
-
+    m.request({
+      method: 'POST',
+      url: '/refresh',
+      data: sendData
+    })
+    .then(function(response){
+      console.log("server post response below:");
+      console.log(response);
+    })
+  }
 }
 
 
