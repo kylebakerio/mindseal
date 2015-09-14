@@ -36,15 +36,14 @@ module.exports = {
   // },
 
   refreshDecks: function(req, res) {
-    var decks = req.body;
-
+    var decks = req.body.decks; //use just body when Auth integrated/tested
     Auth.getId(req)
       .catch(function(err) {
       // Handler for unsuccessful auth with Google
       res.send(401, err);
       })
       .then(function(googleId) {
-        return db.refreshDecks(googleId, cards)
+        return db.refreshDecks(googleId, decks)
       })
       .then(function() {
           res.send(201)
