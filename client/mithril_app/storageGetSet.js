@@ -11,6 +11,8 @@ Storage.prototype.getObject = function(key) {
     return value && JSON.parse(value);
 }
 
+function setMindSeal(){ localStorage.setObject('mindSeal', App.mindSeal()) }
+
 console.log( "getter and setter are " + (Storage.prototype.getObject ? "loaded" : "not loaded") )
 
 // source: http://stackoverflow.com/a/3146971/4526479

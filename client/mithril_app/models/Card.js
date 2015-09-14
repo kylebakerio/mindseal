@@ -1,8 +1,9 @@
 Card = {};
 
 //can be modified in settings page.
-Card.tValDefault = 129600000;
-
+console.log("set")
+Card.tValDefault = m.prop(129599999);
+console.log(Card.tValDefault())
 // Card.vm( { front: "front of card", back: "backofCard"  } )
 
 Card.vm = function (card) {
@@ -24,7 +25,7 @@ Card.vm = function (card) {
 
 Card.setCard = function (card, deck) {
   deck.cards.unshift(card); //should probably actually sort it here, but this will work for now.
-  localStorage.setObject('mindSeal', App.mindSeal())
+  setMindSeal();
   console.log(deck.cards[0]) 
 }
 
@@ -38,3 +39,11 @@ Card.setCard = function (card, deck) {
 //   //   data: toRemove
 //   // });
 // }
+
+Card.tValSetDefault = function(hours){ //populates the values of the card from the form and calls the view
+  console.log("Old tVal: " + Card.tValDefault());
+  Card.tValDefault( moment.duration(hours, 'h').asMilliseconds() ); 
+  App.mindSeal().userSettings.tValDefault = Card.tValDefault();
+  setMindSeal();
+  console.log(App.mindSeal().userSettings.tValDefault + ": new default tVal.");
+}

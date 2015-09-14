@@ -55,7 +55,7 @@ viewDeck.controller = function(args){
   }
 
   viewDeck.noMore = function(){
-    viewDeck.front([m("h1.center-block", "Great work!"),m('p.lead','No more cards to view for now.')])
+      viewDeck.front([m("h1.center-block", "Great work!"),m('p.lead','No more cards to view for now.')])
     viewDeck.back(m('br')) //should be an overtime button
     m.redraw()
     console.log("noMore ran")

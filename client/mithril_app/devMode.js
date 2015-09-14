@@ -16,6 +16,7 @@ if(
   console.log("there are no decks, devmode is on, user approved; adding dummy decks.")
   
   var devData = { 
+    userSettings: {},
     decks: { 
       programming: { cards : [] },
       trivia: { cards : [] }
