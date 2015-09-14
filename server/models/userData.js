@@ -20,11 +20,12 @@ decksMethods.createUser = function (userId, userName) {
 }
 
 decksMethods.createDecks = function (userId, deckName, deck) { //create a deck for a specific user
-  var deckName =  deck || {}; 
+  var deckName =  deckName || "noDeckName"; 
   var setObject = {};
   setObject["$set"] = {}; //creating a variable for the set part of the update query
   setObject["$set"]["decks."+deckName] = deck; //creating a variable key to take in the name of the deck
 
+  console.log(userId, deckName, deck, " values in the model");
   return userId ? collection.update({_id: userId}, setObject) : collection.update({_id: "uniqueUserGoogleId"}, setObject)
   // return collection.update({_id: userId}, setObject);
 }

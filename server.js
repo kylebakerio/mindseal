@@ -31,7 +31,7 @@ app.post('/decks',
   //req should look like { deckName: "deckname" }
   //res will contain new unique ID of newly created deck
   function(req, res) {
-    handler.createDeck(req, res);
+    handler.createDecks(req, res);
   }
 );
 
