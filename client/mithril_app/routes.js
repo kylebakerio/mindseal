@@ -70,7 +70,7 @@ m.route(document.getElementById("views"), "/home", {
   },
 
   "/settings": {
-    // controller: function(){},
+    controller: function(){},
     view: function() {
       return m('.app', [
         m.component(App),

@@ -1,7 +1,8 @@
+(function() {
 
 var viewDeck = {};
 
-viewDeck.view = function(){
+viewDeck.view = function(ctrl){
   // document.getElementById("see-decks").addClass("active")
   //^potentially different way of handling highlighting parts of the nav bar?
   
@@ -17,12 +18,31 @@ viewDeck.view = function(){
       // m('strong','minutes studied today:'),m('br'), //would be nice.
       m('br'),
       m(".center-block", [
-        viewDeck.front(),
+        // viewDeck.front(),
+        cardFrontView(viewDeck.currentDeck(), viewDeck.currentCard()),
         m('br'),
-        viewDeck.back()
+        // viewDeck.back()
+        cardBackView(viewDeck.currentDeck(), viewDeck.currentCard())
       ])
     ])
   ])
+}
+
+function cardFrontView (deck, card) {
+
+  if (deck.cards.length <= viewDeck.index + 1) {
+    return [
+      m("h1.center-block", "Great work!"),
+      m('p.lead','No more cards to view for now.')
+    ]
+  }
+  else {
+    return m(".card.front.center-block", card.front)
+  }
+}
+
+function cardBackView (deck, card) {
+  // ...
 }
 
 viewDeck.controller = function(args){
@@ -54,14 +74,15 @@ viewDeck.controller = function(args){
   }
 
   viewDeck.noMore = function(){
-    viewDeck.front([m("h1.center-block", "Great work!"),m('p.lead','No more cards to view for now.')])
+    
+      // viewDeck.front([m("h1.center-block", "Great work!"),m('p.lead','No more cards to view for now.')])
     viewDeck.back(m('br')) //should be an overtime button
     m.redraw()
     console.log("noMore ran")
   }
 
   viewDeck.nextCard = function () {
-    if(viewDeck.currentDeck().cards.length <= viewDeck.index +1/* ||
+    if(viewDeck.currentDeck().cards.length <= viewDeck.index + 1/* ||
        moment().diff(viewDeck.currentDeck()[viewDeck.index +1].toBeSeen)*/
       ) {
       viewDeck.noMore()
@@ -90,9 +111,9 @@ viewDeck.controller = function(args){
         m('br'),
         m("input",{type:'button', onclick: viewDeck.showBack, value:'Show Back', title:'Press spacebar to select'})
       ])
-      viewDeck.front = m.prop(
-        m(".card.front.center-block", viewDeck.currentCard().front)
-      )
+      // viewDeck.front = m.prop(
+      //   m(".card.front.center-block", viewDeck.currentCard().front)
+      // )
     }
   }
 
@@ -102,8 +123,10 @@ viewDeck.controller = function(args){
   ])
 
 
-  viewDeck.front = m.prop(
-    m(".card.front.center-block", viewDeck.currentCard().front)
-  )
+  // viewDeck.front = m.prop(
+  //   m(".card.front.center-block", viewDeck.currentCard().front)
+  // )
 
 }
+
+})()

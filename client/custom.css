@@ -24,7 +24,7 @@
   padding: 20px;
   width: 400px;
   text-align: center;
-  overflow: scroll;
+  /*overflow: scroll;*/
 }
 
 .card .front {
