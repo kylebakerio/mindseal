@@ -4,5 +4,7 @@
 
 document.addEventListener('DOMContentLoaded', function() {
   var login = document.getElementById('login');
-  login.addEventListener('click', getToken);
+  login.addEventListener('click', function() {
+    getToken();
+  });
 });

@@ -52,14 +52,3 @@ App.controller = function(){
   console.log("in Home.controller, calling Deck.sync()...");
   Deck.sync();
 }
-
-function getToken(callback) {
-  // Use this function to either sign in for the first time or grab the current token from Chrome.
-  chrome.identity.getAuthToken({ interactive: true }, function(token) {
-    if (chrome.runtime.lastError) {
-      console.log(chrome.runtime.lastError);
-      return;
-    }
-    callback(token);
-  });
-}
