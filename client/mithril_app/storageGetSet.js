@@ -12,7 +12,10 @@ Storage.prototype.getObject = function(key) {
 }
 
 //this function allows the current sandbox App.mindSeal() object to be commited to local storage for persistent retrieval.
-function setMindSeal(){ localStorage.setObject('mindSeal', App.mindSeal()) }
+function setMindSeal(){ 
+  App.mindSeal().userSettings.lastEdit = moment().format();
+  localStorage.setObject('mindSeal', App.mindSeal()) 
+}
 
 console.log( "getter and setter are " + (Storage.prototype.getObject ? "loaded" : "not loaded") )
 
@@ -22,12 +25,13 @@ console.log( "getter and setter are " + (Storage.prototype.getObject ? "loaded" 
   // to set it: localStorage.setObject('user', userObject); 
   // retrieve it: userObject = localStorage.getObject('user'); 
 
-// this last tidbit creates a user deck object if none exist...
+// this last tidbit creates a mindSeal object if none exist...
 // in other words, this should only ever run on initial use.
 // we might want to make this more robust, but I can't initially
 // think of any case where this would actually do the unspeakable
 // and erase all user data, even though in theory one would
-// worry about that possibility here.
+// worry about that possibility here. If it doesn't exist, you
+// can't erase it.
 
 if ( !localStorage.getObject('mindSeal') ){
   console.log('there was no mindseal, creating an empty one.')

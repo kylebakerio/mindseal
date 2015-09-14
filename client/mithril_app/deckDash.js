@@ -1,14 +1,20 @@
 var deckDash = {};
 
-deckDash.view = function(){
+deckDash.view = function(ctrl){
 
   return m("div.container center-block",[
     m('br'),
-    m("h1", deckDash.deck),
-    m("a", {href:('#/viewDeck/' + deckDash.deck)}, 
+    m("h1", ctrl.name),
+    m('br'),
+    m('strong',"Number of Cards: ", m('',ctrl.deck.cards.length)),
+    m('br'),
+    m('strong',"Date Created: ", m('',ctrl.deck.creation)),
+    // m('strong',"time studied: "),
+    m('br'),
+    m("a", {href:('#/viewDeck/' + ctrl.name)}, 
         m("input[type='button']",{value:"Review"})
       ),
-      m("a", {href:('#/addCards/' + deckDash.deck)}, 
+      m("a", {href:('#/addCards/' + ctrl.name)}, 
         m("input[type='button']",{value:"Add Cards"})
       ),
       // m("a", {href:('#/editDeck/' + deck)}, 
@@ -20,5 +26,7 @@ deckDash.view = function(){
 }
 
 deckDash.controller = function(args){
-  deckDash.deck = args.name
+  var ctrl = this;
+  ctrl.name = args.name;
+  ctrl.deck = args.deck;
 }

@@ -35,24 +35,26 @@ if(
   
   var devData = { 
     userSettings: {
-      tValDefault: 128000000
+      tValDefault: 128000000, //initial gap between making a card and it being seen for the first time
+      lastEdit: moment(), // for syncing purposes.
+      todayCounter: 0
     },
     decks: { 
-      programming: { cards : [] },
-      trivia: { cards : [] }
+      programming: { cards : [], creation: moment().subtract(90, 'days').format('MM-DD-YYYY') },
+      trivia: { cards : [], creation: moment().subtract(11100, 'days').format('MM-DD-YYYY') }
     } 
   }
 
   devData.decks.programming.cards.push(Card.vm({
     front: "How does one add objects to local storage?",
-    back: "JSON.stringify."
+    back: "JSON.stringify ftw, yo."
   }))
   devData.decks.programming.cards.push(Card.vm({
-    front: "Who is the coolest?",
-    back: "Clearly, Nathan."
+    front: "Who is the your daddy?",
+    back: "Probably Gilbert."
   }))
   devData.decks.trivia.cards.push(Card.vm({
-    front: "Do you really need a second deck?",
+    front: "Do you really need a second deck for this demonstration?",
     back: "of course you do."
   }))
   devData.decks.trivia.cards.push(Card.vm({

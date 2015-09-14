@@ -40,9 +40,20 @@ Card.setCard = function (card, deck) {
 // }
 
 Card.tValSetDefault = function(hours){ //populates the values of the card from the form and calls the view
-  console.log("Old tVal: " + Card.tValDefault());
+  console.log("old tval: " + moment.duration(App.mindSeal().userSettings.tValDefault, 'milliseconds').asDays() + " days");
   Card.tValDefault( moment.duration(hours, 'h').asMilliseconds() ); 
   App.mindSeal().userSettings.tValDefault = Card.tValDefault();
   setMindSeal();
-  console.log(App.mindSeal().userSettings.tValDefault + ": new default tVal.");
+  console.log("new default tval: " + moment.duration(App.mindSeal().userSettings.tValDefault, 'milliseconds').asDays() + " days");
+}
+
+Card.todayCounter = function(){
+  if (moment(App.mindSeal().userSettings.lastEdit).format('MM-DD-YYYY') === moment().format('MM-DD-YYYY')) {
+    App.mindSeal().userSettings.todayCounter++;
+    setMindSeal();
+  }
+  else {
+    App.mindSeal().userSettings.todayCounter = 0;
+    setMindSeal();
+  }
 }
