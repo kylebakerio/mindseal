@@ -1,4 +1,4 @@
-Deck = /*Deck ||*/ {};
+Deck = {};
 
 // App.newDeck = new Deck();
 

@@ -1,4 +1,22 @@
+//this is suboptimal, but is a bugfix to break up a circular file dependency:
 
+Card = {};
+Card.vm = function (card) {
+  // ViewModel for creating cards 
+  card = card || {};
+  console.log(card, "in vm");
+
+  return {  
+    front: m.prop(card.front || ''),
+    back: m.prop(card.back || ''),
+    tVal: m.prop(card.tVal || Card.tValDefault), //this is the difference between the next two values (default value)
+    timeLastSeen: m.prop(card.timeLastSeen || moment()),
+    toBeSeen: m.prop(card.toBeSeen || moment().add(Card.tValDefault)),
+    cMem: m.prop(card.cMem || []),
+    cScale: m.prop(card.cScale || {0: 0.9, 1: 1.2, 2: 1.8, 3: 2.5})
+  }
+
+}
 
 // this document specifies a devmode, where two decks 
 // with two cards are automatically stored.
@@ -16,7 +34,9 @@ if(
   console.log("there are no decks, devmode is on, user approved; adding dummy decks.")
   
   var devData = { 
-    userSettings: {},
+    userSettings: {
+      tValDefault: 128000000
+    },
     decks: { 
       programming: { cards : [] },
       trivia: { cards : [] }

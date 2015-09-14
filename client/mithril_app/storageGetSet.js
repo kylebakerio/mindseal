@@ -11,6 +11,7 @@ Storage.prototype.getObject = function(key) {
     return value && JSON.parse(value);
 }
 
+//this function allows the current sandbox App.mindSeal() object to be commited to local storage for persistent retrieval.
 function setMindSeal(){ localStorage.setObject('mindSeal', App.mindSeal()) }
 
 console.log( "getter and setter are " + (Storage.prototype.getObject ? "loaded" : "not loaded") )
@@ -32,4 +33,3 @@ if ( !localStorage.getObject('mindSeal') ){
   console.log('there was no mindseal, creating an empty one.')
   localStorage.setObject('mindSeal', { decks:{} }) 
 }
-
