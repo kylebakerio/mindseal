@@ -13,9 +13,10 @@ newDeck.view = function(){
           m('br'),
           m("input[type='text'][class='newDeckName']", {onchange: m.withAttr("value", newDeck.nameTxt)}),
           m("br"),
-          m("input[type='button'][value='make a card!']",
-            {onclick:this.makeDeck.bind(this)}
-        ))
+          m('a',{href:"#/deckDash/" + newDeck.nameTxt()}, 
+            m("input[type='button'][value='Make it!']",{onclick:this.makeDeck.bind(this)} )
+          )
+        )
       ])
     ])
 }
