@@ -37,6 +37,21 @@ Deck.sync = function() {
     setObject if remote more recent
     post request to the db 
   */
+  var xhrConfig = function(xhr) {
+    xhr.setRequestHeader("userid", "mvp_test");
+  }
+
+
+  m.request({
+    method: 'GET',
+    url: '/decks',
+    config: xhrConfig,
+  })
+  .then(function(response){
+    console.log("server post response below:");
+    console.log(response);
+  })
+
 
   // m.request({
   //   method: 'POST',
@@ -80,7 +95,6 @@ Deck.createDeck = function (name) {
   //create an empty deck object and set it to local storage
   App.mindSeal().decks[name] = {cards:[]}; //initiate an empty deck with the passed in name
   setMindSeal();
-
 }
 
 // ctrl.getDecks = function(username){ //this gets called by home.js
