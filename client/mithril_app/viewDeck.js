@@ -4,7 +4,7 @@ var viewDeck = {};
 viewDeck.view = function(ctrl){
   // document.getElementById("see-decks").addClass("active")
   //^potentially different way of handling highlighting parts of the nav bar?
-  
+  console.log("view is returned")
   return m(".container",[
     m('br'),
     m("a", {href:('#/deckDash/' + ctrl.name)}, 
@@ -116,4 +116,5 @@ viewDeck.controller = function(args){
   viewDeck.front = m.prop(
     m(".card.front.center-block", viewDeck.currentCard().front)
   )
+  console.log("controller front and back set: " + viewDeck.currentCard().front + " " + viewDeck.currentCard().back)
 }
