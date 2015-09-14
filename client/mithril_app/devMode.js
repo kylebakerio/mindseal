@@ -35,9 +35,11 @@ if(
   
   var devData = { 
     userSettings: {
+      newCardLimit: 20,
       tValDefault: 128000000, //initial gap between making a card and it being seen for the first time
       lastEdit: moment(), // for syncing purposes.
-      todayCounter: 0
+      todayCounter: 0,
+      allTimeCounter: 197
     },
     decks: { 
       programming: { cards : [], creation: moment().subtract(90, 'days').format('MM-DD-YYYY') },

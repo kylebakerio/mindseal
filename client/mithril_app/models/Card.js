@@ -47,13 +47,13 @@ Card.tValSetDefault = function(hours){ //populates the values of the card from t
   console.log("new default tval: " + moment.duration(App.mindSeal().userSettings.tValDefault, 'milliseconds').asDays() + " days");
 }
 
-Card.todayCounter = function(){
+Card.counter = function(){
   if (moment(App.mindSeal().userSettings.lastEdit).format('MM-DD-YYYY') === moment().format('MM-DD-YYYY')) {
     App.mindSeal().userSettings.todayCounter++;
-    setMindSeal();
   }
   else {
     App.mindSeal().userSettings.todayCounter = 0;
-    setMindSeal();
   }
+  App.mindSeal().userSettings.allTimeCounter++;
+  setMindSeal();
 }

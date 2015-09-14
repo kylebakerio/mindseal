@@ -43,18 +43,4 @@ addCards.controller = function(args){
   var ctrl = this;
   addCards.name = args.name;
   addCards.deck = args.deck;
-
-  // ctrl.contacts = m.prop( [new Contacts.model()] );
-
-  ctrl.update = function(index) {
-    var toUpdate = ctrl.contacts()[index];
-    m.request({
-      method: 'POST',
-      url: '/decks/' + options.deck,
-      data: toUpdate
-    })
-    .then(function(updatedCard) {
-      ctrl.cards()[index] = updatedCard;
-    })
-  }
 }
