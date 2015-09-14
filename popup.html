@@ -10,15 +10,26 @@
     
     <script src="./bower_components/mithril/mithril.min.js"></script>
     <script src="./client/mithril_app/addCards.js"></script>
+    <script src="./client/mithril_app/storageGetSet.js"></script>
     <script src="./client/mithril_app/models/Deck.js"></script>
     <script src="./client/mithril_app/app.js"></script>
     <script src="./client/mithril_app/home.js"></script>
 
-  <body>
+  <body id='popup' style = "min-width: 200px;">
+    <img src="./logo.jpg" id="img-circle" style="border-radius: 50%; width: 100px; height: 100px; border: 5px solid black; margin-bottom: 5px"><br>
+    <button id="login">Login with Google+</button><br>
     <a target="_blank" href="./client/index.html">Go to client</a>
     <div id="createCard"></div>
     <div id="decks"></div>
-    <button id="login">Login with Google+</button>
+    <!-- Added dummy create card form until issues with addCard.js and app.js resolved-->
+    <form>
+      Front of Card:<br>
+      <input type="text" name="frontOfCard">
+      <br>
+      Back of Card:<br>
+      <input type="text" name="backOfCard"><br>
+      <input type="submit" value="Make Card">
+    </form>
     
     <script src="popup.js"></script>
   </body>
