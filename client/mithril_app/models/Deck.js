@@ -38,6 +38,15 @@ Deck.sync = function() {
     post request to the db 
   */
 
+  m.request({
+    method: 'GET',
+    url: '/decks',
+    data: {'userId': 'mvp_test'},
+  })
+  .then(function(response){
+    console.log("server get response below:")
+    console.log(response);
+  })
 
 }
 
