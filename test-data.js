@@ -1,8 +1,9 @@
 /*steps to setup the database
+  http://docs.mongodb.org/master/installation/
+
   run mongod in one terminal tab, run mongo in the second, in that order
   copy-paste this script in the mongo shell (second tab).
 
-  todo: make this auto-run using mongo 'test-script.js'
 */
 
 // Test script for integration testing
@@ -71,7 +72,6 @@ db.userData.insert({
                   }
                 }
               })
-
 
 
 db.userData.update({_id: "107412576489595151368"}, {$set: {userSettings: {
