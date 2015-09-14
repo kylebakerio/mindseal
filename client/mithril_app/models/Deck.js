@@ -4,8 +4,6 @@ Deck = /*Deck ||*/ {};
 
 // App.newDeck.addCard(/*new card model*/)
 
-//add deck function for synching with local object and local storage
-
 Deck.vm = function(){ // template for a new deck
   return {
     cards:[],
@@ -23,6 +21,7 @@ Deck.fetch = function() { //should be the server call to get a Decks object
 }
 
 Deck.sync = function() {
+  //Uncaught ReferenceError: Deck is not defined App.js 53
 
   //step1: A GET request to make sure the client and server are synched up
   var xhrConfig = function(xhr) {
@@ -56,7 +55,7 @@ Deck.sync = function() {
     //or POST request (refresh db)
     //make sure the format is
     //{ userid string, deck object }, userid only needed until auth takes over
-    var sendData = {'mvp_test', localStorage.getObject('mindSeal').decks}
+    var sendData = {'userid': 'mvp_test', 'decks': localStorage.getObject('mindSeal').decks};
 
     m.request({
       method: 'POST',
