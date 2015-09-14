@@ -78,8 +78,8 @@ Deck.createCard = function (deckId, cardProps) {
 Deck.createDeck = function (name) {
   console.log("the deck name as passed to the Deck.js is: ", name);
   //create an empty deck object and set it to local storage
-  App.mindSeal().decks[name] = {}; //initiate an empty deck with the passed in name
-  localStorage.setObject('mindseal', App.mindSeal());
+  App.mindSeal().decks[name] = {cards:[]}; //initiate an empty deck with the passed in name
+  setMindSeal();
 
 }
 
