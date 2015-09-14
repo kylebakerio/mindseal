@@ -1,8 +1,8 @@
 Card = {};
 
 //can be modified in settings page.
-Card.tValDefault = 129600000;
-
+console.log(App.mindSeal())
+Card.tValDefault =  m.prop(App.mindSeal().userSettings.tValDefault) || m.prop(129599999);
 // Card.vm( { front: "front of card", back: "backofCard"  } )
 
 Card.vm = function (card) {
@@ -24,11 +24,9 @@ Card.vm = function (card) {
 
 Card.setCard = function (card, deck) {
   deck.cards.unshift(card); //should probably actually sort it here, but this will work for now.
-  localStorage.setObject('mindSeal', App.mindSeal)
+  setMindSeal();
   console.log(deck.cards[0]) 
 }
-
-
 
 //probably will not implement this by Monday:
 
@@ -40,3 +38,22 @@ Card.setCard = function (card, deck) {
 //   //   data: toRemove
 //   // });
 // }
+
+Card.tValSetDefault = function(hours){ //populates the values of the card from the form and calls the view
+  console.log("old tval: " + moment.duration(App.mindSeal().userSettings.tValDefault, 'milliseconds').asDays() + " days");
+  Card.tValDefault( moment.duration(hours, 'h').asMilliseconds() ); 
+  App.mindSeal().userSettings.tValDefault = Card.tValDefault();
+  setMindSeal();
+  console.log("new default tval: " + moment.duration(App.mindSeal().userSettings.tValDefault, 'milliseconds').asDays() + " days");
+}
+
+Card.counter = function(){
+  if (moment(App.mindSeal().userSettings.lastEdit).format('MM-DD-YYYY') === moment().format('MM-DD-YYYY')) {
+    App.mindSeal().userSettings.todayCounter++;
+  }
+  else {
+    App.mindSeal().userSettings.todayCounter = 0;
+  }
+  App.mindSeal().userSettings.allTimeCounter++;
+  setMindSeal();
+}

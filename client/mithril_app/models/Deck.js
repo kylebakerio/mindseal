@@ -1,8 +1,10 @@
-Deck = /*Deck ||*/ {};
+Deck = {};
 
 // App.newDeck = new Deck();
 
 // App.newDeck.addCard(/*new card model*/)
+
+//add deck function for synching with local object and local storage
 
 Deck.vm = function(){ // template for a new deck
   return {
@@ -23,6 +25,29 @@ Deck.fetch = function() { //should be the server call to get a Decks object
 Deck.sync = function() {
   //should check with server to see if remote version 
   //is more recent than local version.
+  //a get request to the server (db). get back the data, if more recent than local
+  //keep else post to refresh database.
+
+  /* init function:
+    get from server and setObject if remote more recent
+
+    after client use
+    get request
+    compare timestamps
+    setObject if remote more recent
+    post request to the db 
+  */
+
+  // m.request({
+  //   method: 'POST',
+  //   url: '/refresh',
+  //   data: testRefreshData,
+  // })
+  // .then(function(response){
+  //   console.log("server post response below:");
+  //   console.log(response);
+  // })
+
 }
 
 
@@ -47,6 +72,15 @@ Deck.createCard = function (deckId, cardProps) {
 //   .then(function(addedCard) {
 //     ctrl.cards().push(addedCard)
 //   })
+}
+
+
+Deck.createDeck = function (name) {
+  console.log("the deck name as passed to the Deck.js is: ", name);
+  //create an empty deck object and set it to local storage
+  App.mindSeal().decks[name] = {cards:[], creation: moment().format('MM-DD-YYYY')}; //initiate an empty deck with the passed in name
+  setMindSeal();
+
 }
 
 // ctrl.getDecks = function(username){ //this gets called by home.js

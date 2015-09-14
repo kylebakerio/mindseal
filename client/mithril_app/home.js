@@ -15,8 +15,14 @@ Home.view = function(){
 
   return m("div.container center-block",[
     m('br'),
-    m("p", "Some basic user stats would look great here. Especially any kind of visualization."),
-    m('strong','cards studied today:'),m('br'),m('br'),
+    m("a[href='#/newDeck']", //m routing to a new deck view
+        m("input[type='button']",{value:"New Deck"}) //need to call a function at all?
+      ), //m creating a button before rendering deck links
+    m('br'),
+    m('br'),
+    // m("p", "Some basic user stats would look great here. Especially any kind of visualization."),
+    m('strong','Cards studied today: ' + App.mindSeal().userSettings.allTimeCounter),m('br'),m('br'),
+    m('strong','Total cards studied: ' + App.mindSeal().userSettings.todayCounter),m('br'),m('br'),
     m("h2", "Select a deck:"),
     m("", mArray), 
   ]);
@@ -25,3 +31,4 @@ Home.view = function(){
 Home.controller = function(){
 
 }
+

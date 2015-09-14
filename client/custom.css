@@ -1,20 +1,83 @@
-
-.front {
+.outer-container {
+  /* bluish grey #343d46*/
+  background-color: #4c4c4c;
+  height: 100%
 }
 
-.back {
+.starter-template { /* has the view deck stats rest */
+ color: #1E1E1E;
 }
 
-.card { /*this should really be done responsively with bootstrap.*/
-  height:220px;
-  border: 1px solid black;
-  border-radius: 25px;
-  background: lightblue;
-  padding: 20px; 
+.center-block {
+  margin-top: 5%;
+  background-color: #808080; 
+  max-width: 70%;
+  border-radius: 7px;
+  padding: 1% 2% 1% 2%;
+  box-shadow: 10px 10px 100px rgba(0,0,0,.5);
+}
+
+.card { /* this should really be done responsively with bootstrap. */
+  height:200px;
+  border: 1px solid #E6E6E6;
+  border-radius: 5px;
+  background: #d7f6f6;
+  padding: 2% 2% 2% 2%;
   width: 400px;
+  text-align: center;
+  box-shadow: none; 
+  /*overflow: scroll;*/
+}
+
+.card .front {
+
+}
+
+.card .back {
+
 }
 
 input {
   margin-left:5px;
   margin-right:5px;
 }
+
+.deck-container {
+  margin: 50px;
+  max-width: 20px;
+}
+
+.newDeckName {
+  margin: 10px;
+  width: 50%;
+  text-align: center;
+}
+
+.navTable {
+  border-radius: 1px;
+  display: block;
+  height: 2px;
+  width: 22px;
+  margin-top: 3px;
+}
+
+img {
+  width:80%;
+  height:80%;
+  padding-left:auto;
+  padding-right:auto;
+}
+
+/* 
+    TODO: 
+    width of the input box should be controlled, centered
+    the navbar current and selected should have more contrasting colors
+    background color to cards (currently blue)
+    settings page: padding betwen settings items (color)
+    cards animation
+    gradient on container edges
+    WYSIWYG editor for addcards
+    different container for the viewDeck
+    add padding to all
+
+    ; */

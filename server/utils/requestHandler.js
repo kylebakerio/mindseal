@@ -4,7 +4,10 @@ var db = require('../models/userData.js'),
 module.exports = {
 
   getDecks: function(req, res) {
-    var googleId = "mvp_test";
+    // var googleId = "mvp_test";
+    var googleId = req.body.userId;
+    console.log("userID is: ", googleId)
+    console.log(req.headers, "  whole request");
     db.getDecks(googleId)
       .then(function(decks) {
         res.send(decks);
@@ -55,10 +58,11 @@ module.exports = {
   },
 
   createDecks: function(req, res) {
-    var googleId = req.get('googleId');
-    var googleId = 'mvp_test';
+    var googleId = req.body.googleId;
     var deckName = req.body.deckName;
-    db.createDeck(googleId, deckName, req.body.cards)
+    // var googleId = req.get('googleId');
+    // var googleId = 'mvp_test';
+    db.createDecks(googleId, deckName, req.body.cards)
       .then(function(deck_id) {
         res.send(201, deck_id)
       })

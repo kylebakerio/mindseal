@@ -1,18 +1,20 @@
+
 var viewDeck = {};
 
-viewDeck.view = function(){
+viewDeck.view = function(ctrl){
   // document.getElementById("see-decks").addClass("active")
   //^potentially different way of handling highlighting parts of the nav bar?
-  
+  console.log("view is returned")
   return m(".container",[
     m('br'),
-    m("a", {href:('#/deckDash/' + viewDeck.name)}, 
-      m("input[type='button']",{value:("Back to " + viewDeck.name + "'s dashboard")})
+    m("a", {href:('#/deckDash/' + ctrl.name)}, 
+      m("input[type='button']",{value:("Back to " + ctrl.name + "'s dashboard")})
     ),
     m(".starter-template", [
-      m("h1", viewDeck.name),
+      m("h1", ctrl.name),
       m('br'),
-      m('strong','cards remaining in deck:'),m('br'),
+      m('strong','cards remaining in deck: ' + viewDeck.remaining),
+      m('br'),
       // m('strong','minutes studied today:'),m('br'), //would be nice.
       m('br'),
       m(".center-block", [
@@ -25,12 +27,15 @@ viewDeck.view = function(){
 }
 
 viewDeck.controller = function(args){
+
   var ctrl = this;
-  console.log(args.deck, args.name);
+  ctrl.index = 0;
+  ctrl.name = args.name;
+  ctrl.deck = args.deck;
   viewDeck.currentDeck = m.prop(args.deck);
-  viewDeck.index = 0;
-  viewDeck.name = args.name;
-  viewDeck.currentCard = m.prop(viewDeck.currentDeck().cards[viewDeck.index]);
+  viewDeck.currentCard = m.prop(viewDeck.currentDeck().cards[ctrl.index]);
+  viewDeck.show = false;
+  viewDeck.remaining = viewDeck.currentDeck().cards.length-ctrl.index; //should be updated to take dates into account & should live update
 
   viewDeck.rate = function(button){
     var convert = {
@@ -40,7 +45,8 @@ viewDeck.controller = function(args){
       'Too Easy': viewDeck.currentCard().cScale[3]
     }
 
-    viewDeck.currentCard().tVal *= convert[button];
+    console.log(convert[button])
+    viewDeck.currentCard().tVal *= convert[button]; 
     viewDeck.currentCard().timeLastSeen = moment(); //it was just seen now.
     viewDeck.currentCard().toBeSeen = ( 
       viewDeck.currentCard().timeLastSeen.clone().add(viewDeck.currentCard().tVal, 'milliseconds') 
@@ -49,7 +55,7 @@ viewDeck.controller = function(args){
       moment.duration(viewDeck.currentCard().toBeSeen.diff(viewDeck.currentCard().timeLastSeen), 'milliseconds').asDays()
     );
     viewDeck.nextCard();
-    viewDeck.showBack();
+    viewDeck.toggleBack();
   }
 
   viewDeck.noMore = function(){
@@ -57,52 +63,58 @@ viewDeck.controller = function(args){
     viewDeck.back(m('br')) //should be an overtime button
     m.redraw()
     console.log("noMore ran")
+    viewDeck.end = true;
   }
 
   viewDeck.nextCard = function () {
-    if(viewDeck.currentDeck().cards.length <= viewDeck.index +1/* ||
-       moment().diff(viewDeck.currentDeck()[viewDeck.index +1].toBeSeen)*/
+    if(viewDeck.currentDeck().cards.length <= ctrl.index +1/* ||
+       moment().diff(viewDeck.currentDeck()[ctrl.index +1].toBeSeen)*/
       ) {
       viewDeck.noMore()
     }
     else {
-      viewDeck.index++;
-      viewDeck.currentCard(viewDeck.currentDeck().cards[viewDeck.index]);
+      ctrl.index++;
+      Card.counter(); //keeps track of how many cards you've studied.
+      viewDeck.currentCard(viewDeck.currentDeck().cards[ctrl.index]);
     }
   }
 
-  viewDeck.showBack = function(){
-    if (viewDeck.show !== true){
-      viewDeck.back([
-        m(".card.back.center-block", viewDeck.currentCard().back),
-        m('br'),
-        m("input",{type:'button', onclick: m.withAttr("value", viewDeck.rate), value:'Did not remember', title:"Press 0 to select"}),
-        m("input",{type:'button', onclick: m.withAttr("value", viewDeck.rate), value:'Hard', title:"Press 1 to select"}),
-        m("input",{type:'button', onclick: m.withAttr("value", viewDeck.rate), value:'Good', title:"Press 2 to select"}),
-        m("input",{type:'button', onclick: m.withAttr("value", viewDeck.rate), value:'Too Easy', title:"Press 3 to select"})
-      ])
-      viewDeck.show = true;
-    }
-    else {
-      viewDeck.show = false;
-      viewDeck.back([
-        m('br'),
-        m("input",{type:'button', onclick: viewDeck.showBack, value:'Show Back', title:'Press spacebar to select'})
-      ])
-      viewDeck.front = m.prop(
-        m(".card.front.center-block", viewDeck.currentCard().front)
-      )
+  viewDeck.toggleBack = function(){
+    if (viewDeck.end !== true) {
+      if (ctrl.show !== true ){
+        console.log("it's false!")
+        viewDeck.back([
+          m(".card.back.center-block", viewDeck.currentCard().back),
+          m('br'),
+          m("input",{type:'button', onclick: m.withAttr("value", viewDeck.rate), value:'Did not remember', title:"Press 0 to select"}),
+          m("input",{type:'button', onclick: m.withAttr("value", viewDeck.rate), value:'Hard', title:"Press 1 to select"}),
+          m("input",{type:'button', onclick: m.withAttr("value", viewDeck.rate), value:'Good', title:"Press 2 to select"}),
+          m("input",{type:'button', onclick: m.withAttr("value", viewDeck.rate), value:'Too Easy', title:"Press 3 to select"})
+        ])
+        ctrl.show = true;
+      }
+      else {
+        console.log("it's true!")
+        ctrl.show = false;
+        viewDeck.back([
+          m('br'),
+          m("input",{type:'button', onclick: viewDeck.toggleBack, value:'Show Back', title:'Press spacebar to select'})
+        ])
+        viewDeck.front = m.prop(
+          m(".card.front.center-block", viewDeck.currentCard().front)
+        )
+      }
     }
   }
 
   viewDeck.back = m.prop([
     m('br'),
-    m("input",{type:'button', onclick: viewDeck.showBack, value:'Show Back', title:'Press spacebar to select'})
+    m("input",{type:'button', onclick: viewDeck.toggleBack, value:'Show Back', title:'Press spacebar to select'})
   ])
 
 
   viewDeck.front = m.prop(
     m(".card.front.center-block", viewDeck.currentCard().front)
   )
-
+  console.log("controller front and back set: " + viewDeck.currentCard().front + " " + viewDeck.currentCard().back)
 }
