@@ -11,6 +11,20 @@ Storage.prototype.getObject = function(key) {
     return value && JSON.parse(value);
 }
 
+function getToken(callback) {
+  // Use this function to either sign in for the first time or grab the current token from Chrome.
+  chrome.identity.getAuthToken({ interactive: true }, function(token) {
+    if (chrome.runtime.lastError) {
+      console.log(chrome.runtime.lastError);
+      return;
+    }
+    console.log("success");
+    return token;
+    if ( callback ) { 
+      callback(token);
+    }
+});
+
 //this function allows the current sandbox App.mindSeal() object to be commited to local storage for persistent retrieval.
 function setMindSeal(){ 
   App.mindSeal().userSettings.lastEdit = moment().format();
