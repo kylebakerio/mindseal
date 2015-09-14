@@ -15,7 +15,8 @@ var collection = db.collection('userData');
 var decksMethods = module.exports; 
 
 decksMethods.createUser = function (userId, userName) {
-  return collection.insert({ _id: name, name: userName, decks: {} });
+  console.log(userId, userName, "data as recieved by the model");
+  return collection.insert({ _id: userId, name: userName, decks: {} });
 
 }
 
@@ -31,7 +32,7 @@ decksMethods.createDecks = function (userId, deckName, deck) { //create a deck f
 }
 
 decksMethods.getDecks = function (userId) { //get all decks of a user
-  console.log(userId, " : userid as recieved in mondel");
+  console.log(userId, " : userid as recieved in model");
   return userId ? collection.findOne({_id: userId}) : collection.find() //test code
   // return collection.findOne({_id: userId}); //return decks with deckname 
 }

@@ -9,18 +9,18 @@ newDeck.view = function(){
       m(".starter-template", [
         m("h1", "mind:seal"),
         m('div', {class: "deck-container"} ),
-
-        m("p.lead", "Let's add a new deck.",
-          m('br'),
-          m("input[type='text'][class='newDeckName']", {onchange: m.withAttr("value", newDeck.nameTxt)}),
-          m("br"),
-          m('a',{href:"#/deckDash/" + newDeck.nameTxt()}, 
-            m("input[type='button'][value='Make it!']",{onclick:this.makeDeck.bind(this)} )
+        m('.center-block', [
+          m("p.lead", "Let's add a new deck.",
+            m('br'),
+            m("input[type='text'][class='newDeckName']", {onchange: m.withAttr("value", newDeck.nameTxt)}),
+            m("br"),
+            m('a',{href:"#/deckDash/" + newDeck.nameTxt()}, 
+              m("input[type='button'][value='Make it!']",{onclick:this.makeDeck.bind(this)} )
+            )
           )
-        )
+        ])
       ])
     ])
-
 }
 
 newDeck.makeDeck = function(){ //populates the values of the card from the form and calls the view
@@ -30,7 +30,11 @@ newDeck.makeDeck = function(){ //populates the values of the card from the form 
 
   console.log(newDeck.name, " :name of the deck fetched from the dom");
 
-  Deck.createDeck(newDeck.name); //set the deck instead. Change method call.
+  Deck.createDeck(newDeck.name);
+  //redirect to the dashboard for the deck
+
+  //server call to create a deck? low priority
+
 }
 
 newDeck.controller = function(args){

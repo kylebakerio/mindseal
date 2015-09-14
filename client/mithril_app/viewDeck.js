@@ -51,9 +51,9 @@ viewDeck.controller = function(args){
     viewDeck.currentCard().toBeSeen = ( 
       viewDeck.currentCard().timeLastSeen.clone().add(viewDeck.currentCard().tVal, 'milliseconds') 
     );
-    console.log("Days to next viewing: " + 
-      moment.duration(viewDeck.currentCard().toBeSeen.diff(viewDeck.currentCard().timeLastSeen), 'milliseconds').asDays()
-    );
+    // console.log("Days to next viewing: " + 
+    //   moment.duration(viewDeck.currentCard().toBeSeen.diff(viewDeck.currentCard().timeLastSeen), 'milliseconds').asDays()
+    // );
     viewDeck.nextCard();
     viewDeck.toggleBack();
   }

@@ -5,9 +5,7 @@ module.exports = {
 
   getDecks: function(req, res) {
     // var googleId = "mvp_test";
-    var googleId = req.body.userId;
-    console.log("userID is: ", googleId)
-    console.log(req.headers, "  whole request");
+    var googleId = req.headers.userid;
     db.getDecks(googleId)
       .then(function(decks) {
         res.send(decks);
@@ -26,10 +24,12 @@ module.exports = {
   //       res.send(401, err);
   //     })
   //     .then(function(googleId) {
+  //       console.log(googleId, " :id in reqh auth")
   //       return db.getDecks(googleId)
   //     })
   //     .then(function(decks) {
-  //       res.send(cards);
+  //       console.log(decks, " : decks passed to reqH")
+  //       res.send(decks);
   //     })
   //     .catch(function(err) {
   //       console.log(err);
@@ -38,15 +38,14 @@ module.exports = {
   // },
 
   refreshDecks: function(req, res) {
-    var decks = req.body;
-
+    var decks = req.body.decks; //use just body when Auth integrated/tested
     Auth.getId(req)
       .catch(function(err) {
       // Handler for unsuccessful auth with Google
       res.send(401, err);
       })
       .then(function(googleId) {
-        return db.refreshDecks(googleId, cards)
+        return db.refreshDecks(googleId, decks)
       })
       .then(function() {
           res.send(201)
@@ -73,6 +72,7 @@ module.exports = {
   },
 
   createUser: function(req,res) {
+    console.log(req.headers, " :check for chrome token")
     Auth.getId(req)
       .catch(function(err) {
         res.send(401,err);
@@ -85,7 +85,7 @@ module.exports = {
       })
       .catch(function(err) {
         console.log(err);
-        res.send(500, err);
+        res.send(501, err);
       });
   }
 
@@ -111,3 +111,6 @@ module.exports = {
   // }
 
 };
+
+console.log(Auth.getId);
+
