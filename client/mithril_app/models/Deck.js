@@ -25,6 +25,20 @@ Deck.fetch = function() { //should be the server call to get a Decks object
 Deck.sync = function() {
   //should check with server to see if remote version 
   //is more recent than local version.
+  //a get request to the server (db). get back the data, if more recent than local
+  //keep else post to refresh database.
+
+  /* init function:
+    get from server and setObject if remote more recent
+
+    post client use
+    get
+    compare timestamps
+    setObject if remote more recent
+    post request to the db 
+  */
+
+
 }
 
 

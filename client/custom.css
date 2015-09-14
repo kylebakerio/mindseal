@@ -9,22 +9,24 @@
 }
 
 .center-block {
+  margin-top: 5%;
   background-color: #808080; 
   max-width: 70%;
   border-radius: 7px;
-  border-color: -moz-linear-gradient(top, #555555, #111111);
-  /*background: -webkit-gradient(linear, left top, right top, color-stop(1%,#4c4c4c), color-stop(70%,#808080), color-stop(99%,#4c4c4c)); /* Chrome,Safari4+ */  padding: 15px 0 15px 0;*/
+  padding: 1% 2% 1% 2%;
+  box-shadow: 10px 10px 100px rgba(0,0,0,.5);
 }
 
 .card { /* this should really be done responsively with bootstrap. */
   height:200px;
-  border: 1px solid black;
+  border: 1px solid #E6E6E6;
   border-radius: 5px;
   background: #d7f6f6;
-  padding: 20px;
+  padding: 2% 2% 2% 2%;
   width: 400px;
   text-align: center;
-  overflow: scroll;
+  box-shadow: none; 
+  /*overflow: scroll;*/
 }
 
 .card .front {
@@ -51,6 +53,14 @@ input {
   text-align: center;
 }
 
+.navTable {
+  border-radius: 1px;
+  display: block;
+  height: 2px;
+  width: 22px;
+  margin-top: 3px;
+}
+
 
 /* 
     TODO: 
@@ -60,4 +70,8 @@ input {
     settings page: padding betwen settings items (color)
     cards animation
     gradient on container edges
+    WYSIWYG editor for addcards
+    different container for the viewDeck
+    add padding to all
+
     ; */
