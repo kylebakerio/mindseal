@@ -32,7 +32,6 @@ newDeck.makeDeck = function(){ //populates the values of the card from the form 
   //redirect to the dashboard for the deck
 
   //server call to create a deck? low priority
-  m.route('#/deckDash/' + newDeck.name); //not working
 
 }
 

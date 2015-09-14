@@ -22,7 +22,7 @@ Deck.fetch = function() { //should be the server call to get a Decks object
 
 Deck.sync = function() {
   //Uncaught ReferenceError: Deck is not defined App.js 53
-
+  return 1;
   //step1: A GET request to make sure the client and server are synched up
   var xhrConfig = function(xhr) {
     xhr.setRequestHeader("userid", "mvp_test");
