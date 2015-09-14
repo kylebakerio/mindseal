@@ -5,9 +5,7 @@ module.exports = {
 
   getDecks: function(req, res) {
     // var googleId = "mvp_test";
-    var googleId = req.body.userId;
-    console.log("userID is: ", googleId)
-    console.log(req.headers, "  whole request");
+    var googleId = req.headers.userid;
     db.getDecks(googleId)
       .then(function(decks) {
         res.send(decks);
