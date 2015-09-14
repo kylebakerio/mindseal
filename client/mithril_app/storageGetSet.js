@@ -23,7 +23,8 @@ function getToken(callback) {
     if ( callback ) { 
       callback(token);
     }
-});
+  });
+}
 
 //this function allows the current sandbox App.mindSeal() object to be commited to local storage for persistent retrieval.
 function setMindSeal(){ 
