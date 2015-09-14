@@ -66,7 +66,7 @@ module.exports = {
         console.log(err);
         res.send(500, err);
       });
-  }
+  },
 
   createUser: function(req,res) {
     Auth.getId(req)
