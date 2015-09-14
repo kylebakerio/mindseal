@@ -61,6 +61,12 @@ input {
   margin-top: 3px;
 }
 
+img {
+  width:80%;
+  height:80%;
+  padding-left:auto;
+  padding-right:auto;
+}
 
 /* 
     TODO: 
