@@ -2,7 +2,7 @@ Card = {};
 
 //can be modified in settings page.
 console.log(App.mindSeal())
-Card.tValDefault =  m.prop(App.mindSeal().userSettings.tValDefault) || m.prop(129599999);
+Card.tValDefault =  /*m.prop(App.mindSeal().userSettings.tValDefault) || */m.prop(129599999);
 // Card.vm( { front: "front of card", back: "backofCard"  } )
 
 Card.vm = function (card) {

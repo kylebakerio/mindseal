@@ -21,8 +21,8 @@ Home.view = function(){
     m('br'),
     m('br'),
     // m("p", "Some basic user stats would look great here. Especially any kind of visualization."),
-    m('strong','Cards studied today: ' + App.mindSeal().userSettings.allTimeCounter),m('br'),m('br'),
-    m('strong','Total cards studied: ' + App.mindSeal().userSettings.todayCounter),m('br'),m('br'),
+    m("p.lead",'Total cards studied: ' + App.mindSeal().userSettings.allTimeCounter),
+    m("p.lead",'Cards studied today: ' + App.mindSeal().userSettings.todayCounter),
     m("h2", "Select a deck:"),
     m("", mArray), 
   ]);

@@ -24,10 +24,12 @@ module.exports = {
   //       res.send(401, err);
   //     })
   //     .then(function(googleId) {
+  //       console.log(googleId, " :id in reqh auth")
   //       return db.getDecks(googleId)
   //     })
   //     .then(function(decks) {
-  //       res.send(cards);
+  //       console.log(decks, " : decks passed to reqH")
+  //       res.send(decks);
   //     })
   //     .catch(function(err) {
   //       console.log(err);

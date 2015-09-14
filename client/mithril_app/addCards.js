@@ -24,17 +24,19 @@ addCards.view = function(){
         m("input[type='button']",{value:("Back to " + addCards.name + "'s dashboard")})
       ),
       m(".starter-template", [
-        m("h1", "CODENAME: IGGY"),
-        m("p.lead", ["Let's make some cards.",
-          m("br")," So you can remember stuff."]),
-        m('p','Size of your deck: ' + addCards.deck.cards.length),
-        m("input[type='text'][class='newFront']", {onchange: m.withAttr("value", addCards.frontTxt)}), //m
-        m("br"),
-        m("input[type='text'][class='newBack']", {onchange: m.withAttr("value", addCards.backTxt)}),
-        m("br"),
-        m("input[type='button'][value='make a card!']",
-          {onclick:this.makeCard.bind(this)}
-          )
+        m('.center-block', [
+          m("h1", "CODENAME: IGGY"),
+          m("p.lead", ["Let's make some cards.",
+            m("br")," So you can remember stuff."]),
+          m('p','Size of your deck: ' + addCards.deck.cards.length),
+          m("input[type='text'][class='newFront']", {onchange: m.withAttr("value", addCards.frontTxt)}), //m
+          m("br"),
+          m("input[type='text'][class='newBack']", {onchange: m.withAttr("value", addCards.backTxt)}),
+          m("br"),
+          m("input[type='button'][value='make a card!']",
+            {onclick:this.makeCard.bind(this)}
+            )
+        ])
       ])
     ])
 }
