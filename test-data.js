@@ -15,27 +15,35 @@ use mindseal
 db.createCollection('userData')
 //insert test data to collection
 
+//user already exists. Use update.
 db.userData.insert({ 
-                _id: "uniqueUserGoogleId", 
-                name: "Jeff Uberman", 
+                _id: "107412576489595151368",  //test with chrome developer id
+                name: "Green Field",
+                userSettings: {
+                newCardLimit: 20,
+                tValDefault: 128000000, //initial gap between making a card and it being seen for the first time
+                lastEdit: "2015-09-15T10:29:16-05:00", // for syncing purposes.
+                todayCounter: 0,
+                allTimeCounter: 197
+                }, 
                 decks: { 
                   deck1: {
-                    name: "javascript essentials",
+                    name: "trivia",
                     cards: [{ 
                       _id: "autoincr1",
-                      front: "this is the title card",
-                      back: "this is the solution card",
+                      front: "Who is your daddy?",
+                      back: "Probably Gilbert.",
                       timeLastSeen: 0,
                       toBeSeen: 0,
-                      cScale: {},
+                      cScale: {0: 0.9, 1: 1.2, 2: 1.8, 3: 2.5},
                       cMem: []
                     },
                     { _id: "autoincr2",
-                    front: "front of the second card",
-                    back: "back of the second card",
+                    front: "What is Jake Gyllenhall's first name?",
+                    back: "....Glenn?",
                     timeLastSeen: 0,
                     toBeSeen: 0,
-                    cScale: {},
+                    cScale: {0: 0.9, 1: 1.2, 2: 1.8, 3: 2.5},
                     cMem: []
                     }]
                   },
@@ -48,7 +56,7 @@ db.userData.insert({
                       back: "this is the solution jquery card",
                       timeLastSeen: 0,
                       toBeSeen: 0,
-                      cScale: {},
+                      cScale: {0: 0.9, 1: 1.2, 2: 1.8, 3: 2.5},
                       cMem: []
 
                     },
@@ -57,12 +65,45 @@ db.userData.insert({
                     back: "back of the second jquery card",
                     timeLastSeen: 0,
                     toBeSeen: 0,
-                    cScale: {},
+                    cScale: {0: 0.9, 1: 1.2, 2: 1.8, 3: 2.5},
                     cMem: []
                     }]
                   }
                 }
               })
+
+
+
+db.userData.update({_id: "107412576489595151368"}, {$set: {userSettings: {
+                newCardLimit: 20,
+                tValDefault: 128000000, //initial gap between making a card and it being seen for the first time
+                lastEdit: "2015-09-15T10:29:16-05:00", // for syncing purposes.
+                todayCounter: 0,
+                allTimeCounter: 197
+                }, 
+                decks: { 
+                  deck1: {
+                    name: "trivia",
+                    cards: [{ 
+                      _id: "autoincr1",
+                      front: "Who is your daddy?",
+                      back: "Probably Gilbert.",
+                      timeLastSeen: 0,
+                      toBeSeen: 0,
+                      cScale: {0: 0.9, 1: 1.2, 2: 1.8, 3: 2.5},
+                      cMem: []
+                    },
+                    { _id: "autoincr2",
+                    front: "What is Jake Gyllenhall's first name?",
+                    back: "....Glenn?",
+                    timeLastSeen: 0,
+                    toBeSeen: 0,
+                    cScale: {0: 0.9, 1: 1.2, 2: 1.8, 3: 2.5},
+                    cMem: []
+                    }]
+                  }
+
+                }}})
 
 /*
 

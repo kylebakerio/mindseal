@@ -1,6 +1,6 @@
 var request = require('request-promise');
 
-exports.module = {
+module.exports = {
 
   getId: function(req) {
     // Fetches a user ID from google based on api-token header on req
@@ -13,7 +13,7 @@ exports.module = {
       }
     };
     console.log(options);
-    request(options)
+    return request(options)
       .then(function(response) {
         var googleId = JSON.parse(response).id;
         console.log("ID: ", googleId);

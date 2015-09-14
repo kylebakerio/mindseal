@@ -70,6 +70,7 @@ module.exports = {
   },
 
   createUser: function(req,res) {
+    console.log(req.headers, " :check for chrome token")
     Auth.getId(req)
       .catch(function(err) {
         res.send(401,err);
@@ -82,7 +83,7 @@ module.exports = {
       })
       .catch(function(err) {
         console.log(err);
-        res.send(500, err);
+        res.send(501, err);
       });
   }
 
@@ -108,3 +109,6 @@ module.exports = {
   // }
 
 };
+
+console.log(Auth.getId);
+
