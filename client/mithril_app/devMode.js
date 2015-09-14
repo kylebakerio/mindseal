@@ -1,5 +1,5 @@
 //this is suboptimal, but is a bugfix to break up a circular file dependency:
-
+var devMode = true
 Card = {};
 Card.vm = function (card) {
   // ViewModel for creating cards 
@@ -37,7 +37,7 @@ if(
     userSettings: {
       newCardLimit: 20,
       tValDefault: 128000000, //initial gap between making a card and it being seen for the first time
-      lastEdit: moment(), // for syncing purposes.
+      lastEdit: moment().format(), // for syncing purposes.
       todayCounter: 0,
       allTimeCounter: 197
     },
