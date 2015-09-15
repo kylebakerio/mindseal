@@ -16,7 +16,7 @@
     "https://www.googleapis.com/*"
   ],
   "oauth2": {
-    "client_id": "359380179216-kldhijqvfs0d5no06vrbnajacrnmfr71.apps.googleusercontent.com",
+    "client_id": "GET_THIS_FROM_GOOGLE_DEVELOPER_CONSOLE",
     "scopes": ["https://www.googleapis.com/auth/plus.login"]
   }
 }
