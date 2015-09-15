@@ -16,7 +16,7 @@ use mindseal
 db.createCollection('userData')
 //insert test data to collection
 
-//user already exists. Use update.
+//If user already exists. Use update.
 db.userData.insert({ 
                 _id: "107412576489595151368",  //test with chrome developer id
                 name: "Green Field",
@@ -72,6 +72,7 @@ db.userData.insert({
                   }
                 }
               })
+
 
 
 db.userData.update({_id: "107412576489595151368"}, {$set: {userSettings: {
