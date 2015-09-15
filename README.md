@@ -1,6 +1,7 @@
 [![Stories in Ready](https://badge.waffle.io/undefined-NaN/codename-iggy.png?label=ready&title=Ready)](https://waffle.io/undefined-NaN/codename-iggy)
 # codename-iggy
 
+#mind:seal
 
 BackEnd: MongoDB
 model- /server/models/userData.js
@@ -9,11 +10,11 @@ Refer to the above test file to look at sample data being sent from the client s
 
 
 
-mind:seal
 
-The Mithril Parts
 
-#index.html
+#The Mithril Parts
+
+##index.html
 The logic flow starts at index.html. In mithril, the browser
 just loads a large collection of environment variables to start with.
 None of these variables in these scripts are drawn on the screen until 
@@ -27,7 +28,7 @@ developer should be on the script tags in the body.
 This file sets some basic functions that allow us to interact with
 localStorage. It's also a kind of 'helper' file. 
 
-#devMode.js
+##devMode.js
 This file is for developers only! It sets some basic data into local 
 storage for you to manipulate (dummy decks, some sane default values, 
 etc.). It prints instructions on its use to the console.log, and will 
@@ -40,12 +41,12 @@ you want these set while working on a chrome extension and haven't
 loaded them into your local storage already in a way that is accessible 
 to the extension.
 
-#app.js
+##app.js
 This is the first Mithril module. Mithril modules are objects that
 contain a view property and an optional controller property, which are 
 both loaded by Mithril's m.route at the appropriate time.
 
-#Deck.js
+##Deck.js
 This is the Deck model. These models are a little messy. Essentially,
 they contain object templates, and server calls. This is also true for 
 the next file,
@@ -60,23 +61,23 @@ object with a "front" and "back" property.
 All the rest, other than router.js (and then bootstrap's files), are
 components--view and controllers and variables for each view.
 
-#newDeck.js 
+##newDeck.js 
 This is the component for the "New Deck" page, which you get routed to
 by clicked the "New Deck" button on the "home" (default) page.
 
-#deckDash.js
+##deckDash.js
 This is the component that is loaded when you click any deck's button  
 on the 'home' screen (the default landing page). Notice that the 
 controller gets passed an object that contains variables that are
 assigned and then utilized by the view. These variables are passed
 from the routes.js m.route() call. 
 
-#addCards.js
+##addCards.js
 This is the page that is reached by clicking on 'add cards' from any
 deck's dash. It also is passed in variables that let it know which deck
 you want it to be adding to.
 
-#settings.js
+##settings.js
 This is the module for the settings page. It has one settings set up
 as a proof of concept. It modifies a variable in the model by calling
 a model function designed for that purpose. That model function also
@@ -84,10 +85,10 @@ writes that changed settings to the App.mindSeal() object, and then
 uses the mindSealSet() function to set it to local storage. If more
 settings are added, they should probably follow this model.
 
-#about.js
+##about.js
 Not much to this page. 
 
-#viewDeck.js
+##viewDeck.js
 This is the most complicated page, and it has problems. Ideally, it 
 would be rewritten, as the bugs it experiences (see below) are likely a 
 result of it not being written in a way mithril expects.
@@ -126,12 +127,12 @@ will have to refresh to get the card to show.
 This same effect is produced after adding new cards. You will see an
 empty card; if that happens, refreshing the page then shows the card.
 
-#home.js
+##home.js
 The default component. Renders a DOM element button for every deck, puts 
 them in an array, and then sets that array to a variable that is loaded
 in the view.
 
-#routes.js
+##routes.js
 this is where components get mounted. Take some time to do some reading
 here to understand the flow of information. Notice that Mithril will
 load a view and controller, will load the controller first, and will
