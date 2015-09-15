@@ -17,16 +17,16 @@ Once the project moves into development, the press release can be used as a touc
  -->
  
 ## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
+  Mindseal: A flash-card extension for Google Chrome.
 
 ## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+  An app for anyone interested in learning and retaining bite-sized chunks of information.
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  Mindseal allows users to create flashcards in the browser using a chrome extension. The app uses an algorithm to display cards in an order based on how well the user remembered the card the last time it was viewed.
 
 ## Problem ##
-  > Describe the problem your product solves.
+  It is difficult to sort and review physical flashcards without losing them, and time consuming to write down quotes from the internet by hand. 
 
 ## Solution ##
   > Describe how your product elegantly solves the problem.
