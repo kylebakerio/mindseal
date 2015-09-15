@@ -1,8 +1,9 @@
 /*steps to setup the database
+  http://docs.mongodb.org/master/installation/
+
   run mongod in one terminal tab, run mongo in the second, in that order
   copy-paste this script in the mongo shell (second tab).
 
-  todo: make this auto-run using mongo 'test-script.js'
 */
 
 // Test script for integration testing
@@ -13,11 +14,13 @@ db
 use mindseal
 // won't save the new database untill a collection has been created
 db.createCollection('userData')
-//insert test data to collection
+// insert test data to collection
 
-//user already exists. Use update.
+// If user already exists. Use update.
+// _id is the primary key. Use by creating a unique one on insert or use Google Auth.
+
 db.userData.insert({ 
-                _id: "107412576489595151368",  //test with chrome developer id
+                _id: "",  //test with chrome developer id
                 name: "Green Field",
                 userSettings: {
                 newCardLimit: 20,
@@ -74,7 +77,7 @@ db.userData.insert({
 
 
 
-db.userData.update({_id: "107412576489595151368"}, {$set: {userSettings: {
+db.userData.update({_id: ""}, {$set: {userSettings: {
                 newCardLimit: 20,
                 tValDefault: 128000000, //initial gap between making a card and it being seen for the first time
                 lastEdit: "2015-09-15T10:29:16-05:00", // for syncing purposes.
