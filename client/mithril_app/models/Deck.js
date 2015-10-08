@@ -74,11 +74,11 @@ Deck.sync = function() {
 
 Deck.find = function (id) {
   // Get deck matching id
-  console.log("looking for App.Decks[" + id + "], which is:")
-  if(App.mindSeal().decks[id] === undefined) {
+  if(App.mindSeal.decks[id] === undefined) {
     alert("Deck.find failed, could not find the requested deck: " + id)
+  } else {
+  return App.mindSeal.decks[id]
   }
-  return App.mindSeal().decks[id]
 }
 
 Deck.createCard = function (deckId, cardProps) {
@@ -99,7 +99,7 @@ Deck.createCard = function (deckId, cardProps) {
 Deck.createDeck = function (name) {
   console.log("the deck name as passed to the Deck.js is: ", name);
   //create an empty deck object and set it to local storage
-  App.mindSeal().decks[name] = {cards:[], creation: moment().format('MM-DD-YYYY')}; //initiate an empty deck with the passed in name
+  App.mindSeal.decks[name] = {cards:[], creation: moment().format('MM-DD-YYYY')}; //initiate an empty deck with the passed in name
   setMindSeal();
 }
 

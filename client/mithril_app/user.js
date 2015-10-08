@@ -1,0 +1,1 @@
+//model for variables pertaining to the user that aren't specific to decks or cards in particular

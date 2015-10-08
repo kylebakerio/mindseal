@@ -4,7 +4,6 @@ var viewDeck = {};
 viewDeck.view = function(ctrl){
   // document.getElementById("see-decks").addClass("active")
   //^potentially different way of handling highlighting parts of the nav bar?
-  console.log("view is returned")
   return m(".container",[
     m('br'),
     m("a", {href:('#/deckDash/' + ctrl.name)}, 
@@ -32,28 +31,37 @@ viewDeck.controller = function(args){
   ctrl.index = 0;
   ctrl.name = args.name;
   ctrl.deck = args.deck;
-  viewDeck.currentDeck = m.prop(args.deck);
-  viewDeck.currentCard = m.prop(viewDeck.currentDeck().cards[ctrl.index]);
+  viewDeck.currentDeck = args.deck;
+  viewDeck.currentCard = viewDeck.currentDeck.cards[ctrl.index];
   viewDeck.show = false;
-  viewDeck.remaining = viewDeck.currentDeck().cards.length-ctrl.index; //should be updated to take dates into account & should live update
+  viewDeck.remaining = viewDeck.currentDeck.cards.length-ctrl.index; //should be updated to take dates into account & should live update
 
   viewDeck.rate = function(button){
     var convert = {
-      'Did not remember': viewDeck.currentCard().cScale[0],
-      'Hard': viewDeck.currentCard().cScale[1],
-      'Good': viewDeck.currentCard().cScale[2],
-      'Too Easy': viewDeck.currentCard().cScale[3]
+      'Did not remember': viewDeck.currentCard.cScale[0],
+      'Hard': viewDeck.currentCard.cScale[1],
+      'Good': viewDeck.currentCard.cScale[2],
+      'Too Easy': viewDeck.currentCard.cScale[3]
     }
 
-    console.log(convert[button])
-    viewDeck.currentCard().tVal *= convert[button]; 
-    viewDeck.currentCard().timeLastSeen = moment(); //it was just seen now.
-    viewDeck.currentCard().toBeSeen = ( 
-      viewDeck.currentCard().timeLastSeen.clone().add(viewDeck.currentCard().tVal, 'milliseconds') 
+    var tVal = moment.duration(moment().diff(moment(viewDeck.currentCard.timeLastSeen))).asMinute(s);
+    console.log("tval is: " + tVal);
+
+    console.log("convert[button] " + convert[button])
+    console.log("old tval: " + viewDeck.currentCard.tVal);
+    tVal *= convert[button]; 
+    console.log("new tval: " + viewDeck.currentCard.tVal);
+    console.log("old time last seen: " + viewDeck.currentCard.timeLastSeen);
+    viewDeck.currentCard.timeLastSeen = moment().format(); //it was just seen now.
+    console.log("new time last seen: " + viewDeck.currentCard.timeLastSeen);
+    console.log("old time to be seen: " + viewDeck.currentCard.toBeSeen);
+    viewDeck.currentCard.toBeSeen = ( 
+      moment(viewDeck.currentCard.timeLastSeen).clone().add(tVal, 'milliseconds').format()
     );
-    // console.log("Days to next viewing: " + 
-    //   moment.duration(viewDeck.currentCard().toBeSeen.diff(viewDeck.currentCard().timeLastSeen), 'milliseconds').asDays()
-    // );
+    console.log("new time to be seen: " + viewDeck.currentCard.toBeSeen);
+    console.log("Days to next viewing: " + 
+      moment.duration(moment(viewDeck.currentCard.toBeSeen).diff(moment(viewDeck.currentCard.timeLastSeen))).asDays()
+    );
     viewDeck.nextCard();
     viewDeck.toggleBack();
   }
@@ -67,24 +75,26 @@ viewDeck.controller = function(args){
   }
 
   viewDeck.nextCard = function () {
-    if(viewDeck.currentDeck().cards.length <= ctrl.index +1/* ||
-       moment().diff(viewDeck.currentDeck()[ctrl.index +1].toBeSeen)*/
+    console.log(viewDeck.currentDeck.cards[ctrl.index+1]);
+    console.log(ctrl.index);
+    if(viewDeck.currentDeck.cards.length <= ctrl.index +1 || 
+      (moment().diff(viewDeck.currentDeck.cards[ctrl.index +1].toBeSeen) < 0)
       ) {
-      viewDeck.noMore()
+      console.log(viewDeck.currentDeck.cards.length <= ctrl.index +1 ? "ran out of cards" : "last card should not be shown");
+      viewDeck.noMore();
     }
     else {
       ctrl.index++;
       Card.counter(); //keeps track of how many cards you've studied.
-      viewDeck.currentCard(viewDeck.currentDeck().cards[ctrl.index]);
+      viewDeck.currentCard = viewDeck.currentDeck.cards[ctrl.index];
     }
   }
 
   viewDeck.toggleBack = function(){
     if (viewDeck.end !== true) {
       if (ctrl.show !== true ){
-        console.log("it's false!")
         viewDeck.back([
-          m(".card.back.center-block", viewDeck.currentCard().back),
+          m(".card.back.center-block", viewDeck.currentCard.back),
           m('br'),
           m("input",{type:'button', onclick: m.withAttr("value", viewDeck.rate), value:'Did not remember', title:"Press 0 to select"}),
           m("input",{type:'button', onclick: m.withAttr("value", viewDeck.rate), value:'Hard', title:"Press 1 to select"}),
@@ -94,14 +104,13 @@ viewDeck.controller = function(args){
         ctrl.show = true;
       }
       else {
-        console.log("it's true!")
         ctrl.show = false;
         viewDeck.back([
           m('br'),
           m("input",{type:'button', onclick: viewDeck.toggleBack, value:'Show Back', title:'Press spacebar to select'})
         ])
         viewDeck.front = m.prop(
-          m(".card.front.center-block", viewDeck.currentCard().front)
+          m(".card.front.center-block", viewDeck.currentCard.front)
         )
       }
     }
@@ -114,7 +123,7 @@ viewDeck.controller = function(args){
 
 
   viewDeck.front = m.prop(
-    m(".card.front.center-block", viewDeck.currentCard().front)
+    m(".card.front.center-block", viewDeck.currentCard.front)
   )
-  console.log("controller front and back set: " + viewDeck.currentCard().front + " " + viewDeck.currentCard().back)
+  console.log("controller front and back set: " + viewDeck.currentCard.front + " " + viewDeck.currentCard.back)
 }

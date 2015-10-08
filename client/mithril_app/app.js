@@ -1,11 +1,11 @@
 App = {};
 
 // used throughout the app as the locally modifiable copy of the localstorage JSON version.
-App.mindSeal = m.prop(localStorage.getObject('mindSeal'));
+App.mindSeal = localStorage.getObject('mindSeal');
 
 // specifies the navbar.
 App.view = function(){
-
+  //Jame's hacky navbar implementation
   var active = m.prop("active");
   var r = m.route();
   var navTable = {
@@ -49,6 +49,6 @@ App.view = function(){
 }
 
 App.controller = function(){
-  console.log("in Home.controller, calling Deck.sync()...");
+  // console.log("in Home.controller, calling Deck.sync()...");
   Deck.sync();
 }

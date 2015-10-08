@@ -1,21 +1,28 @@
-//this is suboptimal, but is a bugfix to break up a circular file dependency:
-var devMode = true
+//var devMode = true
 Card = {};
+
+
+//this is suboptimal, but is a bugfix to break up a circular file dependency:
+
 Card.vm = function (card) {
-  // ViewModel for creating cards 
+// ViewModel for creating cards 
+// usage example: Card.vm( { front: "front of card", back: "backofCard"  } )
   card = card || {};
-  console.log(card, "in vm");
+  console.log(card.front, " is passing through devmode Card.vm")
 
   return {  
-    front: m.prop(card.front || ''),
-    back: m.prop(card.back || ''),
-    tVal: m.prop(card.tVal || Card.tValDefault), //this is the difference between the next two values (default value)
-    timeLastSeen: m.prop(card.timeLastSeen || moment()),
-    toBeSeen: m.prop(card.toBeSeen || moment().add(Card.tValDefault)),
-    cMem: m.prop(card.cMem || []),
-    cScale: m.prop(card.cScale || {0: 0.9, 1: 1.2, 2: 1.8, 3: 2.5})
+    front: card.front || '',
+    back: card.back || '',
+    //should refactor to remove tval; it can always be derived by calculation of the next two, and 
+    //should not be relied upon for future calculations--current date is more useful to tell 'real world'
+    //tval, instead of 'desired tval' (which is still viewable), though we might want to store card tval
+    //over time or something instead
+    tVal: card.tVal || Card.tValDefault, //this is the difference between the next two values (default value)
+    timeLastSeen: card.timeLastSeen || moment().format(),
+    toBeSeen: card.toBeSeen || moment().add(Card.tValDefault).format(),
+    cMem: card.cMem || [],
+    cScale: card.cScale || {0: 0.9, 1: 1.2, 2: 1.8, 3: 2.5}
   }
-
 }
 
 // this document specifies a devmode, where two decks 
@@ -42,8 +49,8 @@ if(
       allTimeCounter: 197
     },
     decks: { 
-      programming: { cards : [], creation: moment().subtract(90, 'days').format('MM-DD-YYYY') },
-      trivia: { cards : [], creation: moment().subtract(11100, 'days').format('MM-DD-YYYY') }
+      programming: { cards: [], creation: moment().subtract(90, 'days').format('MM-DD-YYYY') },
+      trivia: { cards: [], creation: moment().subtract(11100, 'days').format('MM-DD-YYYY') }
     } 
   }
 

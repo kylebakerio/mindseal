@@ -26,10 +26,12 @@ function getToken(callback) {
   });
 }
 
-//this function allows the current sandbox App.mindSeal() object to be commited to local storage for persistent retrieval.
+// this function allows the current sandbox App.mindSeal object to be commited to local storage for persistent retrieval.
+// this is pretty inefficient, because it has to be JSONified; this could mean frequently rewriting up to 5mb of data for every
+// persistent data change (card view, deck creation, etc.). Chrome extension storage shouldn't need to be JSONified, I believe.
 function setMindSeal(){ 
-  App.mindSeal().userSettings.lastEdit = moment().format();
-  localStorage.setObject('mindSeal', App.mindSeal()) 
+  App.mindSeal.userSettings.lastEdit = moment().format();
+  localStorage.setObject('mindSeal', App.mindSeal);
 }
 
 console.log( "getter and setter are " + (Storage.prototype.getObject ? "loaded" : "not loaded") )

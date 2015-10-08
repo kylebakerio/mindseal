@@ -4,7 +4,7 @@ var settings = {};
 settings.view = function(ctrl){
   //creates a section for every deck
   // var mArray = [];
-  // for (var deck in App.mindSeal().decks){
+  // for (var deck in App.mindSeal.decks){
   //   mArray.push(
   //     // m("a", {href:('#/deckDash/' + deck)}, 
   //       m("h3",deck),
