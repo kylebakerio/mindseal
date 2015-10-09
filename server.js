@@ -11,6 +11,8 @@ app.use(express.static(__dirname + '/client'));
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
 app.use(morgan('dev'));
 
+// app.get('/bundle.js')
+
 app.post('/users',
   // Create a new user account
   function(req, res) {

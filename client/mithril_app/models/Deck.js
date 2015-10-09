@@ -115,3 +115,54 @@ Deck.createDeck = function (name) {
 //       })
 //     })
 //   }
+
+Deck.binaryInsert = function(index,arr,prop){
+  console.log("index is " + index)
+  obj = arr[index];
+  arr.splice(index,1);
+  console.log("card being sorted is ");
+  console.log(obj)
+  if (obj[prop] < arr[0][prop]){
+    //insert at position 0, shift all down
+    arr.unshift(obj);
+  }
+  else if (obj[prop] > arr[arr.length-1][prop]){
+    //insert at last position
+    arr.push(obj);
+  }
+  else {
+    var recur = function(pos,r){
+      if (arr[pos][prop] >= obj[prop] && arr[pos-1][prop] <= obj[prop]){
+        console.log("success 1, between: " + arr[pos][prop] + " and " + arr[pos-1][prop])
+        arr.splice(pos, 0, obj);
+      }
+      else if (arr[pos][prop] <= obj[prop] && arr[pos+1][prop] >= obj[prop]){
+        console.log("success 2, between: " + arr[pos][prop] + " and " + arr[pos+1][prop]);
+        arr.splice(pos+1, 0, obj);
+      }
+      else if (arr[pos][prop] > obj[prop]) {
+        recur(Math.ceil(pos-r), Math.ceil(r/2));
+      }
+      else if (arr[pos][prop] < obj[prop]){
+        recur(Math.ceil(pos+r), Math.ceil(r/2));
+      }
+    }
+    recur(Math.ceil((arr.length-1)/2), Math.ceil(arr.length/4));
+  }
+  
+}
+
+Deck.isSorted = function(array){
+  var realString = "";
+  var sortString = "";
+  for (var i = 0; i < array.length; i++){
+    realString = realString.concat(array[i].toBeSeen);
+  }
+  array.sort(function(a,b){return moment(a.toBeSeen).diff(moment(b.toBeSeen))});
+  for (var i = 0; i < array.length; i++){
+    sortString = sortString.concat(array[i].toBeSeen);
+  }
+  console.log(realString);
+  console.log(sortString);
+  return realString === sortString;
+}

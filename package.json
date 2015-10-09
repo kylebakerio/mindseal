@@ -1,22 +1,26 @@
 {
-  "name": "project_iggy",
-  "version": "0.0.1",
-  "description": "Flashcard chrome extension",
+  "name": "mind-seal",
+  "version": "0.1.0",
+  "description": "Machine-learning Flashcard web-app",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "author": "Kyle Baker, Jeff Berman, Nathan Leonard, Monisha Saggi",
+  "author": "Kyle Baker",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.13.3",
     "express": "^4.13.3",
+    "mocha": "^2.3.3",
     "mongodb": "^2.0.42",
     "morgan": "^1.6.1",
     "promised-mongo": "^1.2.0",
-    "morgan": "^1.6.1",
     "request-promise": "^0.4.3",
     "session": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/finetype/mind-seal.git"
   }
 }

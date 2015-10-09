@@ -8,7 +8,6 @@ m.route(document.getElementById("views"), "/home", {
     controller: function(){
       Home.controller
     },
-
     view: function(ctrl,args,extras) {
       console.log("root view fn() was run")
       return ('.app', [
