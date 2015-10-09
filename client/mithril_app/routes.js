@@ -9,7 +9,6 @@ m.route(document.getElementById("views"), "/home", {
       Home.controller
     },
     view: function(ctrl,args,extras) {
-      console.log("root view fn() was run")
       return ('.app', [
         m.component(App),
         m.component(Home)
