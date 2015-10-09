@@ -16,9 +16,10 @@ more time learning new information.
 This is the most efficient way to acquire new information, and is called spaced repitition. Its roots
 go over a century back.
 
-The vision is using a shared codebase for a responsive mobile-friendly website, a desktop app (via 
-electron), and a mobile app (at least at first--a port to React Native is planned after a phonegap 
-deploy is live as a stopgap).
+The vision is using a shared codebase for a responsive mobile-friendly website, a chrome extension
+(from which you can add cards while browsing, effortlessly), a desktop app (via electron), and a 
+mobile app (at least at first--a port to React Native is planned after a phonegap deploy is live 
+as a stopgap). All of these will be sync'd.
 
 I love mithril, so I'm coding it in mithril, because this is for me and the love of what I do, and
 mithril makes me love what I do more. Thanks Leo.
