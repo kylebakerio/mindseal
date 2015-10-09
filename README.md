@@ -1,6 +1,8 @@
 
 ##mind:seal
 
+want to contribute? Be sure to check the wiki!
+
 mind:seal is a tool for remembering everything you never want to forget.
 
 You make flashcards. Then, as you view the flashcards, you indicate how well you remember those cards. 
