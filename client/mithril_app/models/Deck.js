@@ -1,3 +1,4 @@
+
 Deck = {};
 
 // App.newDeck = new Deck();
@@ -116,21 +117,31 @@ Deck.createDeck = function (name) {
 //     })
 //   }
 
-Deck.binaryInsert = function(index,arr,prop){
+Deck.binaryInsert = function(index,arr,prop,card){
   console.log("index is " + index)
-  obj = arr[index];
-  arr.splice(index,1);
+  if (card) var obj = card;
+  else {
+    var obj = arr[index];
+    arr.splice(index,1);
+  }
   console.log("card being sorted is ");
-  console.log(obj)
-  if (obj[prop] < arr[0][prop]){
+  console.log("compare: ", obj[prop], arr[0]);
+  if (arr.length === 0) {
+    console.log("empty array")
+    arr.push(obj);
+  }
+  else if (obj[prop] < arr[0][prop]){
+    console.log("it's going to the front");
     //insert at position 0, shift all down
     arr.unshift(obj);
   }
   else if (obj[prop] > arr[arr.length-1][prop]){
+    console.log("it's going to the back");
     //insert at last position
     arr.push(obj);
   }
   else {
+    console.log("else")
     var recur = function(pos,r){
       if (arr[pos][prop] >= obj[prop] && arr[pos-1][prop] <= obj[prop]){
         console.log("success 1, between: " + arr[pos][prop] + " and " + arr[pos-1][prop])
@@ -146,10 +157,18 @@ Deck.binaryInsert = function(index,arr,prop){
       else if (arr[pos][prop] < obj[prop]){
         recur(Math.ceil(pos+r), Math.ceil(r/2));
       }
+      else {
+        console.log("error, perhaps card compared to has no " + prop + "prop?");
+        console.log("trying brute force... pushing and sorting");
+        arr.push(obj);
+        arr.sort(function(a,b){return moment(a.toBeSeen).diff(moment(b.toBeSeen))});
+        console.log(Deck.isSorted(arr) ? "sort seems to have worked" : "sort probably failed");
+        console.log("error handled gracefully, but advised to check deck cards... Something may be out of date.")
+      }
     }
     recur(Math.ceil((arr.length-1)/2), Math.ceil(arr.length/4));
   }
-  
+  setMindSeal();
 }
 
 Deck.isSorted = function(array){
@@ -162,7 +181,6 @@ Deck.isSorted = function(array){
   for (var i = 0; i < array.length; i++){
     sortString = sortString.concat(array[i].toBeSeen);
   }
-  console.log(realString);
-  console.log(sortString);
+  console.log(realString, "vs", sortString);
   return realString === sortString;
 }

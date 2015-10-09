@@ -76,19 +76,19 @@ if(
     timeLastSeen:moment('2012-10-01T20:05:41-05:00')
   }))
   devData.decks.trivia.cards.push(Card.vm({
-    front: "Is Taylor's beard epic?",
+    front: "Is Taylor's beard epic1?",
     back: "You don't need a flashcard to know that.",
     toBeSeen:moment('2013-10-01T20:05:41-05:00'),
     timeLastSeen:moment('2012-10-01T20:05:41-05:00')
   }))
   devData.decks.trivia.cards.push(Card.vm({
-    front: "Is Taylor's beard epic?",
+    front: "Is Taylor's beard epic2?",
     back: "You don't need a flashcard to know that.",
     toBeSeen:moment('2014-09-01T20:05:41-05:00'),
     timeLastSeen:moment('2013-10-01T20:05:41-05:00')
   }))
   devData.decks.trivia.cards.push(Card.vm({
-    front: "Is Taylor's beard epic?",
+    front: "Is Taylor's beard epic3?",
     back: "You don't need a flashcard to know that.",
     toBeSeen:moment('2016-10-10T20:05:41-05:00'),
     timeLastSeen:moment('2013-10-01T20:05:41-05:00')

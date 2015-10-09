@@ -12,7 +12,7 @@ Card.vm = function (card) {
   return {  
     front: card.front || '',
     back: card.back || '',
-    tVal: card.tVal || Card.tValDefault, //this is the difference between the next two values (default value)
+    tVal: card.tVal || Card.tValDefault, //this should be removed in the future, should always be derived
     timeLastSeen: card.timeLastSeen || moment().format(),
     toBeSeen: card.toBeSeen || moment().add(Card.tValDefault).format(),
     cMem: card.cMem || [],
@@ -20,11 +20,12 @@ Card.vm = function (card) {
   }
 }
 
-Card.setCard = function (card, deck) {
-  deck.cards.unshift(card); //should probably actually sort it here, but this will work for now.
-  setMindSeal();
-  console.log(deck.cards[0]) 
-}
+//defunct, use Deck.binaryInsert
+// Card.setCard = function (card, deck) {
+//   deck.cards.unshift(card); //should probably actually sort it here, but this will work for now.
+//   setMindSeal();
+//   console.log(deck.cards[0]) 
+// }
 
 //probably will not implement this by Monday:
 
