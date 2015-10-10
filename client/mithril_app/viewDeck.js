@@ -45,9 +45,9 @@
       console.log("convert[button] " + convert[button])
 
       var tVal = moment.duration(moment().diff(moment(ctrl.currentCard.timeLastSeen)));
-      console.log("old tval: " + (moment.duration(tVal).asHours()).toFixed(3) + " hours.");
+      console.log("old tval: " + (moment.duration(tVal).asMinutes()).toFixed(1) + " minutes.");
       tVal *= convert[button]; 
-      console.log("new tval: " + (moment.duration(tVal).asHours()).toFixed(3) + " hours.");
+      console.log("new tval: " + (moment.duration(tVal).asMinutes()).toFixed(1) + " minutes.");
       
       console.log("old time last seen: " + moment(ctrl.currentCard.timeLastSeen).fromNow());
       ctrl.currentCard.timeLastSeen = moment().format(); //it was just seen now.
@@ -60,7 +60,8 @@
       console.log("new time to be seen: " + moment(ctrl.currentCard.toBeSeen).fromNow());
       
       console.log("next viewing in: " + 
-        moment.duration(moment(ctrl.currentCard.toBeSeen).diff(moment(ctrl.currentCard.timeLastSeen))).asDays()
+        (moment.duration(moment(ctrl.currentCard.toBeSeen).diff(moment(ctrl.currentCard.timeLastSeen))).asDays()).toFixed(3) + 
+        " days."
       );
 
       Deck.binaryInsert(ctrl.index, ctrl.currentDeck.cards, "toBeSeen");

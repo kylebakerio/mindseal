@@ -156,52 +156,27 @@ Deck.createDeck = function (name, obj) {
 //   }
 
 Deck.binaryInsert = function(index,arr,prop,card){
+  //if 'card' argument is supplied, and index is null, we're inserting a new card. 
+  //if index is supplied, we've updated arr[index] and need to to find its new home.
   console.log("index is " + index)
-  if (card) var obj = card;
+  if (card && index === null) var obj = card;
   else {
     var obj = arr[index];
     arr.splice(index,1);
   }
-  console.log("card being sorted is ");
-  console.log("compare: ", obj[prop], arr[0]);
-  if (arr.length === 0) {
-    console.log("empty array")
-    arr.push(obj);
-  }
-  else if (obj[prop] < arr[0][prop]){
-    console.log("it's going to the front");
-    //insert at position 0, shift all down
-    arr.unshift(obj);
-  }
-  else if (obj[prop] > arr[arr.length-1][prop]){
-    console.log("it's going to the back");
-    //insert at last position
-    arr.push(obj);
-  }
-  else {
-    console.log("else")
+
+  if (arr.length === 0) arr.push(obj); //empty array, just pop it in.
+  else if (obj[prop] < arr[0][prop]) arr.unshift(obj); //goes to front.
+  else if (obj[prop] > arr[arr.length-1][prop]) arr.push(obj);  //goes to back.
+  else { //none of the above, need to try binary insertion.
     var recur = function(pos,r){
-      if (arr[pos][prop] >= obj[prop] && arr[pos-1][prop] <= obj[prop]){
-        console.log("success 1, between: " + arr[pos][prop] + " and " + arr[pos-1][prop])
-        arr.splice(pos, 0, obj);
-      }
-      else if (arr[pos][prop] <= obj[prop] && arr[pos+1][prop] >= obj[prop]){
-        console.log("success 2, between: " + arr[pos][prop] + " and " + arr[pos+1][prop]);
-        arr.splice(pos+1, 0, obj);
-      }
-      else if (arr[pos][prop] > obj[prop]) {
-        recur(Math.ceil(pos-r), Math.ceil(r/2));
-      }
-      else if (arr[pos][prop] < obj[prop]){
-        recur(Math.ceil(pos+r), Math.ceil(r/2));
-      }
+      if (arr[pos][prop] >= obj[prop] && arr[pos-1][prop] <= obj[prop]) arr.splice(pos, 0, obj);  
+      else if (arr[pos][prop] <= obj[prop] && arr[pos+1][prop] >= obj[prop]) arr.splice(pos+1, 0, obj);
+      else if (arr[pos][prop] > obj[prop]) recur(Math.ceil(pos-r), Math.ceil(r/2));
+      else if (arr[pos][prop] < obj[prop]) recur(Math.ceil(pos+r), Math.ceil(r/2));
       else {
-        console.log("error, perhaps card compared to has no " + prop + "prop?");
-        console.log("trying brute force... pushing and sorting");
-        arr.push(obj);
-        arr.sort(function(a,b){return moment(a.toBeSeen).diff(moment(b.toBeSeen))});
-        console.log(Deck.isSorted(arr) ? "sort seems to have worked" : "sort probably failed");
-        console.log("error handled gracefully, but advised to check deck cards... Something may be out of date.")
+        alert("error with binary insertion. Please check console to inspect problem card.")
+        console.log(obj);
       }
     }
     recur(Math.ceil((arr.length-1)/2), Math.ceil(arr.length/4));
@@ -210,23 +185,14 @@ Deck.binaryInsert = function(index,arr,prop,card){
 }
 
 Deck.isSorted = function(array){
-  // var realString = "";
-  // var sortString = "";
   var last = array[0];
+  console.log("-------------BEGIN DISPLAY OF ALL CARD TO-BE-SEEN TIMESTAMPS -----------------")
+  console.log("Card 1, ready to be seen " + moment(last.toBeSeen).fromNow())
   for (var i = 1; i < array.length; i++){
+    console.log("Card " + (i+1) + ", ready to be seen " + moment(array[i].toBeSeen).fromNow())
     if (array[i].toBeSeen < last.toBeSeen) return false;
     last = array[i];
-    // realString = realString.concat(array[i].toBeSeen);
   }
+  console.log("--------------THAT IS ALL----------------")
   return true;
-  // array.sort(function(a,b){return moment(a.toBeSeen).diff(moment(b.toBeSeen))});
-  // for (var i = 0; i < array.length; i++){
-  //   sortString = sortString.concat(array[i].toBeSeen);
-  // }
-
-  // if (realString !== sortString){
-  //   console.log("they didn't match. Here ");
-  // }
-  // return realString === sortString;
-
 }
