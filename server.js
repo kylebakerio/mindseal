@@ -4,7 +4,7 @@ var express     = require('express'),
     handler     = require('./server/utils/requestHandler.js');
 
 var app = express();
-var PORT = 1337;
+var PORT = 6666;
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/client'));
@@ -12,6 +12,22 @@ app.use('/bower_components', express.static(__dirname + '/bower_components'));
 app.use(morgan('dev'));
 
 // app.get('/bundle.js')
+
+
+app.get('/decks/shared', function(req, res){
+  handler.getShared(req,res);
+})
+
+
+
+
+
+
+
+
+
+//OLD STUFF, REWRITE ALL
+
 
 app.post('/users',
   // Create a new user account
