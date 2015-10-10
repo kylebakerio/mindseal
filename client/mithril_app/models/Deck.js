@@ -126,12 +126,14 @@ Deck.createCard = function (deckId, cardProps) {
 //   })
 }
 
-//TODO: ask Kyle about momentjs here and correct the parameters for create deck.
+//this is bad. This needs to be done in a more consistent way, a la Card.vm
 Deck.createDeck = function (name, obj) {
   console.log("the deck name as passed to the Deck.js is: ", name);
   //create an empty deck object and set it to local storage
-  App.mindSeal.decks[name] = obj;
-  App.mindSeal.decks[name].cards = []; //initiate an empty deck with the passed in name
+  if (obj.cards) App.mindSeal.decks[name] = obj;
+  else {
+    App.mindSeal.decks[name].cards = []; //initiate an empty deck with the passed in name
+  }
   setMindSeal();
 }
 

@@ -28,12 +28,12 @@
         m("a", {href:('#/deckDash/' + deck)}, 
           m("input[type='button']",{value:deck})
         ),
-        m("p","Next card ready to review: " + 
+        m("p", 
           ((App.mindSeal.decks[deck].cards.length !== 0) ? 
-          ( console.log("length: " + App.mindSeal.decks[deck].cards.length), moment(App.mindSeal.decks[deck].cards[0].toBeSeen).format("MMM Do, YYYY hh:mm a") +
+          ("Next card ready to review: " + moment(App.mindSeal.decks[deck].cards[0].toBeSeen).format("MMM Do, YYYY hh:mm a") +
           ", " + moment(App.mindSeal.decks[deck].cards[0].toBeSeen).fromNow() ) : 
-          (console.log("length is 0? " + (App.mindSeal.decks[deck].cards.length === 0)), "Deck is empty."))),
-        m("br"),
+           "Deck is empty." )),
+        m("p", "Number of cards in deck: " + App.mindSeal.decks[deck].cards.length),
         m("br")
       )
     }
