@@ -28,8 +28,7 @@
     ctrl.makeDeck = function(){ //populates the values of the card from the form and calls the view
       var deck = {name:ctrl.nameTxt()};
       console.log(deck.name + ": name of the deck fetched from the dom");
-      Deck.createDeck(deck.name, {creation: moment().format()});
-      //server call to create a deck? low priority
+      Deck.createDeck(deck.name);
     };
   };
 })()

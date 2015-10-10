@@ -130,9 +130,14 @@ Deck.createCard = function (deckId, cardProps) {
 Deck.createDeck = function (name, obj) {
   console.log("the deck name as passed to the Deck.js is: ", name);
   //create an empty deck object and set it to local storage
-  if (obj.cards) App.mindSeal.decks[name] = obj;
+  //if you pass in an object for the second parameter, any defaults you provide will be saved. 
+  //otherwise, a new one will be made for you.
+  if (obj) {
+    App.mindSeal.decks[name] = obj;
+    App.mindSeal.decks[name].creation = moment().format();
+  }
   else {
-    App.mindSeal.decks[name].cards = []; //initiate an empty deck with the passed in name
+    App.mindSeal.decks[name] = {creation: moment().format(), cards: []}; //initiate an empty deck with the passed in name
   }
   setMindSeal();
 }
@@ -205,15 +210,23 @@ Deck.binaryInsert = function(index,arr,prop,card){
 }
 
 Deck.isSorted = function(array){
-  var realString = "";
-  var sortString = "";
-  for (var i = 0; i < array.length; i++){
-    realString = realString.concat(array[i].toBeSeen);
+  // var realString = "";
+  // var sortString = "";
+  var last = array[0];
+  for (var i = 1; i < array.length; i++){
+    if (array[i].toBeSeen < last.toBeSeen) return false;
+    last = array[i];
+    // realString = realString.concat(array[i].toBeSeen);
   }
-  array.sort(function(a,b){return moment(a.toBeSeen).diff(moment(b.toBeSeen))});
-  for (var i = 0; i < array.length; i++){
-    sortString = sortString.concat(array[i].toBeSeen);
-  }
-  console.log(realString, "vs", sortString);
-  return realString === sortString;
+  return true;
+  // array.sort(function(a,b){return moment(a.toBeSeen).diff(moment(b.toBeSeen))});
+  // for (var i = 0; i < array.length; i++){
+  //   sortString = sortString.concat(array[i].toBeSeen);
+  // }
+
+  // if (realString !== sortString){
+  //   console.log("they didn't match. Here ");
+  // }
+  // return realString === sortString;
+
 }

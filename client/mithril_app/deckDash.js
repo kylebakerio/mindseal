@@ -7,7 +7,7 @@ deckDash.view = function(ctrl){
     m("h1", ctrl.name),
     m('br'),
     m("p.lead","Number of Cards: " + ctrl.deck.cards.length),
-    m("p.lead","Date Created: ", m('',ctrl.deck.creation)),
+    m("p.lead","Date Created: ", m('',moment(ctrl.deck.creation).format("MMM Do, YYYY"))),
     // m('strong',"time studied: "),
     m("a", {href:('#/viewDeck/' + ctrl.name)}, 
         m("input[type='button']",{value:"Review"})

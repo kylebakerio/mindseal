@@ -41,8 +41,8 @@ Card.vm = function (card) {
 Card.tValSetDefault = function(hours){ 
 //populates the values of the card from the form and calls the view
   console.log("old tval: " + moment.duration(App.mindSeal.userSettings.tValDefault, 'milliseconds').asDays() + " days");
-  Card.tValDefault( moment.duration(hours, 'h').asMilliseconds() ); 
-  App.mindSeal.userSettings.tValDefault = Card.tValDefault();
+  Card.tValDefault = moment.duration(hours, 'h').asMilliseconds() ; 
+  App.mindSeal.userSettings.tValDefault = Card.tValDefault;
   setMindSeal();
   console.log("new default tval: " + moment.duration(App.mindSeal.userSettings.tValDefault, 'milliseconds').asDays() + " days");
 }
