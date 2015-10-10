@@ -1,4 +1,3 @@
-//create a new deck here
 (function(){
   window.newDeck = {};
   newDeck.view = function(ctrl){

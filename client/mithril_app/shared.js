@@ -1,6 +1,5 @@
 (function(){
   window.shared = {};
-
   shared.view = function(ctrl){
     //creates a button for every deck
     var mArray = [];

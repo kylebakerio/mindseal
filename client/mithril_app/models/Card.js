@@ -1,8 +1,8 @@
-Card = {};
+window.Card = {};
 
 //can be modified in settings page.
 console.log("App.mindSeal", App.mindSeal);
-Card.tValDefault =  App.mindSeal.userSettings.tValDefault || 129599999;
+Card.tValDefault =  App.mindSeal.userSettings.tValDefault;
 
 Card.vm = function (card) {
 // ViewModel for creating cards 

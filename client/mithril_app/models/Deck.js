@@ -1,5 +1,4 @@
-
-Deck = {};
+window.Deck = {};
 
 // App.newDeck = new Deck();
 // App.newDeck.addCard(/*new card model*/)
@@ -28,12 +27,12 @@ Deck.fetch = function(deck) { //should be the server call to get a Decks object
       sharedDeck1: {
         cards:[Card.vm({front:"front1!!", back:"back111!!!"}), Card.vm({front:"front2!!", back:"back222 holy shit this works!!!!"})],
         description: "this is the description for deck 1",
-        creation: moment("12/30/1989")
+        creation: moment('1989-12-30T20:05:41-05:00').format()
       },
       sharedDeck2: {
         cards:[Card.vm({front:"front21!!", back:"back2111!!!"}), Card.vm({front:"front22!!", back:"back2222222 holy shit this works!!!!"})],
         description: "this is the description for deck 2",
-        creation: moment("10/10/1969")
+        creation: moment("1969-10-20T20:05:41-05:00").format()
       }
     }
     // return m.request({
@@ -186,13 +185,13 @@ Deck.binaryInsert = function(index,arr,prop,card){
 
 Deck.isSorted = function(array){
   var last = array[0];
-  console.log("-------------BEGIN DISPLAY OF ALL CARD TO-BE-SEEN TIMESTAMPS -----------------")
-  console.log("Card 1, ready to be seen " + moment(last.toBeSeen).fromNow())
+  console.log("--------BEGIN DISPLAY OF ALL CARD TO-BE-SEEN TIMESTAMPS --------")
+  console.log("Card -" + last.front + "-, ready to be seen " + moment(last.toBeSeen).fromNow())
   for (var i = 1; i < array.length; i++){
-    console.log("Card " + (i+1) + ", ready to be seen " + moment(array[i].toBeSeen).fromNow())
+    console.log("Card -" + array[i].front + "-, ready to be seen " + moment(array[i].toBeSeen).fromNow())
     if (array[i].toBeSeen < last.toBeSeen) return false;
     last = array[i];
   }
-  console.log("--------------THAT IS ALL----------------")
+  console.log("--------------SUCCESS?----------------")
   return true;
 }

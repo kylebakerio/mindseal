@@ -1,5 +1,4 @@
 (function(){
-
   window.viewDeck = {};
 
   viewDeck.view = function(ctrl){
@@ -91,7 +90,13 @@
         ) {
         console.log(ctrl.currentDeck.cards.length <= ctrl.index +1 ? "hit last card" : "hit a card not ready to be shown");
         // console.log("Next card's toBeSeen timestamp is: " + ctrl.currentDeck.cards[ctrl.index+1].toBeSeen.fromNow());
-        viewDeck.noMore();
+        if (moment().diff(ctrl.currentDeck.cards[0].toBeSeen) > 0) {
+          ctrl.index = 0;
+          Card.counter();
+          ctrl.currentCard = ctrl.currentDeck.cards[0];
+          ctrl.remaining = ctrl.currentDeck.cards.length-ctrl.index;
+        }
+        else viewDeck.noMore();
       }
       else {
         ctrl.index++;

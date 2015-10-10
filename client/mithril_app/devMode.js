@@ -1,5 +1,5 @@
 //var devMode = true
-Card = {};
+window.Card = {};
 
 
 //this is suboptimal, but is a bugfix to break up a circular file dependency:
@@ -35,7 +35,7 @@ console.log("heads up, you should look at the devMode.js Card.vm function \
 
 if( 
     devMode === true && 
-    !localStorage.getObject('mindSeal').decks &&
+    localStorage.getObject('mindSeal').dev === true &&
     (prompt("WARNING! devMode is on, and it appears there are no decks. \
       Overwrite ALL LOCAL DATA with dummy data? Type 'yes' to continue.") === "yes")
   ) {
@@ -51,57 +51,57 @@ if(
       allTimeCounter: 197
     },
     decks: { 
-      programming: { cards: [], creation: moment().subtract(90, 'days').format('MM-DD-YYYY') },
-      trivia: { cards: [], creation: moment().subtract(11100, 'days').format('MM-DD-YYYY') }
+      programming: { cards: [], creation: moment().subtract(90, 'days').format() },
+      trivia: { cards: [], creation: moment().subtract(11100, 'days').format() }
     } 
   }
 
   devData.decks.programming.cards.push(Card.vm({
     front: "How does one add objects to local storage?",
     back: "JSON.stringify ftw, yo.",
-    toBeSeen:moment('2014-10-01T20:05:41-05:00'),
-    timeLastSeen:moment('2013-10-01T20:05:41-05:00')
+    toBeSeen:moment('2014-10-01T20:05:41-05:00').format(),
+    timeLastSeen:moment('2013-10-01T20:05:41-05:00').format()
   }))
   devData.decks.programming.cards.push(Card.vm({
     front: "Who is the your daddy?",
     back: "Probably Gilbert.",
-    toBeSeen:moment('2014-10-01T20:05:41-05:00'),
-    timeLastSeen:moment('2013-10-01T20:05:41-05:00')
+    toBeSeen:moment('2014-10-01T20:05:41-05:00').format(),
+    timeLastSeen:moment('2013-10-01T20:05:41-05:00').format()
   }))
 
   devData.decks.trivia.cards.push(Card.vm({
     front: "Do you really need a second deck for this demonstration?",
     back: "of course you do.",
-    toBeSeen:moment('2013-10-01T20:05:41-05:00'),
-    timeLastSeen:moment('2012-10-01T20:05:41-05:00')
+    toBeSeen:moment('2013-10-01T20:05:41-05:00').format(),
+    timeLastSeen:moment('2012-10-01T20:05:41-05:00').format()
   }))
   devData.decks.trivia.cards.push(Card.vm({
     front: "Is Taylor's beard epic1?",
     back: "You don't need a flashcard to know that.",
-    toBeSeen:moment('2013-10-01T20:05:41-05:00'),
-    timeLastSeen:moment('2012-10-01T20:05:41-05:00')
+    toBeSeen:moment('2013-10-01T20:05:41-05:00').format(),
+    timeLastSeen:moment('2012-10-01T20:05:41-05:00').format()
   }))
   devData.decks.trivia.cards.push(Card.vm({
     front: "Is Taylor's beard epic2?",
     back: "You don't need a flashcard to know that.",
-    toBeSeen:moment('2014-09-01T20:05:41-05:00'),
-    timeLastSeen:moment('2013-10-01T20:05:41-05:00')
+    toBeSeen:moment('2014-09-01T20:05:41-05:00').format(),
+    timeLastSeen:moment('2013-10-01T20:05:41-05:00').format()
   }))
   devData.decks.trivia.cards.push(Card.vm({
     front: "Is Taylor's beard epic3?",
     back: "You don't need a flashcard to know that.",
-    toBeSeen:moment('2016-10-10T20:05:41-05:00'),
-    timeLastSeen:moment('2013-10-01T20:05:41-05:00')
+    toBeSeen:moment('2016-10-10T20:05:41-05:00').format(),
+    timeLastSeen:moment('2013-10-01T20:05:41-05:00').format()
   }))
 
   localStorage.setObject('mindSeal', devData)
 
 }
 
-else if ( devMode === true && localStorage.getObject('mindSeal').decks ) {
-  console.log("devMode is on, but there is already a decks object. Nothing will be changed.\
-  if you want to write dummy decks anyways, and ERASE ALL mindSeal data!!! \
+else if ( devMode === true ) {
+  console.log("devMode is on, but you have decks. Nothing will be changed.\
+  if you want to write dummy decks anyways, and ERASE ALL LOCAL mind:seal data!!! \
   type the following into the console:\
-  localStorage.setObject('mindSeal', {})\
+  localStorage.setObject('mindSeal', {dev: true, decks:{},userSettings:{tValDefault:130000000,allTimeCounter:0,todayCounter:0}}) \
   and then refresh the page.")
 }

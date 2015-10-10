@@ -1,7 +1,6 @@
 var deckDash = {};
 
 deckDash.view = function(ctrl){
-
   return m("div.container center-block",[
     m('br'),
     m("h1", ctrl.name),
