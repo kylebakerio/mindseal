@@ -77,6 +77,16 @@ m.route(document.getElementById("views"), "/home", {
     }
   },
 
+  "/shared": {
+    controller: function(){},
+    view: function() {
+      return m('.app', [
+        m.component(App),
+        m.component(shared)
+      ])
+    }
+  },
+
   "/about": {
     // controller: function(){},
     view: function() {

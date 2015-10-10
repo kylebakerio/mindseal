@@ -1,8 +1,6 @@
 (function(){
   window.addCards = {};
 
-  //picks up the text from the input field it's called from
-
   addCards.view = function(ctrl){
     return m('br'),
       m(".container", [

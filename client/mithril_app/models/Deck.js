@@ -12,12 +12,42 @@ Deck.vm = function(){ // template for a new deck
 }
 
 //maybe refresh with server or fetch from local storage
-Deck.fetch = function() { //should be the server call to get a Decks object
-  // return m.request({
-  //   method: 'GET', 
-  //   url: '/decks/'//,
-  //   // data: session token
-  // })
+Deck.fetch = function(deck) { //should be the server call to get a Decks object
+  if (!deck){
+    console.log("fetching user's decks!");
+    //get all decks
+    // return m.request({
+    //   method: 'GET', 
+    //   url: '/decks/'//,
+    //   // data: session token
+    // })
+  } else if (deck === "shared") {
+    console.log("get shared decks!");
+    //stopgap for what is desired to be returned from server.
+    return {
+      sharedDeck1: {
+        cards:[Card.vm({front:"front1!!", back:"back111!!!"}), Card.vm({front:"front2!!", back:"back222 holy shit this works!!!!"})],
+        description: "this is the description for deck 1",
+        creation: moment("12/30/1989")
+      },
+      sharedDeck2: {
+        cards:[Card.vm({front:"front21!!", back:"back2111!!!"}), Card.vm({front:"front22!!", back:"back2222222 holy shit this works!!!!"})],
+        description: "this is the description for deck 2",
+        creation: moment("10/10/1969")
+      }
+    }
+    // return m.request({
+    //   method: 'GET', 
+    //   url: '/decks/shared'/*,
+    //    data: session token*/
+    // }).then(function(decks){
+    //   console.log("got shared decks!");
+    //   console.log(decks);
+    //   return decks;
+    // })
+  } else {
+    //something with 'deck'
+  }
 }
 
 Deck.sync = function() {
@@ -97,10 +127,11 @@ Deck.createCard = function (deckId, cardProps) {
 }
 
 //TODO: ask Kyle about momentjs here and correct the parameters for create deck.
-Deck.createDeck = function (name) {
+Deck.createDeck = function (name, obj) {
   console.log("the deck name as passed to the Deck.js is: ", name);
   //create an empty deck object and set it to local storage
-  App.mindSeal.decks[name] = {cards:[], creation: moment().format('MM-DD-YYYY')}; //initiate an empty deck with the passed in name
+  App.mindSeal.decks[name] = obj;
+  App.mindSeal.decks[name].cards = []; //initiate an empty deck with the passed in name
   setMindSeal();
 }
 
