@@ -4,7 +4,7 @@
   // used throughout the app as the locally modifiable copy of the localstorage JSON version.
   App.mindSeal = localStorage.getObject('mindSeal');
 
-  App.view = function(){
+  App.view = function(ctrl){
     //James' hacky navbar implementation
     var active = m.prop("active");
     var r = m.route();
@@ -39,7 +39,8 @@
               // m("li", {class: navTable["viewDeck"]()},[m("a[href='#/viewDeck/" + Home.selDeck + "']", "View Deck")]),
               m("li", {class: navTable["home"]()},[m("a[href='#/home']", "Home")]),
               m("li", {class: navTable["settings"]()},[m("a[href='#/settings']", "Settings")]),
-              m("li", {class: navTable["about"]()},[m("a[href='#/about']", "About")])
+              m("li", {class: navTable["about"]()},[m("a[href='#/about']", "About")]),
+              m("li", {class: navTable["about"](), onclick: ctrl.logout},[m("a[href='#/home']", "Log Out")])
             ])
           ])
         ])
@@ -50,6 +51,12 @@
 
   App.controller = function(){
     // console.log("in Home.controller, calling Deck.sync()...");
-    Deck.sync();
+    // Deck.sync();
+    ctrl = this;
+    ctrl.logout = function(){
+      User.logout();
+      // localStorage.loggedIn = false;
+      //super hacky, should be using sessions...
+    }
   }
 })()

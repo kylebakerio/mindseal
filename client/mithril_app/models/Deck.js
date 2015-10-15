@@ -3,49 +3,41 @@ window.Deck = {};
 // App.newDeck = new Deck();
 // App.newDeck.addCard(/*new card model*/)
 
-Deck.vm = function(){ // template for a new deck
-  return {
-    cards:[],
-    addCard: function(){}
-  }
-}
-
 //maybe refresh with server or fetch from local storage
-Deck.fetch = function(deck) { //should be the server call to get a Decks object
-  if (!deck){
+Deck.fetch = function(shared) { //should be the server call to get a Decks object
+  if (!shared){
     console.log("fetching user's decks!");
     //get all decks
-    // return m.request({
-    //   method: 'GET', 
-    //   url: '/decks/'//,
-    //   // data: session token
-    // })
-  } else if (deck === "shared") {
+    return m.request({
+      method: 'GET', 
+      url: '/decks/'
+    }).then(function(res){
+
+    })
+  } else if (shared === "shared") {
     console.log("get shared decks!");
     //stopgap for what is desired to be returned from server.
-    return {
-      sharedDeck1: {
-        cards:[Card.vm({front:"front1!!", back:"back111!!!"}), Card.vm({front:"front2!!", back:"back222 holy shit this works!!!!"})],
-        description: "this is the description for deck 1",
-        creation: moment('1989-12-30T20:05:41-05:00').format()
-      },
-      sharedDeck2: {
-        cards:[Card.vm({front:"front21!!", back:"back2111!!!"}), Card.vm({front:"front22!!", back:"back2222222 holy shit this works!!!!"})],
-        description: "this is the description for deck 2",
-        creation: moment("1969-10-20T20:05:41-05:00").format()
-      }
-    }
-    // return m.request({
-    //   method: 'GET', 
-    //   url: '/decks/shared'/*,
-    //    data: session token*/
-    // }).then(function(decks){
-    //   console.log("got shared decks!");
-    //   console.log(decks);
-    //   return decks;
-    // })
+   
+    return m.request({
+      method: 'GET', 
+      url: '/decks/shared'
+    })
+
+    // return 
+    // {
+    //   sharedDeck1: {
+    //     cards:[Card.vm({front:"front1!!", back:"back111!!!"}), Card.vm({front:"front2!!", back:"back222 holy shit this works!!!!"})],
+    //     description: "this is the description for deck 1",
+    //     creation: moment('1989-12-30T20:05:41-05:00').format()
+    //   },
+    //   sharedDeck2: {
+    //     cards:[Card.vm({front:"front21!!", back:"back2111!!!"}), Card.vm({front:"front22!!", back:"back2222222 holy shit this works!!!!"})],
+    //     description: "this is the description for deck 2",
+    //     creation: moment("1969-10-20T20:05:41-05:00").format()
+    //   }
+    // }
   } else {
-    //something with 'deck'
+    console.log("bad input on Deck.fetch: " + shared);
   }
 }
 

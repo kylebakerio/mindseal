@@ -20,100 +20,100 @@ db.createCollection('userData')
 // _id is the primary key. Use by creating a unique one on insert or use Google Auth.
 
 db.userData.insert({ 
-                _id: "",  //test with chrome developer id
-                name: "Green Field",
-                userSettings: {
-                newCardLimit: 20,
-                tValDefault: 128000000, //initial gap between making a card and it being seen for the first time
-                lastEdit: "2015-09-15T10:29:16-05:00", // for syncing purposes.
-                todayCounter: 0,
-                allTimeCounter: 197
-                }, 
-                decks: { 
-                  deck1: {
-                    name: "trivia",
-                    cards: [{ 
-                      _id: "autoincr1",
-                      front: "Who is your daddy?",
-                      back: "Probably Gilbert.",
-                      timeLastSeen: 0,
-                      toBeSeen: 0,
-                      cScale: {0: 0.9, 1: 1.2, 2: 1.8, 3: 2.5},
-                      cMem: []
-                    },
-                    { _id: "autoincr2",
-                    front: "What is Jake Gyllenhall's first name?",
-                    back: "....Glenn?",
-                    timeLastSeen: 0,
-                    toBeSeen: 0,
-                    cScale: {0: 0.9, 1: 1.2, 2: 1.8, 3: 2.5},
-                    cMem: []
-                    }]
-                  },
+  // _id: "",  //test with chrome developer id
+  name: "Green Field",
+  userSettings: {
+  newCardLimit: 20,
+  tValDefault: 128000000, //initial gap between making a card and it being seen for the first time
+  lastEdit: "2015-09-15T10:29:16-05:00", // for syncing purposes.
+  todayCounter: 0,
+  allTimeCounter: 197
+  }, 
+  decks: { 
+    deck1: {
+      name: "trivia",
+      cards: [{ 
+        _id: "autoincr1",
+        front: "Who is your daddy?",
+        back: "Probably Gilbert.",
+        timeLastSeen: 0,
+        toBeSeen: 0,
+        cScale: {0: 0.9, 1: 1.2, 2: 1.8, 3: 2.5},
+        cMem: []
+      },
+      { _id: "autoincr2",
+      front: "What is Jake Gyllenhall's first name?",
+      back: "....Glenn?",
+      timeLastSeen: 0,
+      toBeSeen: 0,
+      cScale: {0: 0.9, 1: 1.2, 2: 1.8, 3: 2.5},
+      cMem: []
+      }]
+    },
 
-                  deck2: {
-                    name: "jQuery essentials",
-                    cards: [{ 
-                      _id: "autoincr1",
-                      front: "this is the first jquery card",
-                      back: "this is the solution jquery card",
-                      timeLastSeen: 0,
-                      toBeSeen: 0,
-                      cScale: {0: 0.9, 1: 1.2, 2: 1.8, 3: 2.5},
-                      cMem: []
+    deck2: {
+      name: "jQuery essentials",
+      cards: [{ 
+        _id: "autoincr1",
+        front: "this is the first jquery card",
+        back: "this is the solution jquery card",
+        timeLastSeen: 0,
+        toBeSeen: 0,
+        cScale: {0: 0.9, 1: 1.2, 2: 1.8, 3: 2.5},
+        cMem: []
 
-                    },
-                    { _id: "autoincr2",
-                    front: "front of the second jquery card",
-                    back: "back of the second jquery card",
-                    timeLastSeen: 0,
-                    toBeSeen: 0,
-                    cScale: {0: 0.9, 1: 1.2, 2: 1.8, 3: 2.5},
-                    cMem: []
-                    }]
-                  }
-                }
-              })
+      },
+      { _id: "autoincr2",
+      front: "front of the second jquery card",
+      back: "back of the second jquery card",
+      timeLastSeen: 0,
+      toBeSeen: 0,
+      cScale: {0: 0.9, 1: 1.2, 2: 1.8, 3: 2.5},
+      cMem: []
+      }]
+    }
+  }
+})
 
 
 
 db.userData.update({_id: ""}, {$set: {userSettings: {
-                newCardLimit: 20,
-                tValDefault: 128000000, //initial gap between making a card and it being seen for the first time
-                lastEdit: "2015-09-15T10:29:16-05:00", // for syncing purposes.
-                todayCounter: 0,
-                allTimeCounter: 197
-                }, 
-                decks: { 
-                  deck1: {
-                    name: "trivia",
-                    cards: [{ 
-                      _id: "autoincr1",
-                      front: "Who is your daddy?",
-                      back: "Probably Gilbert.",
-                      timeLastSeen: 0,
-                      toBeSeen: 0,
-                      cScale: {0: 0.9, 1: 1.2, 2: 1.8, 3: 2.5},
-                      cMem: []
-                    },
-                    { _id: "autoincr2",
-                    front: "What is Jake Gyllenhall's first name?",
-                    back: "....Glenn?",
-                    timeLastSeen: 0,
-                    toBeSeen: 0,
-                    cScale: {0: 0.9, 1: 1.2, 2: 1.8, 3: 2.5},
-                    cMem: []
-                    }]
-                  }
+  newCardLimit: 20,
+  tValDefault: 128000000, //initial gap between making a card and it being seen for the first time
+  lastEdit: "2015-09-15T10:29:16-05:00", // for syncing purposes.
+  todayCounter: 0,
+  allTimeCounter: 197
+  }, 
+  decks: { 
+    deck1: {
+      name: "trivia",
+      cards: [{ 
+        _id: "autoincr1",
+        front: "Who is your daddy?",
+        back: "Probably Gilbert.",
+        timeLastSeen: 0,
+        toBeSeen: 0,
+        cScale: {0: 0.9, 1: 1.2, 2: 1.8, 3: 2.5},
+        cMem: []
+      },
+      { _id: "autoincr2",
+      front: "What is Jake Gyllenhall's first name?",
+      back: "....Glenn?",
+      timeLastSeen: 0,
+      toBeSeen: 0,
+      cScale: {0: 0.9, 1: 1.2, 2: 1.8, 3: 2.5},
+      cMem: []
+      }]
+    }
 
-                }}})
+  }}})
 
-/*
+
 
 
 //misc queries to play with the data
 
-db.userRecordsObj.update( {_id: "uniqueUserGoogleId"}, {$set: {"decks.deck1.name": "updated" } } ) //note: quotes around nested keys
+db.userRecordsObj.update( {_id: "uniqueUserGoogleId"}, {$set: { : "updated" } } ) //note: quotes around nested keys
 
 // updating a deck name
 db.userRecordsObj.update( {_id: "uniqueUserGoogleId"}, {$set: {"decks.deck1.name": "updated" } } )
@@ -149,6 +149,6 @@ db.userRecordsObj.find({"decks.deck1.name": "deckName"})
 db.userRecordsObj.find({"decks.deck1.name": "deckName"}, {name: false, _id: false})
 
 
-*/
+
 
 

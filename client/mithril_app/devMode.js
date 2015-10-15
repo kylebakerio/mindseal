@@ -36,23 +36,23 @@ console.log("heads up, you should look at the devMode.js Card.vm function \
 if( 
     devMode === true && 
     localStorage.getObject('mindSeal').dev === true &&
-    (prompt("WARNING! devMode is on, and it appears there are no decks. \
+    (prompt("WARNING! devMode is on. \
       Overwrite ALL LOCAL DATA with dummy data? Type 'yes' to continue.") === "yes")
   ) {
 
   console.log("there are no decks, devmode is on, user approved; adding dummy decks.")
-  
+  localStorage.loggedIn = false;
   var devData = { 
     userSettings: {
       newCardLimit: 20,
-      tValDefault: 128000000, //initial gap between making a card and it being seen for the first time
-      lastEdit: moment().format(), // for syncing purposes.
+      tValDefault: 128000000, 
+      lastEdit: moment().format(), 
       todayCounter: 0,
       allTimeCounter: 197
     },
     decks: { 
       programming: { cards: [], creation: moment().subtract(90, 'days').format() },
-      trivia: { cards: [], creation: moment().subtract(11100, 'days').format() }
+      trivia: { cards: [], creation: moment().subtract(1100, 'days').format() }
     } 
   }
 

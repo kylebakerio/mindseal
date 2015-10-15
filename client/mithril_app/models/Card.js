@@ -1,8 +1,7 @@
 window.Card = {};
 
 //can be modified in settings page.
-console.log("App.mindSeal", App.mindSeal);
-Card.tValDefault =  App.mindSeal.userSettings.tValDefault;
+console.log("App.mindSeal: ", App.mindSeal);
 
 Card.vm = function (card) {
 // ViewModel for creating cards 
@@ -12,9 +11,9 @@ Card.vm = function (card) {
   return {  
     front: card.front || '',
     back: card.back || '',
-    tVal: card.tVal || Card.tValDefault, //this should be removed in the future, should always be derived
+    tVal: card.tVal || App.mindSeal.userSettings.tValDefault, //this should be removed in the future, should always be derived
     timeLastSeen: card.timeLastSeen || moment().format(),
-    toBeSeen: card.toBeSeen || moment().add(Card.tValDefault).format(),
+    toBeSeen: card.toBeSeen || moment().add(App.mindSeal.userSettings.tValDefault).format(),
     cMem: card.cMem || [],
     cScale: card.cScale || {0: 0.9, 1: 1.2, 2: 1.8, 3: 2.5}
   }
@@ -39,10 +38,8 @@ Card.vm = function (card) {
 // }
 
 Card.tValSetDefault = function(hours){ 
-//populates the values of the card from the form and calls the view
   console.log("old tval: " + moment.duration(App.mindSeal.userSettings.tValDefault, 'milliseconds').asDays() + " days");
-  Card.tValDefault = moment.duration(hours, 'h').asMilliseconds() ; 
-  App.mindSeal.userSettings.tValDefault = Card.tValDefault;
+  App.mindSeal.userSettings.tValDefault = moment.duration(hours, 'h').asMilliseconds() ; 
   setMindSeal();
   console.log("new default tval: " + moment.duration(App.mindSeal.userSettings.tValDefault, 'milliseconds').asDays() + " days");
 }
@@ -52,7 +49,7 @@ Card.counter = function(){
     App.mindSeal.userSettings.todayCounter++;
   }
   else {
-    App.mindSeal.userSettings.todayCounter = 0;
+    App.mindSeal.userSettings.todayCounter = 1;
   }
   App.mindSeal.userSettings.allTimeCounter++;
   setMindSeal();

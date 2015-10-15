@@ -10,7 +10,10 @@
   "author": "Kyle Baker",
   "license": "ISC",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.13.3",
+    "connect-mongo": "^0.8.2",
+    "cookie-session": "^1.2.0",
     "express": "^4.13.3",
     "mocha": "^2.3.3",
     "mongodb": "^2.0.42",

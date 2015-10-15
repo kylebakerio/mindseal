@@ -27,7 +27,11 @@
 
   shared.controller = function(){
     ctrl = this;
-    ctrl.shared = Deck.fetch("shared");
+    Deck.fetch("shared")
+    .then(function(res){
+      ctrl.shared = res.decks;
+    })
+
     ctrl.addDeck = function(deckName){
       Deck.createDeck(deckName,ctrl.shared[deckName])
     };

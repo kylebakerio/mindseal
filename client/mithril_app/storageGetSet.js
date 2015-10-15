@@ -50,7 +50,7 @@ console.log( "getter and setter are " + (Storage.prototype.getObject ? "loaded" 
 // worry about that possibility here. If it doesn't exist, you
 // can't erase it.
 
-if ( !localStorage.getObject('mindSeal') ){
-  console.log('there was no mindseal, creating an empty one.')
-  localStorage.setObject('mindSeal', { decks:{} }) 
-}
+// if ( !localStorage.getObject('mindSeal') ){
+//   console.log('there was no mindseal, creating an empty one.')
+//   // localStorage.setObject('mindSeal', { decks:{} }) 
+// }
