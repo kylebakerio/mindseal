@@ -12,7 +12,8 @@
       "home": m.prop(),
       "settings": m.prop(),
       "#": m.prop(),
-      "about": m.prop()
+      "about": m.prop(),
+      'logout': m.prop()
     }
     for (var key in navTable){
       if (r.split('/')[1] === key) navTable[key]("active")
@@ -40,7 +41,7 @@
               m("li", {class: navTable["home"]()},[m("a[href='#/home']", "Home")]),
               m("li", {class: navTable["settings"]()},[m("a[href='#/settings']", "Settings")]),
               m("li", {class: navTable["about"]()},[m("a[href='#/about']", "About")]),
-              m("li", {class: navTable["about"](), onclick: ctrl.logout},[m("a[href='#/home']", "Log Out")])
+              m("li", {class: navTable["logout"](), onclick: ctrl.logout},[m("a[href='#/home']", "Log Out")])
             ])
           ])
         ])

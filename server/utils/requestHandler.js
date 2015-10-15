@@ -83,24 +83,21 @@ module.exports = {
 
   getShared: function(){
 
-    // db.getShared()
-    //   .then(function(sharedDecks){
-    //     res.send(sharedDecks);
-    //   })
-    //   .catch(function(error){
-    //     console.log("error from getShared: " + error);
-    //     res.send(500, error);
-    //   })
+  return db.userFind("shared")
+    .then(function(userObj){
+      if(!userObj){
+        console.log("did not find " + username + " in database.");
+        res.send({message:"failed: no shared user"});
+      }
+      else {
+        console.log("found user: " + userObj._id);
+        return userObj.decks
+      } 
+    })
   },
 
-  shareDeck: function(req, res){    
-    db.shareDeck(deckName, deck)
-      .then(function(ok){
-        res.send("success");
-      })
-      .catch(function(error){
-        res.send(500, error);
-      })
+  shareDeck: function(deck, deckName){    
+    return db.createDeck("shared", deckName, deck)
   },
 
   // OLD STUFF -- REWRITE

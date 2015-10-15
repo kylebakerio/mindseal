@@ -41,6 +41,18 @@ Deck.fetch = function(shared) { //should be the server call to get a Decks objec
   }
 }
 
+Deck.share = function(deck, deckName){
+  console.log(deckName + ": ", deck)
+  m.request({
+    method: 'POST',
+    url: '/decks/shared',
+    data: {deck: deck, deckName: deckName}
+  })
+  .then(function(res){
+    alert(res.message);
+  })
+}
+
 Deck.sync = function() {
   //Uncaught ReferenceError: Deck is not defined App.js 53. temp fix below, untill correct data in db
   return 1;
@@ -53,15 +65,15 @@ Deck.sync = function() {
     })
   }
     var dbData = m.request({
-                  method: 'GET',
-                  url: '/decks',
-                  config: xhrConfig,
-                })
-                .then(function(data){
-                  console.log("data recieved from server below: ");
-                  console.log(data); 
-                  return data;
-                })
+      method: 'GET',
+      url: '/decks',
+      config: xhrConfig,
+    })
+    .then(function(data){
+      console.log("data recieved from server below: ");
+      console.log(data); 
+      return data;
+    })
 
   //step2: Compare timestamps
   //Kyle TODO: add moment.js function to compare

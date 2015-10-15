@@ -113,10 +113,8 @@ db.userData.update({_id: ""}, {$set: {userSettings: {
 
 //misc queries to play with the data
 
-db.userRecordsObj.update( {_id: "uniqueUserGoogleId"}, {$set: { : "updated" } } ) //note: quotes around nested keys
-
 // updating a deck name
-db.userRecordsObj.update( {_id: "uniqueUserGoogleId"}, {$set: {"decks.deck1.name": "updated" } } )
+db.userRecordsObj.update( {_id: "uniqueUserGoogleId"}, {$set: {"decks.deck1.name": "updated" } } ) //note: quotes around nested keys
 
 //adding a new card to a deck
 db.userRecordsObj.update({_id: "uniqueUserGoogleId"}, {$push: {"decks.deck1.cards": {_id: "autoincr3", front: "testing update", back: "testing update", flag: 0}  }})

@@ -44,7 +44,7 @@ module.exports = {
   //OLD STUFF BELOW, RE-EVALUATE
 
 
-  createDecks: function(username, deckName, deck) { //create a deck for a specific user
+  createDeck: function(username, deckName, deck) { //create a deck for a specific user
     var setObject = {};
     setObject["$set"] = {}; //creating a variable for the set part of the update query
     setObject["$set"]["decks."+deckName] = deck; //creating a variable key to take in the name of the deck
@@ -52,7 +52,7 @@ module.exports = {
     //why not the above line as this:
     // setObject["$set"]["decks"][deckName] = deck;
 
-    console.log(username, deckName, deck, " values in the model");
+    console.log("adding deck: ", username, deckName, deck);
     return collection.update({_id: username}, setObject) /* collection.update({_id: "uniqueUserGoogleId"}, setObject)*/
     // return collection.update({_id: username}, setObject);
   },

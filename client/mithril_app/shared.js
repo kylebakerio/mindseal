@@ -29,6 +29,7 @@
     ctrl = this;
     Deck.fetch("shared")
     .then(function(res){
+      console.log("client got res: ", res);
       ctrl.shared = res.decks;
     })
 
@@ -36,4 +37,4 @@
       Deck.createDeck(deckName,ctrl.shared[deckName])
     };
   }
-})()
+})();

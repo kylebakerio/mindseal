@@ -10,8 +10,6 @@ app.use(express.static(__dirname + '/client'));
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
 app.use(morgan('dev'));
 
-//session borrowed stuff:
-
 var session = require('cookie-session')
 app.use(session({
   name: 'session',
@@ -20,19 +18,32 @@ app.use(session({
   signed: true
 }))
 
-//end session borrowed stuff
-
-
 //if using browserify:
 // app.get('/bundle.js')
 
 app.get('/decks/shared', function(req, res){
-  console.log("trying to get shared decks")
-  res.send({decks:handler.getShared(req,res)});
+  console.log("trying to get shared decks");
+  handler.getShared(req,res)
+  .then(function(shared){
+    console.log("shared decks?",shared);
+    res.send({decks: shared});
+  })
+  .catch(function(err){
+    console.log("err getting decks:",err);
+  })
 })
 
 app.post('/decks/shared', function(req, res){
-  handler.shareDeck(req,res);
+  console.log("trying to share: ", req.body.deckName, req.body.deck);
+  console.log(req.body);
+  handler.shareDeck(req.body.deck, req.body.deckName)
+  .then(function(answer){
+    console.log("db answer: ", answer)
+    res.send({message: "success", answer:answer})
+  })
+  .catch(function(err){
+    console.log("error sharing deck " + req.deckName, err)
+  })
 })
 
 // begin shortly borrowed stuff
