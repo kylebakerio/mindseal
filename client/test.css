@@ -1,0 +1,79 @@
+html {
+  font-family: Roboto, Calibri, Trebuchet, sans-serif;
+  height:100%;
+}
+
+.mdi-navigation-menu {
+  font-size:30px;
+}
+
+body {
+  height:100%;
+}
+
+.llama {
+  background-color:green;
+}
+
+.sidebar {
+  background-color:grey;
+  height:100%;
+}
+
+.duck {
+  background-color:pink;
+}
+
+.chicken {
+  background-color:orange;
+}
+
+.cow {
+  background-image: url("./misc/background.jpg");
+  background-size:100% 100%;
+  height:100%;
+}
+
+.goat {
+  background-color:red;
+}
+
+.elephant {
+  border:black 1px;
+}
+
+.alpaca {
+}
+
+.btn-large {
+  margin:2px;
+  background-color:grey;
+}
+
+/*img {
+  height:100%;
+  width:100%;
+}*/
+
+.top-bottom-pad-mar {
+  border-radius: 10px;
+  min-height: 473px;
+  color: white;
+  background-color:rgba(0, 13, 13, 0.67);
+  margin:10px;
+  padding-top:20px !important;
+  padding-bottom:20px !important;
+}
+
+.anteater {
+  height:100%;
+}
+
+.btn {
+  min-width:180px;
+  margin-bottom:10px;
+}
+
+.logo {
+  color:lightblue;
+}
