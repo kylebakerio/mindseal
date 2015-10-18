@@ -9,10 +9,8 @@ html {
 
 body {
   height:100%;
-}
-
-.llama {
-  background-color:green;
+  /*background-color:rgb(255, 255, 204);*/
+  background-color:lightblue;
 }
 
 .sidebar {
@@ -20,34 +18,17 @@ body {
   height:100%;
 }
 
-.duck {
-  background-color:pink;
-}
-
-.chicken {
-  background-color:orange;
-}
-
 .cow {
-  background-image: url("./misc/background.jpg");
-  background-size:100% 100%;
+  /*background-image: url("./misc/background.jpg");*/
+  /*background-size:100% 100%;*/
   height:100%;
 }
 
-.goat {
-  background-color:red;
-}
-
-.elephant {
-  border:black 1px;
-}
-
-.alpaca {
-}
-
 .btn-large {
-  margin:2px;
-  background-color:grey;
+  border-radius:5px;
+  margin:2px !important;
+  min-width:173px;
+  background-color:rgba(30, 13, 13, 0.5);;
 }
 
 /*img {
@@ -58,8 +39,8 @@ body {
 .top-bottom-pad-mar {
   border-radius: 10px;
   min-height: 473px;
-  color: white;
-  background-color:rgba(0, 13, 13, 0.67);
+  color: black;
+  background-color:rgba(0, 13, 13, 0.05);
   margin:10px;
   padding-top:20px !important;
   padding-bottom:20px !important;
@@ -70,10 +51,58 @@ body {
 }
 
 .btn {
-  min-width:180px;
+  min-width:170px;
   margin-bottom:10px;
+  border-radius:5px;
 }
 
 .logo {
   color:lightblue;
+}
+
+.nav-text {
+  color:white !important;
+}
+
+.card-action a{
+  color:white !important;
+}
+
+.active {
+  background-color:orange !important;
+}
+
+li:hover {
+  background-color:lightblue !important;
+}
+
+.card {
+  border-radius:5px !important;
+}
+
+/*.mem1 {
+  background-color:red;
+}
+
+.mem2 {
+  background-color:red;
+}
+
+.mem3 {
+  background-color:red;
+}
+
+.mem4 {
+  background-color:red;
+}*/
+
+.edit {
+  min-width:5px;
+  width:20px;
+}
+
+#SPA {
+  height:100%;
+  background-color:lightblue;
+  background-size:100% 100%;
 }

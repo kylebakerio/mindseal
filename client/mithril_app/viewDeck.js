@@ -22,7 +22,7 @@
         ])
       ])
     ])
-  }
+  };
 
   viewDeck.controller = function(args){
     var ctrl = this;
