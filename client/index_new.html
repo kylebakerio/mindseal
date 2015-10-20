@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="../bower_components/Materialize/dist/css/materialize.min.css"  media="screen,projection"/>
+
+    <link type="text/css" rel="stylesheet" href="../test.css"  media="screen,projection"/>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <script src="../bower_components/mithril/mithril.min.js"></script>
+    <script src="../bower_components/moment/min/moment.min.js"></script>
+  </head>
+
+  <body>
+    <div id="SPA"></div>    
+    <script src="./mithril_app_new/models/User.js"></script>
+    <script src="./mithril_app_new/routes.js"></script>
+    <script src="./mithril_app_new/models/Card.js"></script>
+    <script src="./mithril_app_new/models/Deck.js"></script>
+    <script src="./mithril_app_new/landing.js"></script>
+    <script src="./mithril_app_new/sidebar.js"></script>
+    <script src="./mithril_app_new/home.js"></script>
+    <script src="./mithril_app_new/viewDeck.js"></script>
+    <script>
+      if(localStorage.mindSeal === "true") User.getDecks(router);
+    </script>
+
+<!-- 
+    <script src="./mithril_app/shared.js"></script>
+    <script src="./mithril_app/settings.js"></script>
+    <script src="./mithril_app/about.js"></script>
+ -->
+
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="../bower_components/Materialize/dist/js/materialize.min.js"></script>
+  </body>
+</html>
