@@ -54,7 +54,7 @@ app.post('/signup', function(req, res) {
     console.log("answer was: " + answer)
     if (answer !== null){
       console.log(req.body.username + " was taken")
-      res.send({message: "That username is taken"});
+      res.send({login: false, message: "That username is taken"});
       return null;
     } else if (answer === null) {
       return handler.makeUser(req, res);
@@ -67,7 +67,7 @@ app.post('/signup', function(req, res) {
       console.log("this is returned from handler.makeUser: ", x)
       req.session.user = x._id;
       res.send({
-        message: "success", 
+        login: true, 
         mindSeal: { 
           userSettings: {
             username: x._id,
@@ -83,14 +83,13 @@ app.post('/signup', function(req, res) {
     })
     .catch(function(error){
       console.log("make user error: " + error);
-      res.send({message:"failed.",error:error});
+      res.send({message:"failed.",error:error,login:false});
     })
   }
 
 });
 
-app.post('/login',
-function(req, res) {
+app.post('/login', function(req, res) {
   handler.login(req, res)
   .then(function(obj){
     if (obj.bool){
@@ -107,7 +106,7 @@ function(req, res) {
     }
     else {
       console.log("password invalid")
-      res.status(404).send({login: false, message:"failed: password invalid."})
+      res.status(401).send({login: false, message:"failed: password invalid."})
     }
   })
   .catch(function(error){
@@ -144,12 +143,20 @@ app.post('/logout', function(req, res) {
 // );
 
 app.get('/decks', function(req, res) {
-    console.log(req.session);
-    handler.getDecks(req,res);
+    // console.log(req.session);
+    handler.userExists(req.session.user)
+    .then(function(userObj){
+      console.log("userObj:",userObj);
+      if(!userObj){
+        console.log("did not find " + username + " in database.");
+        res.status(401).send({login:false, message:"failed: not a user."});
+      }
+      else {
+        console.log("found user: " + userObj._id);
+        res.send({login:true, user:userObj._id, mindSeal: userObj})
+      } 
+    })
   }
-
-  // Get all decks
-  // handler.getCards() //should be called here
 );
 
 app.post('/decks', function(req, res) {
@@ -163,6 +170,7 @@ app.post('/decks', function(req, res) {
 );
 
 app.get('/whoami', function(req,res){
+  //definitely a security no-no. remove before production.
   console.log(req.session);
   res.send(req.session.user)
 })
