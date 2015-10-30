@@ -1,5 +1,4 @@
 (function(){
-
   window.viewDeck = {};
 
   viewDeck.view = function(ctrl){
@@ -23,7 +22,7 @@
         ])
       ])
     ])
-  }
+  };
 
   viewDeck.controller = function(args){
     var ctrl = this;
@@ -42,32 +41,32 @@
         'Good': ctrl.currentCard.cScale[2],
         'Too Easy': ctrl.currentCard.cScale[3]
       }
-
-      var tVal = moment.duration(moment().diff(moment(ctrl.currentCard.timeLastSeen))).asMinutes();
-      console.log("tval is: " + tVal);
-
       console.log("convert[button] " + convert[button])
-      console.log("old tval: " + ctrl.currentCard.tVal);
+
+      var tVal = moment.duration(moment().diff(moment(ctrl.currentCard.timeLastSeen)));
+      console.log("old tval: " + (moment.duration(tVal).asMinutes()).toFixed(1) + " minutes.");
       tVal *= convert[button]; 
-      console.log("new tval: " + ctrl.currentCard.tVal);
-      console.log("old time last seen: " + ctrl.currentCard.timeLastSeen);
+      console.log("new tval: " + (moment.duration(tVal).asMinutes()).toFixed(1) + " minutes.");
+      
+      console.log("old time last seen: " + moment(ctrl.currentCard.timeLastSeen).fromNow());
       ctrl.currentCard.timeLastSeen = moment().format(); //it was just seen now.
-      console.log("new time last seen: " + ctrl.currentCard.timeLastSeen);
-      console.log("old time to be seen: " + ctrl.currentCard.toBeSeen);
+      console.log("new time last seen: " + moment(ctrl.currentCard.timeLastSeen).fromNow());
+      
+      console.log("old time to be seen: " + moment(ctrl.currentCard.toBeSeen).fromNow());
       ctrl.currentCard.toBeSeen = ( 
         moment(ctrl.currentCard.timeLastSeen).clone().add(tVal, 'milliseconds').format()
       );
-      console.log("new time to be seen: " + ctrl.currentCard.toBeSeen);
-      console.log("Days to next viewing: " + 
-        moment.duration(moment(ctrl.currentCard.toBeSeen).diff(moment(ctrl.currentCard.timeLastSeen))).asDays()
+      console.log("new time to be seen: " + moment(ctrl.currentCard.toBeSeen).fromNow());
+      
+      console.log("next viewing in: " + 
+        (moment.duration(moment(ctrl.currentCard.toBeSeen).diff(moment(ctrl.currentCard.timeLastSeen))).asDays()).toFixed(3) + 
+        " days."
       );
-      console.log(ctrl.currentDeck.cards[ctrl.index].front === ctrl.currentCard.front);
-      // console.log("index: " + ctrl.index);
 
       Deck.binaryInsert(ctrl.index, ctrl.currentDeck.cards, "toBeSeen");
       ctrl.nextCard();
       ctrl.toggleBack();
-      console.log(Deck.isSorted(ctrl.currentDeck.cards) ? "sorting works" : "sorting doesn't work");
+      console.log(Deck.isSorted(ctrl.currentDeck.cards) ? "Insertion was successful." : "Insertion failed. Please sort manually.");
     }
 
     viewDeck.noMore = function(){
@@ -75,10 +74,11 @@
       ctrl.front([m("h1.center-block", "Great work!"),m('p.lead','No more cards to view for now.')])
       //include something to mention how long until the next card should be seen, or a message that 
       //card limit for day has been hit.
-      console.log("current card: " + ctrl.currentCard.front)
+      console.log("current card: " + ctrl.currentCard.front);
+      next = ctrl.currentDeck.cards[ctrl.index + 1] ? ctrl.index + 1 : 0;
       ctrl.back([m('br'),m("p","Next card ready to review: " + 
           moment(ctrl.currentCard.toBeSeen).format("MMM Do, YYYY hh:mm a") + 
-          ", " + moment(ctrl.currentDeck.cards[ctrl.index + 1].toBeSeen).fromNow())]) //should be an overtime button.
+          ", " + moment(ctrl.currentDeck.cards[next].toBeSeen).fromNow())]) //should be an overtime button.
       m.redraw()
       console.log("noMore ran")
     }
@@ -90,7 +90,13 @@
         ) {
         console.log(ctrl.currentDeck.cards.length <= ctrl.index +1 ? "hit last card" : "hit a card not ready to be shown");
         // console.log("Next card's toBeSeen timestamp is: " + ctrl.currentDeck.cards[ctrl.index+1].toBeSeen.fromNow());
-        viewDeck.noMore();
+        if (moment().diff(ctrl.currentDeck.cards[0].toBeSeen) > 0) {
+          ctrl.index = 0;
+          Card.counter();
+          ctrl.currentCard = ctrl.currentDeck.cards[0];
+          ctrl.remaining = ctrl.currentDeck.cards.length-ctrl.index;
+        }
+        else viewDeck.noMore();
       }
       else {
         ctrl.index++;
@@ -126,7 +132,6 @@
     }
 
     if (moment().diff(ctrl.currentDeck.cards[0].toBeSeen) > 0) {
-      console.log("hi");
       ctrl.back = m.prop([
         m('br'),
         m("input",{type:'button', onclick: ctrl.toggleBack, value:'Show Back', title:'Press spacebar to select'})
@@ -136,7 +141,6 @@
       )
       // console.log("controller front and back set: " + ctrl.currentCard.front + " " + ctrl.currentCard.back)
     } else {
-      console.log("yo")
       ctrl.back = m.prop([m('br'),m("p","Next card ready to review: " + 
         moment(ctrl.currentCard.toBeSeen).format("MMM Do, YYYY hh:mm a") + 
         ", " + moment(ctrl.currentDeck.cards[ctrl.index].toBeSeen).fromNow())]
@@ -144,8 +148,6 @@
 
       ctrl.front = m.prop(m('br'));
     }
-
-  
 
   }
 })()

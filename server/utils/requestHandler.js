@@ -1,12 +1,111 @@
-var db = require('../models/userData.js'),
-    Auth  = require ('./auth.js');
+var db = require('../models/userData.js');
+var Auth  = require ('./auth.js');
+var bcrypt = require('bcrypt-nodejs');
+
+////gilbert's example:
+// var promise = new Promise(function(resolve, reject) {
+//   bcrypt.hash(password, salt, null, function(err, hash) {
+//     if (err) {
+//       reject(err)
+//     }
+//     else {
+//       resolve(hash)
+//     }
+//   })
+// })
+
+// promise.then(...)
+////end example
+
 
 module.exports = {
+  userExists: function(username){
+    console.log("should talk to database to see if exists: " + username);
+    return db.userFind(username);
+  },
+
+  makeUser: function(req, res){
+    var username = req.body.username;
+    var password = req.body.password;
+
+    console.log("attempting to make user: " + username + " " + password);
+    
+    return new Promise(function(resolve, reject) {
+      bcrypt.genSalt(10, function(err, salt){
+        bcrypt.hash(password, salt, null, function(err, hash) {
+          if (err) {
+            console.log("hashing the password failed, see user.js " + err);
+          }
+          else {
+            console.log("hash was successful.");
+            // console.log("promise object? : ")
+            // console.log(db.createUser(username, hash))
+            // return db.createUser(username, hash)
+            resolve(hash);
+          }
+        })
+      })
+    })
+    .then(function(hash){
+      console.log("hash to model: " + hash)
+      return db.createUser(username, hash)
+    })
+  },
+
+  login: function(req, res){
+    console.log("attempt login with: " + req.body.username + req.body.password);
+
+    var username = req.body.username;
+    var password = req.body.password;
+
+    return db.userFind(username)
+    .then(function(userObj){
+      if(!userObj){
+        console.log("did not find " + username + " in database.");
+        res.send({message:"failed: no such username"});
+      }
+      else {
+        console.log("found user: " + userObj._id);
+        return new Promise(function(resolve, reject){
+          bcrypt.compare(password, userObj.hashword, function(err, bool) {
+            resolve({bool:bool, 
+              user:userObj._id,
+              mindSeal: userObj
+            })
+          })
+          // .catch(function(err){
+          //   console.log("error: ", err);
+          // })
+        })
+      } 
+    })
+  },
+
+  getShared: function(){
+
+  return db.userFind("shared")
+    .then(function(userObj){
+      if(!userObj){
+        console.log("did not find " + username + " in database.");
+        res.send({message:"failed: no shared user"});
+      }
+      else {
+        console.log("found user: " + userObj._id);
+        return userObj.decks
+      } 
+    })
+  },
+
+  shareDeck: function(deck, deckName){    
+    return db.createDeck("shared", deckName, deck)
+  },
+
+  // OLD STUFF -- REWRITE
 
   getDecks: function(req, res) {
     // var googleId = "mvp_test";
-    var googleId = req.headers.userid;
-    db.getDecks(googleId)
+    // var googleId = req.headers.userid;
+    db.getDecks(/*googleId*/)
       .then(function(decks) {
         res.send(decks);
       })
@@ -61,7 +160,7 @@ module.exports = {
     var deckName = req.body.deckName;
     // var googleId = req.get('googleId');
     // var googleId = 'mvp_test';
-    db.createDecks(googleId, deckName, req.body.cards)
+    db.createDecks(googleId, deckName, req.body.deck)
       .then(function(deck_id) {
         res.send(201, deck_id)
       })
@@ -72,7 +171,7 @@ module.exports = {
   },
 
   createUser: function(req,res) {
-    console.log(req.headers, " :check for chrome token")
+    console.log(req.headers, ": check for chrome token")
     Auth.getId(req)
       .catch(function(err) {
         res.send(401,err);
@@ -87,6 +186,19 @@ module.exports = {
         console.log(err);
         res.send(501, err);
       });
+  },
+
+  setMindSeal: function(username, mindSeal, time){
+    console.log("mindseal is:",mindSeal);
+    mindSeal.userSettings.lastEdit = time;
+    return db.refreshDecks(username, mindSeal.decks)
+    .then(function(success){
+      console.log("after refreshing decks:",success);
+      return db.setSettings(username, mindSeal.userSettings)
+    })
+    .catch(function(err){
+      console.log("err @ setMindSeal reqHan", err)
+    })
   }
 
   // createDeck: function(req, res) {
@@ -109,8 +221,35 @@ module.exports = {
   //       res.send(500, err);
   //     });
   // }
-
 };
 
-console.log(Auth.getId);
 
+  //old, pre-refactor:
+
+  // makeUser: function(req, res){
+  //   bcrypt.genSalt(10, function(err, salt){
+  //     bcrypt.hash(password, salt, null, function(err, hash) {
+  //       if (err) {
+  //         console.log("hashing the password failed, see user.js " + err);
+  //       }
+  //       else {
+  //         console.log("hash was successful.");
+  //         // console.log("promise object? : ")
+  //         // console.log(db.createUser(username, hash))
+  //         // return db.createUser(username, hash)
+  //         db.createUser(username, hash)
+  //         .then(function(x){
+
+          
+  //           res.send({data:"make a session"});
+          
+
+  //         })
+  //         .catch(function(error){
+  //           console.log("encryption error: " + error);
+  //           res.send({message:"failed.",error:error});
+  //         })
+  //       }
+  //     })
+  //   })
+  // },

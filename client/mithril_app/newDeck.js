@@ -1,4 +1,3 @@
-//create a new deck here
 (function(){
   window.newDeck = {};
   newDeck.view = function(ctrl){
@@ -29,7 +28,6 @@
       var deck = {name:ctrl.nameTxt()};
       console.log(deck.name + ": name of the deck fetched from the dom");
       Deck.createDeck(deck.name);
-      //server call to create a deck? low priority
     };
   };
 })()
