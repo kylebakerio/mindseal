@@ -42,11 +42,25 @@ Deck.fetch = function(shared) { //should be the server call to get a Decks objec
 }
 
 Deck.share = function(deck, deckName){
-  console.log(deckName + ": ", deck)
+
+  var share = {}
+
+  for (var key in deck){
+    share[key] = deck[key];
+  }
+
+  share.cards.forEach(function(card){  
+    card.timeLastSeen = "shared";
+    card.toBeSeen = "shared";
+    //strip timestamps here.
+  })
+
+  console.log("sharing", deckName + ": ", share)
+
   m.request({
     method: 'POST',
     url: '/decks/shared',
-    data: {deck: deck, deckName: deckName}
+    data: {deck: share, deckName: deckName}
   })
   .then(function(res){
     alert(res.message);
@@ -105,7 +119,6 @@ Deck.sync = function() {
   }
 }
 
-
 Deck.find = function (id) {
   // Get deck matching id
   console.log("App:",App);
@@ -116,48 +129,23 @@ Deck.find = function (id) {
   }
 }
 
-Deck.createCard = function (deckId, cardProps) {
-  // Create a new card in deck matching deckId.
-  // cardProps should include at minimum .front and .back properties.
-
-//   m.request({
-//     method: 'POST', 
-//     url: '/decks/' + deckId + '/cards',
-//     data: cardProps
-//   })
-//   .then(function(addedCard) {
-//     ctrl.cards().push(addedCard)
-//   })
-}
-
 //this is bad. This needs to be done in a more consistent way, a la Card.vm
 Deck.createDeck = function (name, obj) {
-  console.log("the deck name as passed to the Deck.js is: ", name);
+  console.log("the deck passed to the Deck.js is: ", obj);
   //create an empty deck object and set it to local storage
   //if you pass in an object for the second parameter, any defaults you provide will be saved. 
   //otherwise, a new one will be made for you.
   if (obj) {
     App.mindSeal.decks[name] = obj;
     App.mindSeal.decks[name].creation = moment().format();
+    App.mindSeal.decks[name].description = obj.description;
+    App.mindSeal.decks[name].cards = obj.cards || [];
   }
   else {
-    App.mindSeal.decks[name] = {creation: moment().format(), cards: []}; //initiate an empty deck with the passed in name
+    App.mindSeal.decks[name] = {creation: moment().format(), cards: [], description:"No description given"}; //initiate an empty deck with the passed in name
   }
-  setMindSeal();
+  User.sync()
 }
-
-// ctrl.getDecks = function(username){ //this gets called by home.js
-//     m.request({ 
-//       method: 'GET',
-//       url: '/decks',
-//       data: username //?? credentials system?
-//     })
-//     .then(function(arrayOfDecks){
-//       arrayOfDecks.forEach(function(deck,index){
-//         App.decks.push(deck) //is this right?
-//       })
-//     })
-//   }
 
 Deck.binaryInsert = function(index,arr,prop,card){
   //if 'card' argument is supplied, and index is null, we're inserting a new card. 

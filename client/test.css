@@ -68,33 +68,25 @@ body {
   color:white !important;
 }
 
-.active {
-  background-color:orange !important;
+.active-sidebar {
+  /*background-color:orange !important;*/
 }
 
-li:hover {
+.sidebar-text:hover {
   background-color:lightblue !important;
+}
+
+.side-nav li.username:hover {
+  background-color:#546e7a !important;
+}
+
+.username {
+  font-weight:bold;
 }
 
 .card {
   border-radius:5px !important;
 }
-
-/*.mem1 {
-  background-color:red;
-}
-
-.mem2 {
-  background-color:red;
-}
-
-.mem3 {
-  background-color:red;
-}
-
-.mem4 {
-  background-color:red;
-}*/
 
 .edit {
   min-width:5px;

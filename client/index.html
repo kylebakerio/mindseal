@@ -1,69 +1,43 @@
 <!DOCTYPE html>
-<!-- saved from url=(0050)http://getbootstrap.com/examples/starter-template/ -->
-<html lang="en" style="" hc="a0">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="like anki, but in chrome... but better...">
-    <meta name="author" content="undefined-NaN">
-    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="../bower_components/Materialize/dist/css/materialize.min.css"  media="screen,projection"/>
 
-    <title>mind:seal</title>
+    <link type="text/css" rel="stylesheet" href="../test.css"  media="screen,projection"/>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <!-- Bootstrap core CSS -->
-    <!-- <link href="../bower_components/bootstrap/dist/css/boostrap.min.css" rel="stylesheet">  why doesn't this work???-->
-    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Roboto:500,400' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700' rel='stylesheet' type='text/css'>
-    <link href="./custom.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="http://getbootstrap.com/examples/starter-template/starter-template.css" rel="stylesheet">
-
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="./misc/ie-emulation-modes-warning.js"></script>
     <script src="../bower_components/mithril/mithril.min.js"></script>
     <script src="../bower_components/moment/min/moment.min.js"></script>
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
   </head>
-  <body class="outer-container">
-    <div id="views"></div>
-    <script src="./mithril_app/storageGetSet.js"></script>
-    <script> var devMode = false</script>
-    <!-- // <script src=""></script> -->
-    <!-- // <script src="./mithril_app/devMode.js"></script> -->
-    <script src="./mithril_app/app.js"></script>
-    <script src="./mithril_app/models/Deck.js"></script>
-    <script src="./mithril_app/models/Card.js"></script>
-    <script src="./mithril_app/models/User.js"></script>
-    <script src="./mithril_app/newDeck.js"></script>
-    <script src="./mithril_app/deckDash.js"></script>
-    <script src="./mithril_app/addCards.js"></script>
-    <script src="./mithril_app/shared.js"></script>
+
+  <body>
+    <div id="SPA"></div>    
+    <script src="./mithril_app_new/models/User.js"></script>
+    <script src="./mithril_app_new/routes.js"></script>
+    <script src="./mithril_app_new/models/Card.js"></script>
+    <script src="./mithril_app_new/models/Deck.js"></script>
+    <script src="./mithril_app_new/landing.js"></script>
+    <script src="./mithril_app_new/sidebar.js"></script>
+    <script src="./mithril_app_new/home.js"></script>
+    <script src="./mithril_app_new/viewDeck.js"></script>
+    <script src="./mithril_app_new/shared.js"></script>
+    <script src="./mithril_app_new/newDeck.js"></script>
+    <script>
+      if(localStorage.mindSeal === "true") User.getDecks(router);
+      else router();
+    </script>
+
+<!-- 
     <script src="./mithril_app/settings.js"></script>
     <script src="./mithril_app/about.js"></script>
-    <script src="./mithril_app/viewDeck.js"></script>
-    <script src="./mithril_app/home.js"></script>
-    <script src="./mithril_app/routes.js"></script>
+ -->
 
-    <!--<script type="text/javascript">m.mount(document.getElementById("navbar"),App)</script>-->
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="./misc/ie10-viewport-bug-workaround.js"></script>
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="../bower_components/Materialize/dist/js/materialize.min.js"></script>
   </body>
 </html>

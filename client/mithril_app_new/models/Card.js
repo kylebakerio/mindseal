@@ -3,6 +3,8 @@ window.Card = {};
 //can be modified in settings page.
 // console.log("App.mindSeal: ", App.mindSeal);
 
+
+
 Card.vm = function (card) {
 // ViewModel for creating cards 
 // usage example: Card.vm( { front: "front of card", back: "backofCard"  } )
@@ -15,7 +17,7 @@ Card.vm = function (card) {
     timeLastSeen: card.timeLastSeen || moment().format(),
     toBeSeen: card.toBeSeen || moment().add(App.mindSeal.userSettings.tValDefault).format(),
     cMem: card.cMem || [],
-    cScale: card.cScale || {0: 0.9, 1: 1.2, 2: 1.8, 3: 2.5}
+    cScale: card.cScale || App.mindSeal.userSettings.cScaleDefault || {0: 0.9, 1: 1.2, 2: 1.8, 3: 2.5}
   }
 }
 

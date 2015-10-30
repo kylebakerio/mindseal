@@ -42,37 +42,26 @@ var router = function(){
 
     "/newDeck": {
       controller: function () {
-        newDeck.controller
+        console.log("hi!")
       },
       view: function (ctrl) {
-        console.log("newDeck view fn was run")
         return m('.app', [
-          m.component(App, {}),
-          m.component(newDeck, { name: ctrl.name })
+          m.component(Sidebar, {}),
+          m.component(newDeck, {})
         ]);
       }
     },
 
-    "/deckDash/:deckId": {
-      controller: function(){
-        this.name = m.route.param('deckId');
-        this.deck = Deck.find( this.name );
-      },
-      view: function(ctrl) {
-        return m('.app', [
-          m.component(Sidebar),
-          m.component(deckDash, { name: ctrl.name, deck: ctrl.deck })
-        ])
-      }
-    },
-
     "/settings": {
-      controller: function(){},
+      controller: function(){
+        alert("Coming soon!");
+        m.route('/home');
+      },
       view: function() {
-        return m('.app', [
-          m.component(Sidebar),
-          m.component(settings)
-        ])
+        // return m('.app', [
+        //   m.component(Sidebar),
+        //   m.component(settings)
+        // ])
       }
     },
 

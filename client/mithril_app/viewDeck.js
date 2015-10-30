@@ -149,7 +149,5 @@
       ctrl.front = m.prop(m('br'));
     }
 
-  
-
   }
 })()

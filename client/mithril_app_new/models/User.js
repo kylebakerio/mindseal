@@ -11,6 +11,7 @@ User.signUp = function(username, password) {
   })
   .then(function(data){
     if (data.login === true){
+      window.App = {};
       App.mindSeal = data.mindSeal;
       m.route('/home');
     }
@@ -62,6 +63,17 @@ User.logout = function(){
   })
 }
 
+User.sync = function(){
+  console.log("syncing")
+  return m.request({
+    method:'POST',
+    url: '/sync',
+    data: {time: moment().format(),mindSeal:App.mindSeal}
+  }).then(function(data){
+    console.log(data);
+  })
+}
+
 User.getDecks = function(router){
   //for when a user is already logged in, but is refreshing the page.
   console.log("seems user is still logged in, trying to get decks");
@@ -88,5 +100,3 @@ User.getDecks = function(router){
     return data;
   })
 }
-
-

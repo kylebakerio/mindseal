@@ -11,16 +11,13 @@
       m(".starter-template", [
         m('.center-block', [
           m("h1", "mind:seal"),
-          m("p.lead", ["Let's make some cards.",
-            m("br")," So you can remember stuff."]),
+          m("p.lead", ["Let's make some cards.", m("br")," So you can remember stuff."]),
           m('p','Size of your deck: ' + ctrl.deck.cards.length),
           m("input[type='text'][class='newFront']", {value:ctrl.frontTxt(), onchange: m.withAttr("value", ctrl.frontTxt)}), //m
           m("br"),
           m("input[type='text'][class='newBack']", {value:ctrl.backTxt(), onchange: m.withAttr("value", ctrl.backTxt)}),
           m("br"),
-          m("input[type='button'][value='make a card!']",
-            {onclick:ctrl.makeCard}
-            )
+          m("input[type='button'][value='make a card!']", {onclick:ctrl.makeCard})
         ])
       ])
     ])

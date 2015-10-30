@@ -75,7 +75,8 @@ app.post('/signup', function(req, res) {
             tValDefault: 128000000, 
             lastEdit: req.body.time, 
             todayCounter: 0,
-            allTimeCounter: 0
+            allTimeCounter: 0,
+            cScaleDefault: {0: 0.9, 1: 1.2, 2: 1.8, 3: 2.5}
           },
           decks: {}
         }
@@ -115,7 +116,7 @@ app.post('/login', function(req, res) {
 });
 
 app.post('/logout', function(req, res) {
-  console.log(req.body.mindSeal)
+  // console.log(req.body.mindSeal)
   handler.setMindSeal(req.session.user, req.body.mindSeal, req.body.time)
   .then(function(result){
     console.log('after setSettings', result)
@@ -128,6 +129,24 @@ app.post('/logout', function(req, res) {
   })
   .catch(function(err){
     console.log("err caught logout server",err);
+  })
+
+});
+
+app.post('/sync', function(req, res) {
+  // console.log(req.body.mindSeal)
+  console.log("syncing");
+  handler.setMindSeal(req.session.user, req.body.mindSeal, req.body.time)
+  .then(function(result){
+    // console.log('after setSettings', result)
+    res.status(200).send({
+      success: true, 
+      message:"sync successful.",
+      result: result
+    });
+  })
+  .catch(function(err){
+    console.log("err caught while syncing",err);
   })
 
 });
@@ -153,7 +172,7 @@ app.get('/decks', function(req, res) {
       }
       else {
         console.log("found user: " + userObj._id);
-        res.send({login:true, user:userObj._id, mindSeal: userObj})
+        res.send({login:true, user:userObj._id, mindSeal: {decks: userObj.decks, userSettings: userObj.userSettings}})
       } 
     })
   }

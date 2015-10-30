@@ -8,7 +8,7 @@
         m(".center-align.col.s12.m7.l7.offset-l3.offset-m2", [
           m("h3", ctrl.name),
           m(".hide-on-small-only", [
-            m("p", [m("b", ctrl.currentDeck.cards.length)," cards in this deck, ",m("b", "14")," unseen."]),
+            m("p", [m("b", ctrl.currentDeck.cards.length)," cards in this deck, ",m("b", "todo")," ready to be seen."]),
             m("p", ["You've reviewed ",m("b", "todo")," cards in this deck today."]),
             m("p", ["You have ",m("b", ctrl.remaining + " remaining to meet your quota.")]),
             m("p", ["You've reviewed ",m("b", "todo")," cards since 1 month ago."]),
@@ -31,14 +31,34 @@
     ctrl.remaining = ctrl.currentDeck.cards.length-ctrl.index; //should be updated to take dates into account & should live update
 
     ctrl.rate = function(button){
-      var convert = {
-        0: ctrl.currentCard.cScale[0],
-        1: ctrl.currentCard.cScale[1],
-        2: ctrl.currentCard.cScale[2],
-        3: ctrl.currentCard.cScale[3]
+      if (ctrl.currentCard.timeLastSeen === "shared") {
+        ctrl.currentCard.timeLastSeen = moment().format();
+        var convert = App.mindSeal.userSettings.cScaleDefault ?
+        {
+          0: App.mindSeal.userSettings.cScaleDefault[0],
+          1: App.mindSeal.userSettings.cScaleDefault[1],
+          2: App.mindSeal.userSettings.cScaleDefault[2],
+          3: App.mindSeal.userSettings.cScaleDefault[3]
+        }
+        : ( console.log("no cScaleDefault found"),
+            {
+              0: ctrl.currentCard.cScale[0],
+              1: ctrl.currentCard.cScale[1],
+              2: ctrl.currentCard.cScale[2],
+              3: ctrl.currentCard.cScale[3]
+            }
+          )
+      }
+      else {
+        var convert = {
+          0: ctrl.currentCard.cScale[0],
+          1: ctrl.currentCard.cScale[1],
+          2: ctrl.currentCard.cScale[2],
+          3: ctrl.currentCard.cScale[3]
+        }
       }
       console.log("convert[button] " + convert[button])
-
+      
       var tVal = moment.duration(moment().diff(moment(ctrl.currentCard.timeLastSeen)));
       console.log("old tval: " + (moment.duration(tVal).asMinutes()).toFixed(1) + " minutes.");
       tVal *= convert[button]; 
@@ -63,6 +83,7 @@
       ctrl.nextCard();
       ctrl.toggleBack();
       console.log(Deck.isSorted(ctrl.currentDeck.cards) ? "Insertion was successful." : "Insertion failed. Please sort manually.");
+      User.sync();
     }
 
     viewDeck.noMore = function(){
@@ -79,6 +100,7 @@
     ctrl.nextCard = function () {
       //this if condition should also check how many cards have been viewed this day vs max to be viewed (from settings).
       if(ctrl.currentDeck.cards.length <= ctrl.index +1 || 
+        ctrl.currentDeck.cards[ctrl.index +1].toBeSeen === "shared" ||
         (moment().diff(ctrl.currentDeck.cards[ctrl.index +1].toBeSeen) < 0)
         ) {
         console.log(ctrl.currentDeck.cards.length <= ctrl.index +1 ? "hit last card" : "hit a card not ready to be shown");
@@ -158,7 +180,8 @@
       }
     }
 
-    if (moment().diff(ctrl.currentDeck.cards[0].toBeSeen) > 0) {
+    if (ctrl.currentDeck.cards[0].toBeSeen === "shared" || 
+        moment().diff(ctrl.currentDeck.cards[0].toBeSeen) > 0) {
       ctrl.cardView = [
         m(".row", [
           m(".col.s12.m7.l7.offset-l3.offset-m2", [
