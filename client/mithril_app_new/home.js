@@ -9,7 +9,7 @@
           m("p", ["You have ",m("b", "todo")," cards to go to meet your daily quota."]),
           m("p", ["You've reviewed ",m("b", "todo")," cards today."]),
           m("p", ["You have ",m("b", "todo cards ready to review.")," "]),
-          m("p", ["You've reviewed ",m("b", "todo")," cards since 3 months ago."])
+          m("p", ["You've reviewed ",m("b", "todo")," cards since todo."])
         ])
       ]),
 
