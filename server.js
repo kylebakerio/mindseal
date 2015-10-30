@@ -3,7 +3,7 @@ var bodyParser  = require('body-parser');
 var morgan      = require('morgan');
 var handler     = require('./server/utils/requestHandler.js');
 var app         = express();
-var PORT        = 6060;
+var PORT        = process.env.PORT || 6060;
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/client'));
