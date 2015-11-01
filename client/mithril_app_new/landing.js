@@ -30,6 +30,9 @@
             ])
           ])
         ]),
+        window.innerWidth < 600 ?
+        null
+        :
         m(".card-panel.col.s12.m5.l4.top-bottom-pad-mar.valign-wrapper", [
           m(".col.s12", [
             m(".container.card-content", [
@@ -38,6 +41,7 @@
             ])
           ])
         ])
+
       ])
     ])
   };
