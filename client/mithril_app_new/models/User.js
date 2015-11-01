@@ -1,7 +1,6 @@
 window.User = {}
 
 User.signUp = function(username, password) {
-
   console.log("trying to call server (signup) with u/p: " + username + " " + password)
   return m.request({
     method: 'POST',
@@ -27,7 +26,6 @@ User.signUp = function(username, password) {
 
 User.login = function(username, password) {
   console.log("trying to call server (login) with u/p: " + username + " " + password)
-
   return m.request({
     method: 'POST',
     url: '/login',
@@ -49,13 +47,11 @@ User.login = function(username, password) {
 }
 
 User.logout = function(){
-  //should sync with server, and maybe not do rest if fails?
   if (typeof App.mindSeal.userSettings === "undefined"){
-    console.log("App.mindSeal.userSettings is undefined! Major glitch! overwriting with blank.")
+    console.log("App.mindSeal.userSettings is undefined! Major glitch! overwriting with blank to prevent crash.")
     App.mindSeal.userSettings = {};
   }
 
-  else {}
   console.log("going to send:",App.mindSeal);
   return m.request({
     method:'POST',
@@ -71,7 +67,7 @@ User.logout = function(){
 }
 
 User.sync = function(){
-  console.log("syncing")
+  console.log("syncing");
   return m.request({
     method:'POST',
     url: '/sync',

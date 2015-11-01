@@ -3,6 +3,21 @@
   shared.view = function(ctrl){
     //refactor to look like gilbert's code in home
     var mArray = [];
+    
+    //this needs testing.
+    if (Object.keys(ctrl.shared).length < 1) {
+      mArray.push( m(".row", [
+        m(".col.s12.m7.l7.offset-l3.offset-m2", [
+          m(".card.blue-grey.darken-1", [
+            m(".card-content.white-text", [
+              m("span.card-title", "No shared decks found." )
+              ])
+            ])
+          ])
+        ])
+      );
+    }
+
     for (var deck in ctrl.shared){
       mArray.push(
         //m("a", {href:('#/deckDash/' + deck)}, 
@@ -50,7 +65,7 @@
     ctrl.addDeck = function(deckName){
       Deck.createDeck(deckName,ctrl.shared[deckName])
       User.sync();
-      Materialize.toast('You now have ' + deckName + '!', 4000);
+      Materialize.toast('You now have ' + deckName, 4000);
     };
   }
 })();

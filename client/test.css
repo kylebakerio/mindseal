@@ -21,6 +21,8 @@ body {
 .cow {
   /*background-image: url("./misc/background.jpg");*/
   /*background-size:100% 100%;*/
+  margin:20px;
+  padding-top:40px;
   height:100%;
 }
 

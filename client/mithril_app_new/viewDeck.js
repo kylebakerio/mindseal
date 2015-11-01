@@ -11,7 +11,7 @@
             m("p", [m("b", ctrl.currentDeck.cards.length)," cards in this deck, ",m("b", "todo")," ready to be seen."]),
             m("p", ["You've reviewed ",m("b", "todo")," cards in this deck today."]),
             m("p", ["You have ",m("b", ctrl.remaining + " remaining to meet your quota.")]),
-            m("p", ["You've reviewed ",m("b", "todo")," cards since 1 month ago."]),
+            m("p", ["You've reviewed ",m("b", "todo")," cards since todo ago."]),
             m('br'),
             m("",ctrl.cardView)
           ])

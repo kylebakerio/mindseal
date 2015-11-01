@@ -4,15 +4,7 @@
   Landing.view = function(ctrl){  
     return m(".cow.valign-wrapper", [
       m(".row", [
-        m(".card-panel.col.m5.offset-m1.l4.offset-l2.s12.top-bottom-pad-mar.valign-wrapper", [
-          m(".col.s12", [
-            m(".container.card-content", [
-              m("h5", [" What is ",m("i", "mind:seal"),"? "]),
-              m("p.home-text", "mind:seal is a spaced repition flashcard app designed to be as simple, fast, and clean as possible. It uses a machine learning algorithm to determine when you should see facts, and adapts to your personal usage patterns over time, for each individual card. Join to see shared decks, or create your own!")
-            ])
-          ])
-        ]),
-        m(".hoverable.card-panel.col.s12.m5.l4.top-bottom-pad-mar.valign-wrapper", [
+        m(".hoverable.card-panel.col.m5.offset-m1.l4.offset-l2.s12.top-bottom-pad-mar.valign-wrapper", [
           m("form.col.s12", [
             m(".container.card-content", [
               m(".row", [
@@ -35,6 +27,14 @@
               ]),
               m("a.col.s4.waves-effect.waves-light.btn-large", {onclick:ctrl.signUp}, [m("i.material-icons.right", "cloud"),"Sign Up"]),
               m("a.col.s4.waves-effect.waves-light.btn-large", {onclick:ctrl.login}, [m("i.material-icons.right", "cloud"),"Login"])
+            ])
+          ])
+        ]),
+        m(".card-panel.col.s12.m5.l4.top-bottom-pad-mar.valign-wrapper", [
+          m(".col.s12", [
+            m(".container.card-content", [
+              m("h5", [" What is ",m("i", "mind:seal"),"? "]),
+              m("p.home-text", "mind:seal is a spaced repition flashcard app designed to be as simple, fast, and clean as possible. It uses a machine learning algorithm to determine when you should see facts, and adapts to your personal usage patterns over time, for each individual card. Join to see shared decks, or create your own!")
             ])
           ])
         ])

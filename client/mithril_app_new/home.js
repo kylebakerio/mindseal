@@ -27,7 +27,6 @@
         ])
       ],
 
-
     ])
   };
 
@@ -37,23 +36,26 @@
 
     ctrl.share    = function(deckName){
       Deck.share(App.mindSeal.decks[deckName], deckName);
-      Materialize.toast('Deck Shared!', 4000);
+      Materialize.toast('Shared ' + deckName, 4000);
     }
 
     ctrl.makeCard = function(deckName){ //populates the values of the card from the form and calls the view
-
       var newCard = {front: $("#" + deckName + "-front").val(), back: $("#" + deckName + "-back").val()}
       Deck.binaryInsert(null, App.mindSeal.decks[deckName].cards, "toBeSeen", Card.vm(newCard));
       $("#" + deckName + "-front").val("")
       $("#" + deckName + "-back").val("")
-      Materialize.toast('Card Added!', 4000);
+      Materialize.toast('Card Added', 4000);
+      User.sync();
+    }
+
+    ctrl.deleteDeck = function(deckName){
+      if (confirm("Are you sure?")) delete App.mindSeal.decks[deckName];
       User.sync();
     }
   };
 
   function deckView (ctrl, deckName) {
     if (ctrl.deckStates[deckName] === 'editing_cards') {
-      // ...
       return deckAddCardsView(ctrl, deckName)
     }
     else {
@@ -79,11 +81,19 @@
             ])
           ]),
           m(".card-action", [
+            App.mindSeal.decks[deckName].cards.length < 1 ?
+            m("a.waves-effect.waves-light.btn.disabled", {title:"Add some cards, first!"}, [m("i.material-icons.left", "grade"),"Review"]) :
             m("a.waves-effect.waves-light.btn", {href:('#/viewDeck/' + deckName)}, [m("i.material-icons.left", "grade"),"Review"]),
+
             m("a.waves-effect.waves-light.btn", {onclick:function(){ctrl.deckStates[deckName] = 'editing_cards'}}, [m("i.material-icons.left", "library_add"),"Add Cards"]),
+
             m("a.waves-effect.waves-light.btn", {onclick:function(){alert("feature coming soon")}}, [m("i.material-icons.left.large.material-icons", "settings"),"Options"]),
-            m("a.waves-effect.waves-light.btn", {onclick:function(){alert("feature coming soon"); ctrl.share(deckName) }}, [m("i.material-icons.left", "call_split"),"Share"]),
-            m("a.waves-effect.waves-light.btn", {onclick:function(){alert("feature coming soon")}}, [m("i.material-icons.left", "delete"),"Delete"])
+            
+            App.mindSeal.decks[deckName].cards.length < 1 ?
+            m("a.waves-effect.waves-light.btn.disabled", {title:"There's no reason to share an empty deck..."} , [m("i.material-icons.left", "call_split"),"Share"]) :
+            m("a.waves-effect.waves-light.btn", {onclick:function(){ctrl.share(deckName)} }, [m("i.material-icons.left", "call_split"),"Share"]),
+            
+            m("a.waves-effect.waves-light.btn", {onclick:function(){ctrl.deleteDeck(deckName)}}, [m("i.material-icons.left", "delete"),"Delete"])
           ])
         ])
       ])
@@ -102,7 +112,7 @@
               App.mindSeal.decks[deckName].cards.length, m("br"), 
               ((App.mindSeal.decks[deckName].cards.length !== 0) ? 
                 App.mindSeal.decks[deckName].cards[0].toBeSeen === "shared" ? 
-                "Next card ready to review: Now" :
+                "Next card ready to review: Now!" :
               ("Next card ready to review: " + 
                 moment(App.mindSeal.decks[deckName].cards[0].toBeSeen).format("MMM Do, YYYY hh:mm a") + ", " + 
                 moment(App.mindSeal.decks[deckName].cards[0].toBeSeen).fromNow() ) :

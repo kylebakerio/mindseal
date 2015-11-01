@@ -38,11 +38,11 @@ app.post('/decks/shared', function(req, res){
   console.log(req.body);
   handler.shareDeck(req.body.deck, req.body.deckName)
   .then(function(answer){
-    console.log("db answer: ", answer)
-    res.send({message: "success", answer:answer})
+    console.log("seems sharDeck was successful");
+    res.send({message: "success"});
   })
   .catch(function(err){
-    console.log("error sharing deck " + req.deckName, err)
+    console.log("error sharing deck " + req.deckName, err);
     res.status(404).send({message:"database error:", error:err});
   })
 })
