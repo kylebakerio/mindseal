@@ -78,6 +78,7 @@ module.exports = {
 
   setSettings: function(username, settings) { //overwrites settings with new settings.
     console.log("settings to add:", settings);
+    if (Object.keys(settings).length === 0) console.log("empty settings object, not updating.")
     return collection.update({_id: username}, {$set: {userSettings: settings}}) //returns a success or error
   },
 

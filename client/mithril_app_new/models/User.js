@@ -12,6 +12,7 @@ User.signUp = function(username, password) {
   .then(function(data){
     if (data.login === true){
       window.App = {};
+      console.log("Got the newly minted mindSeal:",data.mindSeal);
       App.mindSeal = data.mindSeal;
       m.route('/home');
     }
@@ -35,7 +36,7 @@ User.login = function(username, password) {
       if (data.login === true){
         window.App = {};
         App.mindSeal = data.mindSeal;
-        console.log("get the newly minted mindSeal:",App.mindSeal)
+        console.log("Got this mindSeal from the server:", App.mindSeal)
         localStorage.mindSeal = true;
         m.route('/home');
       }
@@ -49,6 +50,12 @@ User.login = function(username, password) {
 
 User.logout = function(){
   //should sync with server, and maybe not do rest if fails?
+  if (typeof App.mindSeal.userSettings === "undefined"){
+    console.log("App.mindSeal.userSettings is undefined! Major glitch! overwriting with blank.")
+    App.mindSeal.userSettings = {};
+  }
+
+  else {}
   console.log("going to send:",App.mindSeal);
   return m.request({
     method:'POST',

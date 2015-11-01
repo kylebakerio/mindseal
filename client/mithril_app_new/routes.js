@@ -42,7 +42,6 @@ var router = function(){
 
     "/newDeck": {
       controller: function () {
-        console.log("hi!")
       },
       view: function (ctrl) {
         return m('.app', [
@@ -87,7 +86,8 @@ var router = function(){
 
     "/logout": {
       controller: function(){
-        User.logout();
+        if (typeof App === "undefined") m.route("/landing")
+        else User.logout();
       },
       view: function(){
         // nothing gets loaded. User.logout()

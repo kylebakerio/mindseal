@@ -49,7 +49,7 @@ module.exports = {
         res.send({message:"failed: no such username"});
       }
       else {
-        console.log("found user: " + userObj._id);
+        console.log("found user: " + userObj._id, userObj);
         return new Promise(function(resolve, reject){
           bcrypt.compare(password, userObj.hashword, function(err, bool) {
             resolve({bool:bool, 
@@ -173,11 +173,12 @@ module.exports = {
   },
 
   setMindSeal: function(username, mindSeal, time){
-    console.log("mindseal is:",mindSeal);
     mindSeal.userSettings.lastEdit = time;
+    console.log("mindseal is:",mindSeal);
+    console.log("time is:",mindSeal.userSettings.lastEdit);
     return db.refreshDecks(username, mindSeal.decks)
     .then(function(success){
-      console.log("after refreshing decks:",success);
+      console.log("refreshed decks of " + username + " with ", mindSeal.decks);
       return db.setSettings(username, mindSeal.userSettings)
     })
     .catch(function(err){

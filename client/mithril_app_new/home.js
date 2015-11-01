@@ -91,7 +91,6 @@
   }
 
   function deckAddCardsView (ctrl, deckName) {
-    console.log("hi")
     // console.log(App.mindSeal.decks[deckName].cards[0].toBeSeen, deckName)
     return m(".row", [
       m(".col.s12.m7.l7.offset-l3.offset-m2", [

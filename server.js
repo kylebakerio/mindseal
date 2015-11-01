@@ -72,12 +72,13 @@ app.post('/signup', function(req, res) {
     user
     .then(function(x){
       console.log("this is returned from handler.makeUser: ", x)
-      req.session.user = x._id;
+      console.log(x.ops[0]._id)
+      req.session.user = x.ops[0]._id;
       res.send({
         login: true, 
         mindSeal: { 
           userSettings: {
-            username: x._id,
+            username: x.ops[0]._id,
             newCardLimit: null,
             tValDefault: 128000000, 
             lastEdit: req.body.time, 
@@ -104,12 +105,12 @@ app.post('/login', function(req, res) {
       console.log("username and password are valid. login granted.");
       req.session.user = obj.user;
       console.log("obj is:", obj)
-      var mindSeal = {decks:obj.decks, userSettings:obj.userSettings};
+      var mindSeal = {decks:obj.mindSeal.decks, userSettings:obj.mindSeal.userSettings};
       console.log("mindSeal sending:", mindSeal);
       res.status(200).send({
         login: true, 
         message:"Login Successful", 
-        mindSeal: mindSeal
+        mindSeal: obj.mindSeal
       });
     }
     else {
@@ -125,14 +126,16 @@ app.post('/login', function(req, res) {
 
 app.post('/logout', function(req, res) {
   // console.log(req.body.mindSeal)
+  console.log("logging out, attempting to update with the following:",
+    req.session.user, req.body.mindSeal, req.body.time);
   handler.setMindSeal(req.session.user, req.body.mindSeal, req.body.time)
   .then(function(result){
-    console.log('after setSettings', result)
+    console.log('success, blanking out cookie');
     req.session.user = null; 
     res.status(200).send({
       logout: true, 
-      message:"You have been successfully logged out.",
-      result: result
+      message:"You have been successfully logged out."/*,
+      result: result*/
     });
   })
   .catch(function(err){
