@@ -1,27 +1,13 @@
 var db = require('../models/userData.js');
-var Auth  = require ('./auth.js');
+// var Auth  = require ('./auth.js');
 var bcrypt = require('bcrypt-nodejs');
-
-////gilbert's example:
-// var promise = new Promise(function(resolve, reject) {
-//   bcrypt.hash(password, salt, null, function(err, hash) {
-//     if (err) {
-//       reject(err)
-//     }
-//     else {
-//       resolve(hash)
-//     }
-//   })
-// })
-
-// promise.then(...)
-////end example
-
 
 module.exports = {
   userExists: function(username){
-    console.log("should talk to database to see if exists: " + username);
-    return db.userFind(username);
+    console.log("checking to see if: " + username + " exists");
+    var y = db.userFind(username)
+    console.log("this was returned from model db.userFind call: ", y);
+    return y;
   },
 
   makeUser: function(req, res){
@@ -35,12 +21,10 @@ module.exports = {
         bcrypt.hash(password, salt, null, function(err, hash) {
           if (err) {
             console.log("hashing the password failed, see user.js " + err);
+            reject(err);
           }
           else {
             console.log("hash was successful.");
-            // console.log("promise object? : ")
-            // console.log(db.createUser(username, hash))
-            // return db.createUser(username, hash)
             resolve(hash);
           }
         })

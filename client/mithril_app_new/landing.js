@@ -8,7 +8,7 @@
           m(".col.s12", [
             m(".container.card-content", [
               m("h5", [" What is ",m("i", "mind:seal"),"? "]),
-              m("p.home-text", "\n                Welcome to our site. This is a site. This is ipsum lorem.\n                This is a llame. This is not how you spell llama. This is:\n                alpaca. duck. dhcukecn auiosdhniuashnd fiusdfnisudhfiusahdfi\n                Welcome to our site. This is a site. This is ipsum lorem.\n                \n                thi\n              ")
+              m("p.home-text", "mind:seal is a spaced repition flashcard app designed to be as simple, fast, and clean as possible. It uses a machine learning algorithm to determine when you should see facts, and adapts to your personal usage patterns over time, for each individual card. Join to see shared decks, or create your own!")
             ])
           ])
         ]),

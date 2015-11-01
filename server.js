@@ -43,6 +43,7 @@ app.post('/decks/shared', function(req, res){
   })
   .catch(function(err){
     console.log("error sharing deck " + req.deckName, err)
+    res.status(404).send({message:"database error:", error:err});
   })
 })
 
@@ -50,15 +51,21 @@ app.post('/decks/shared', function(req, res){
 
 app.post('/signup', function(req, res) {
   var user = handler.userExists(req.body.username)
-  .then(function(answer){
+  /*console.log("user is: ", user);
+  user = user*/.then(function(answer){
     console.log("answer was: " + answer)
     if (answer !== null){
       console.log(req.body.username + " was taken")
-      res.send({login: false, message: "That username is taken"});
+      res.send({login: false, message: req.body.username + " is taken"});
       return null;
     } else if (answer === null) {
+      console.log("username not taken")
       return handler.makeUser(req, res);
     }
+  })
+  .catch(function(err){
+    console.log("error during user lookup:", err);
+    res.status(404).send({message:"database error:", error:err});
   })
 
   if (user !== null){
@@ -84,7 +91,7 @@ app.post('/signup', function(req, res) {
     })
     .catch(function(error){
       console.log("make user error: " + error);
-      res.send({message:"failed.",error:error,login:false});
+      res.status(401).send({message:"failed.",error:error,login:false});
     })
   }
 
@@ -97,12 +104,12 @@ app.post('/login', function(req, res) {
       console.log("username and password are valid. login granted.");
       req.session.user = obj.user;
       console.log("obj is:", obj)
-      // var mindSeal = {decks:obj.decks, userSettings:obj.userSettings};
-      // console.log("mindSeal sending:", mindSeal);
+      var mindSeal = {decks:obj.decks, userSettings:obj.userSettings};
+      console.log("mindSeal sending:", mindSeal);
       res.status(200).send({
         login: true, 
         message:"Login Successful", 
-        mindSeal: obj.mindSeal
+        mindSeal: mindSeal
       });
     }
     else {
@@ -112,6 +119,7 @@ app.post('/login', function(req, res) {
   })
   .catch(function(error){
     console.log(error);
+    res.status(404).send({message:"database error:", error:err});
   })
 });
 
@@ -129,6 +137,7 @@ app.post('/logout', function(req, res) {
   })
   .catch(function(err){
     console.log("err caught logout server",err);
+    res.status(404).send({message:"database error:", error:err});
   })
 
 });
@@ -147,6 +156,7 @@ app.post('/sync', function(req, res) {
   })
   .catch(function(err){
     console.log("err caught while syncing",err);
+    res.status(404).send({message:"database error:", error:err});
   })
 
 });
@@ -174,6 +184,9 @@ app.get('/decks', function(req, res) {
         console.log("found user: " + userObj._id);
         res.send({login:true, user:userObj._id, mindSeal: {decks: userObj.decks, userSettings: userObj.userSettings}})
       } 
+    })
+    .catch(function(err){
+      console.log("error while getting decks");
     })
   }
 );
