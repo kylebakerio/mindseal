@@ -1,8 +1,7 @@
 (function(){
   window.newDeck = {};
   newDeck.view = function(ctrl){
-    return 
-    m(".cow.col.s12", [
+    return m(".cow.col.s12", [
       m(".row", [
         m(".col.s12.m7.l7.offset-l3.offset-m2", [
           m(".card.blue-grey.darken-1", [
