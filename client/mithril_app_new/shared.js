@@ -24,7 +24,7 @@
           m(".col.s12.m7.l7.offset-m2", [
             m(".card.blue-grey.darken-1", [
               m(".card-content.white-text", [
-                m("span.card-title", deck),
+                m("span.card-title", ctrl.shared[deck].name),
                 m("p", "Size of deck: " + (ctrl.shared[deck].cards.length + ctrl.shared[deck].unseen.length)), 
                 m("br"),
                 m("p", "Author: " + ctrl.shared[deck].author),
@@ -65,7 +65,7 @@
     ctrl.addDeck = function(deckName){
       Deck.createDeck(deckName,ctrl.shared[deckName])
       User.sync();
-      Materialize.toast('You now have ' + deckName, 4000);
+      Materialize.toast('You now have ' + App.mindSeal.decks[deckName].name, 4000);
     };
   }
 })();
