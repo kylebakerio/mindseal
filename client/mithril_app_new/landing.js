@@ -22,7 +22,7 @@
               m(".row", [
                 m(".input-field.col.s12", [
                   m("input.validate[id='email'][type='email']", {onchange: m.withAttr("value", ctrl.email)}),
-                  m("label[for='email']", "Email")
+                  m("label[for='email']", "Email (if signing up)")
                 ])
               ]),
               m("a.col.s4.waves-effect.waves-light.btn-large", {onclick:ctrl.signUp}, [m("i.material-icons.right", "cloud"),"Sign Up"]),
