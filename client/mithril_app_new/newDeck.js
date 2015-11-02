@@ -42,8 +42,8 @@
     ctrl.nameTxt = m.prop();
     ctrl.makeDeck = function(){ //populates the values of the card from the form and calls the view
       var deck = {name:ctrl.nameTxt(), description:$("#textarea1").val()};
-      Deck.createDeck(deck.name, deck);
-      $("#input_text").val(""); //is this a bad pattern to use with mithril?
+      Deck.createDeck(ctrl.nameTxt().replace(/ /g,''), deck);
+      $("#input_text").val(""); //is this an anti-mithril pattern?
       $("#textarea1").val("");
       Materialize.toast('Deck "' + deck.name + '" Added', 4000);
       m.route('/home');

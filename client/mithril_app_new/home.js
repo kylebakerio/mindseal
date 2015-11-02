@@ -58,7 +58,7 @@
     ctrl.toggleDeckView = function(deckName){
       if ( 
         ( $("#" + deckName + "-front").val() === "" && $("#" + deckName + "-back").val() === "" ) ||
-        ( ($("#" + deckName + "-front").val() !== "" || $("#" + deckName + "-back").val() !== "") && confirm("Abandon current card?") )
+        ( ($("#" + deckName + "-front").val() !== "" || $("#" + deckName + "-back").val() !== "") && confirm("Are you sure you want to exit without saving this card?") )
         ){
         console.log("fields: ", $("#" + deckName + "-front").val() === "", $("#" + deckName + "-back").val() === "")
         ctrl.deckStates[deckName] = 'dash';
@@ -81,7 +81,7 @@
       m(".col.s12.m7.l7.offset-l3.offset-m2", [
         m(".card.blue-grey.darken-1.hoverable", [
           m(".card-content.white-text", [
-            m("span.card-title", deckName),
+            m("span.card-title", App.mindSeal.decks[deckName].name),
             m("p","Date Created: " + moment(App.mindSeal.decks[deckName].creation).format("MMM Do, YYYY")),
             m("p", [/*"Cards to be seen: todo",m("br"),*/"Cards in deck: " + deckSize, m('br'),
               ( deckSize > 0 ? 
@@ -102,8 +102,8 @@
             m("a.waves-effect.waves-light.btn", {onclick:function(){alert("feature coming soon")}}, [m("i.material-icons.left.large.material-icons", "settings"),"Options"]),
             
             deckSize < 1 ?
-            m("a.waves-effect.waves-light.btn.disabled", {title:"There's no reason to share an empty deck..."} , [m("i.material-icons.left", "call_split"),"Share"]) :
-            m("a.waves-effect.waves-light.btn", {onclick:function(){ctrl.share(deckName)} }, [m("i.material-icons.left", "call_split"),"Share"]),
+            m("a.waves-effect.waves-light.btn.disabled", {title:"Can't share an empty deck with other users."} , [m("i.material-icons.left", "call_split"),"Share"]) :
+            m("a.waves-effect.waves-light.btn", {onclick:function(){ctrl.share(deckName)}, title:"Share this deck in the public repository for other users to download." }, [m("i.material-icons.left", "call_split"),"Share"]),
             
             m("a.waves-effect.waves-light.btn", {onclick:function(){ctrl.deleteDeck(deckName)}}, [m("i.material-icons.left", "delete"),"Delete"])
           ])
@@ -119,7 +119,7 @@
       m(".col.s12.m7.l7.offset-l3.offset-m2", [
         m(".card.blue-grey.darken-1", [
           m(".card-content.white-text", [
-            m("span.card-title", deckName),
+            m("span.card-title", App.mindSeal.decks[deckName].name),
             m("p","Date Created: " + moment(App.mindSeal.decks[deckName].creation).format("MMM Do, YYYY")),
             m("p", [/*"Cards to be seen: todo",m("br")*/,"Cards in deck: "+ 
               deckSize, m("br"), 
@@ -142,10 +142,10 @@
                 m("label", "Card Answer")
               ])
             ]),
-            m("a.btn-floating.waves-effect.waves-light.blue",{onclick: function(){ctrl.makeCard(deckName)}}, [m("i.material-icons", "add")])
+            m("a.btn-floating.waves-effect.waves-light.blue",{onclick: function(){ctrl.makeCard(deckName)}, title:"Click here to add the card you're working on."}, [m("i.material-icons", "add")])
           ]),
           m(".card-action", [
-            m("a.waves-effect.waves-light.btn.blue",{onclick:function(){ctrl.toggleDeckView(deckName)}}, [m("i.material-icons.left", "done_all"),"Finished"])
+            m("a.waves-effect.waves-light.btn.blue",{onclick:function(){ctrl.toggleDeckView(deckName)}, title:"Click here when you don't want to add any more cards."}, [m("i.material-icons.left", "done_all"),"Finished"])
           ])
         ])
       ])
