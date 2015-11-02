@@ -82,10 +82,8 @@ Deck.createDeck = function (name, obj) {
   //create an empty deck object and set it to local storage
   //if you pass in an object for the second parameter, any defaults you provide will be saved. 
   //otherwise, a new one will be made for you.
-  if (obj.unseen.length > 0){
-    App.mindSeal.decks[name] = obj;
-  }
-  else if (obj) {
+  
+  if (obj) {
     App.mindSeal.decks[name] = obj;
     App.mindSeal.decks[name].creation = obj.creation || moment().format();
     App.mindSeal.decks[name].description = obj.description || "";

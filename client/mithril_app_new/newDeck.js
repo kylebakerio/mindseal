@@ -1,16 +1,8 @@
 (function(){
   window.newDeck = {};
   newDeck.view = function(ctrl){
-    return m(".cow.col.s12", [
-      m(".row", [
-        m(".col.s12.m7.l7.offset-l3.offset-m2", [
-          m("h2", "Welcome!"),
-          m("p", ["You have ",m("b", "todo")," cards to go to meet your daily quota."]),
-          m("p", ["You've reviewed ",m("b", "todo")," cards today."]),
-          m("p", ["You have ",m("b", "todo cards ready to review.")," "]),
-          m("p", ["You've reviewed ",m("b", "todo")," cards since 3 months ago."])
-        ])
-      ]),
+    return 
+    m(".cow.col.s12", [
       m(".row", [
         m(".col.s12.m7.l7.offset-l3.offset-m2", [
           m(".card.blue-grey.darken-1", [
@@ -45,11 +37,10 @@
     ])
   };
 
-  newDeck.controller = function(args){
+  newDeck.controller = function(){
     var ctrl = this;
     ctrl = this;
     ctrl.nameTxt = m.prop();
-    console.log(args.name);
     ctrl.makeDeck = function(){ //populates the values of the card from the form and calls the view
       var deck = {name:ctrl.nameTxt(), description:$("#textarea1").val()};
       Deck.createDeck(deck.name, deck);
