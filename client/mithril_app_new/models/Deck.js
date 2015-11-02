@@ -88,6 +88,7 @@ Deck.createDeck = function (name, obj) {
     App.mindSeal.decks[name].description = obj.description;
     App.mindSeal.decks[name].cards = obj.cards || [];
     App.mindSeal.decks[name].author = App.mindSeal.userSettings.username;
+    App.mindSeal.decks[name].unseen = []
   }
   else {
     App.mindSeal.decks[name] = {creation: moment().format(), cards: [], unseen: [], description:"No description given"}; //initiate an empty deck with the passed in name
