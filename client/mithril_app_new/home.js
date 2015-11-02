@@ -83,7 +83,7 @@
           m(".card-content.white-text", [
             m("span.card-title", deckName),
             m("p","Date Created: " + moment(App.mindSeal.decks[deckName].creation).format("MMM Do, YYYY")),
-            m("p", [/*"Cards to be seen: todo",m("br"),*/"Cards in deck: " + deckSize,
+            m("p", [/*"Cards to be seen: todo",m("br"),*/"Cards in deck: " + deckSize, m('br'),
               ( deckSize > 0 ? 
                 App.mindSeal.decks[deckName].unseen.length > 0 ? 
                 m("p", "Next card ready to review: Now") :
