@@ -13,8 +13,8 @@
             m("p", ["You have ",m("b", ctrl.remaining + " remaining to meet your quota.")]),
             m("p", ["You've reviewed ",m("b", "todo")," cards since todo ago."]),
             m('br'),
-            m("",ctrl.cardView)
-          ])
+          ]),
+          m("",ctrl.cardView)
         ])
       ])
     ])
@@ -149,15 +149,6 @@
             ])
           ]
 
-
-          // ctrl.back([
-          //   m(".card.back.center-block", ctrl.currentCard.back),
-          //   m('br'),
-          //   m("input",{type:'button', onclick: m.withAttr("value", ctrl.rate), value:'Did not remember', title:"Press 0 to select"}),
-          //   m("input",{type:'button', onclick: m.withAttr("value", ctrl.rate), value:'Hard', title:"Press 1 to select"}),
-          //   m("input",{type:'button', onclick: m.withAttr("value", ctrl.rate), value:'Good', title:"Press 2 to select"}),
-          //   m("input",{type:'button', onclick: m.withAttr("value", ctrl.rate), value:'Too Easy', title:"Press 3 to select"})
-          // ]);
           ctrl.show = true;
         }
         else {
