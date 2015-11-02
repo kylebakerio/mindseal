@@ -82,16 +82,19 @@ Deck.createDeck = function (name, obj) {
   //create an empty deck object and set it to local storage
   //if you pass in an object for the second parameter, any defaults you provide will be saved. 
   //otherwise, a new one will be made for you.
-  if (obj) {
+  if (obj.unseen.length > 0){
     App.mindSeal.decks[name] = obj;
-    App.mindSeal.decks[name].creation = moment().format();
-    App.mindSeal.decks[name].description = obj.description;
+  }
+  else if (obj) {
+    App.mindSeal.decks[name] = obj;
+    App.mindSeal.decks[name].creation = obj.creation || moment().format();
+    App.mindSeal.decks[name].description = obj.description || "";
     App.mindSeal.decks[name].cards = obj.cards || [];
-    App.mindSeal.decks[name].author = App.mindSeal.userSettings.username;
-    App.mindSeal.decks[name].unseen = []
+    App.mindSeal.decks[name].author = obj.author || App.mindSeal.userSettings.username;
+    App.mindSeal.decks[name].unseen = obj.unseen || [];
   }
   else {
-    App.mindSeal.decks[name] = {creation: moment().format(), cards: [], unseen: [], description:"No description given"}; //initiate an empty deck with the passed in name
+    App.mindSeal.decks[name] = {author:  App.mindSeal.userSettings.username, creation: moment().format(), cards: [], unseen: [], description:"No description given"}; //initiate an empty deck with the passed in name
   }
   User.sync()
 }

@@ -93,7 +93,7 @@
             ])
           ]),
           m(".card-action", [
-            deckSize < 1 || moment().diff(moment(App.mindSeal.decks[deckName].cards[0].toBeSeen)) < 0 ?
+            deckSize < 1 || (App.mindSeal.decks[deckName].cards.length > 0 && moment().diff(moment(App.mindSeal.decks[deckName].cards[0].toBeSeen)) < 0 ) ?
             m("a.waves-effect.waves-light.btn.disabled", {title:"Add some cards, first!"}, [m("i.material-icons.left", "grade"),"Review"]) :
             m("a.waves-effect.waves-light.btn", {href:('#/viewDeck/' + deckName)}, [m("i.material-icons.left", "grade"),"Review"]),
 

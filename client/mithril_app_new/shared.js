@@ -20,7 +20,6 @@
 
     for (var deck in ctrl.shared){
       mArray.push(
-        //m("a", {href:('#/deckDash/' + deck)}, 
         m(".row", [
           m(".col.s12.m7.l7.offset-m2", [
             m(".card.blue-grey.darken-1", [

@@ -124,12 +124,12 @@ app.post('/login', function(req, res) {
 });
 
 app.post('/logout', function(req, res) {
+  req.session.user = null; 
   console.log("logging out, attempting to update with the following:",
     req.session.user, req.body.mindSeal, req.body.time);
   handler.setMindSeal(req.session.user, req.body.mindSeal, req.body.time)
   .then(function(result){
     console.log('success, blanking out cookie');
-    req.session.user = null; 
     res.status(200).send({
       logout: true, 
       message:"You have been successfully logged out."
