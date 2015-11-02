@@ -13,35 +13,42 @@
         // m("li[class='sidebar-text']", [m("a.nav-text[href='#/about']", "About")]),
         m("li[class='sidebar-text']", [m("a.nav-text[href='#/logout']", "Logout")]),
       ]),
-      m("a.center-align", {onclick:function(){console.log("state:",window.menuState);ctrl.toggleMenu()}},[m("i.s1.col.offset-s11.mdi-navigation-menu")])
+      m("a.center-align", {onclick:function(){console.log("state:",window.menuState);window.toggleMenu()}},[m("i.s1.col.offset-s11.mdi-navigation-menu")])
     ])
   };
 
   Sidebar.controller = function(args){
     ctrl = this;
+    
     window.menuState = window.innerWidth < 1000 ? 'hidden' : 'shown';
-    console.log("ctrl.menuSate = " + window.menuState)
-    ctrl.toggleMenu = function(){
+    ctrl.oldWidth    = window.innerWidth;
+    window.onresize  = function(){
+      if (window.innerWidth > 1000 && ctrl.oldWidth < 1000) {
+        window.menuState = 'hidden';
+        window.toggleMenu();
+      } 
+      else if (window.innerWidth < 1000 && ctrl.oldWidth > 1000) { 
+        window.menuState = 'shown';
+        window.toggleMenu();
+      }
+      ctrl.oldWidth = window.innerWidth;
+    }
+
+    console.log("ctrl.menuState = " + window.menuState)
+    window.toggleMenu = function(){
       console.log("window.menuState:",window.menuState)
       if (window.menuState === 'hidden'){
         console.log("trying to show")
         window.menuState = 'shown';
-        $('.side-nav.fixed').animate({
-          left: 0
-        }, 500);
-        $('i.mdi-navigation-menu').animate({
-          'padding-left': 240
-        }, 700);
+        $('.side-nav.fixed').velocity({left: 0 }, 500);
+        $('i.mdi-navigation-menu').velocity({'padding-left': 240 }, 700);
       }
       else if (window.menuState === 'shown'){
         console.log("trying to hide")
         window.menuState = 'hidden';
-        $('.side-nav.fixed').animate({
-          left: '-105%'
-        }, 500);
-        $('i.mdi-navigation-menu').animate({
-          'padding-left': 0
-        }, 400);
+        $('.side-nav.fixed').velocity({left: '-105%'}, 500);
+        $('i.mdi-navigation-menu').velocity({'padding-left': 0 }, 400);
+        // $('i.mdi-navigation-menu').velocity("callout.bounce");
       }
       else {
         console.log("hit nothing, window.menuState:",window.menuState)

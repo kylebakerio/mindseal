@@ -16,6 +16,7 @@
   "dependencies": {
     "mithril": "~0.2.0",
     "moment": "~2.10.6",
-    "Materialize": "materialize#~0.97.1"
+    "Materialize": "materialize#~0.97.1",
+    "velocity": "~1.2.3"
   }
 }

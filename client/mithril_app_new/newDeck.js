@@ -56,6 +56,7 @@
       $("#input_text").val(""); //is this a bad pattern to use with mithril?
       $("#textarea1").val("");
       Materialize.toast('Deck "' + deck.name + '" Added', 4000);
+      m.route('/home');
     };
   };
 })()

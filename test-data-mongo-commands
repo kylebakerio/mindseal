@@ -147,6 +147,11 @@ db.userRecordsObj.find({"decks.deck1.name": "deckName"})
 db.userRecordsObj.find({"decks.deck1.name": "deckName"}, {name: false, _id: false})
 
 
+//// KYLE ADDED:
+
+//delete all shared decks 
+db.userData.update({_id:"shared"},{$set: {decks:{}}})
+
 
 
 

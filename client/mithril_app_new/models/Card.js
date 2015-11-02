@@ -47,12 +47,14 @@ Card.tValSetDefault = function(hours){
 }
 
 Card.counter = function(){
+  console.log("counting...")
   if (moment(App.mindSeal.userSettings.lastEdit).format('MM-DD-YYYY') === moment().format('MM-DD-YYYY')) {
+    console.log("it's the same day")
     App.mindSeal.userSettings.todayCounter++;
   }
   else {
+    console.log("it's a new day")
     App.mindSeal.userSettings.todayCounter = 1;
   }
   App.mindSeal.userSettings.allTimeCounter++;
-  // setMindSeal();
 }

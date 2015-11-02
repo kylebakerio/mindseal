@@ -22,21 +22,22 @@
       mArray.push(
         //m("a", {href:('#/deckDash/' + deck)}, 
         m(".row", [
-          m(".col.s12.m7.l7.offset-l3.offset-m2", [
+          m(".col.s12.m7.l7.offset-m2", [
             m(".card.blue-grey.darken-1", [
               m(".card-content.white-text", [
                 m("span.card-title", deck),
-                m("p", "Size of deck: "+ ctrl.shared[deck].cards.length), 
+                m("p", "Size of deck: " + (ctrl.shared[deck].cards.length + ctrl.shared[deck].unseen.length)), 
+                m("br"),
+                m("p", "Author: " + ctrl.shared[deck].author),
                 m("br"),
                 ctrl.shared[deck].description ?
-                  m("",[m("p", "Description: "+ ctrl.shared[deck].description), 
-                  m("br")])
+                  m("",[m("p", "Description: " + ctrl.shared[deck].description), m("br") ])
                 :
                   m("p", "No description given.")
               ]),
               m(".card-action", [
-                m("a.waves-effect.waves-light.btn", {value:deck, onclick:m.withAttr("value", ctrl.addDeck)}, [m("i.material-icons.left", "library_add"),"Get This Deck"]),
-                m("a.waves-effect.waves-light.btn", {value:deck, onclick:function(){alert("This functionality coming soon!")}}, [m("i.material-icons.left", "grade"),"Try Out This Deck"])
+                m("a.waves-effect.waves-light.btn", {value:deck, onclick:m.withAttr("value", ctrl.addDeck)}, [m("i.material-icons.left", "library_add"),"Get Deck"]),
+                m("a.waves-effect.waves-light.btn", {value:deck, onclick:function(){alert("This functionality coming soon!")}}, [m("i.material-icons.left", "grade"),"Try Deck"])
               ])
             ])
           ])

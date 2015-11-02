@@ -8,10 +8,11 @@
         m(".center-align.col.s12.m7.l7.offset-l3.offset-m2", [
           m("h3", ctrl.name),
           m(".hide-on-small-only", [
-            m("p", [m("b", ctrl.currentDeck.cards.length)," cards in this deck, ",m("b", "todo")," ready to be seen."]),
-            m("p", ["You've reviewed ",m("b", "todo")," cards in this deck today."]),
-            m("p", ["You have ",m("b", ctrl.remaining + " remaining to meet your quota.")]),
-            m("p", ["You've reviewed ",m("b", "todo")," cards since todo ago."]),
+            m("p", [m("b", ctrl.currentDeck.cards.length + ctrl.currentDeck.unseen.length)," cards in this deck, ",m("b", "todo")," ready to be seen."]),
+            m("p", "you have " + ctrl.currentDeck.unseen.length + " unseen cards in this deck."),
+            m("p", ["You've reviewed ",m("b", App.mindSeal.userSettings.todayCounter)," cards today."]),
+            m("p", ["You have ",m("b", "todo" + " remaining to meet your quota.")]),
+            m("p", ["You've reviewed ",m("b", App.mindSeal.userSettings.allTimeCounter)," cards since you joined " + moment(App.mindSeal.userSettings.accountMade).fromNow() + " ago."]),
             m('br'),
           ]),
           m("",ctrl.cardView)
@@ -20,58 +21,92 @@
     ])
   };
 
-  viewDeck.controller = function(args){
+  viewDeck.controller = function(argObj){
     var ctrl = this;
     ctrl.index = 0;
-    ctrl.name = args.name;
-    ctrl.deck = args.deck;
-    ctrl.currentDeck = args.deck;
-    ctrl.currentCard = ctrl.currentDeck.cards[0]; 
+    ctrl.name = argObj.name;
+    ctrl.deck = argObj.deck;
+    ctrl.currentDeck = argObj.deck;
+    if (ctrl.currentDeck.cards.length > 0 && moment().diff(moment(ctrl.currentDeck.cards[0].toBeSeen)) > 0 ){
+      ctrl.currentCard = ctrl.currentDeck.cards[0];
+      ctrl.stack = "cards";
+    }
+    else if (ctrl.currentDeck.unseen.length > 0){
+      ctrl.currentCard = ctrl.currentDeck.unseen[0];
+      ctrl.stack = "unseen";
+    }
+    else {
+      console.log("empty deck... routing home")
+      ctrl.currentCard = ctrl.currentDeck.cards[0];
+      m.route('/home')
+    }
     ctrl.show = false;
-    ctrl.remaining = ctrl.currentDeck.cards.length-ctrl.index; //should be updated to take dates into account & should live update
+    ctrl.remaining = function(){return ctrl.currentDeck[ctrl.stack].length-ctrl.index}; //should be updated to take dates into account & should live update
+
+    //determine cardView
+    if (ctrl.currentCard.toBeSeen === "shared" || moment().diff(ctrl.currentCard.toBeSeen) > 0) {
+      ctrl.cardView = [
+        m(".row", [
+          m(".col.s12.m7.l7.offset-l3.offset-m2", [
+            m(".card.blue-grey.darken-1", [
+              m(".card-content.white-text", [
+                m("p.center-align", ctrl.currentCard.front)
+              ]),
+              m(".align-center.card-action.center-align", [
+                m("a.waves-effect.waves-light.btn",{onclick: function(){ctrl.toggleBack()}, title:'protip: use the spacebar shortcut!'}, [m("i.material-icons.left", "grade"),"Show Back"])
+              ])
+            ])
+          ])
+        ])
+      ]
+
+    } else {
+      console.log("currentCard was",ctrl.currentCard)
+      ctrl.cardView = [
+        m('br'),m("p","Next card ready to review: " + 
+        moment(ctrl.currentCard.toBeSeen).format("MMM Do, YYYY hh:mm a") + 
+        ", " + moment(ctrl.currentCard.toBeSeen).fromNow())]
+        //should add an overtime button.
+    }
+
+    //end cardView determination
 
     ctrl.rate = function(button){
-      if (ctrl.currentCard.timeLastSeen === "shared") {
-        ctrl.currentCard.timeLastSeen = moment().format();
-        var convert = App.mindSeal.userSettings.cScaleDefault ?
-        {
-          0: App.mindSeal.userSettings.cScaleDefault[0],
-          1: App.mindSeal.userSettings.cScaleDefault[1],
-          2: App.mindSeal.userSettings.cScaleDefault[2],
-          3: App.mindSeal.userSettings.cScaleDefault[3]
-        }
-        : ( console.log("no cScaleDefault found"),
-            {
-              0: ctrl.currentCard.cScale[0],
-              1: ctrl.currentCard.cScale[1],
-              2: ctrl.currentCard.cScale[2],
-              3: ctrl.currentCard.cScale[3]
-            }
-          )
-      }
-      else {
+      if (ctrl.currentCard.timeLastSeen !== "shared") {
         var convert = {
           0: ctrl.currentCard.cScale[0],
           1: ctrl.currentCard.cScale[1],
           2: ctrl.currentCard.cScale[2],
           3: ctrl.currentCard.cScale[3]
         }
+        console.log("old tval: " + (moment.duration(tVal).asMinutes()).toFixed(1) + " minutes.");
+        console.log("old time last seen: " + moment(ctrl.currentCard.timeLastSeen).fromNow());
+        console.log("old time to be seen: " + moment(ctrl.currentCard.toBeSeen).fromNow());
+        var tVal = moment.duration(moment().diff(moment(ctrl.currentCard.timeLastSeen)));
+        tVal *= convert[button]; 
       }
-      console.log("convert[button] " + convert[button])
+      else {
+        console.log("rating a previously unseen card.")
+        var convert = 
+          {
+            0: App.mindSeal.userSettings.cScaleDefault[0],
+            1: App.mindSeal.userSettings.cScaleDefault[1],
+            2: App.mindSeal.userSettings.cScaleDefault[2],
+            3: App.mindSeal.userSettings.cScaleDefault[3]
+          }
+        var tVal = App.mindSeal.userSettings.tValDefault;
+      }
       
-      var tVal = moment.duration(moment().diff(moment(ctrl.currentCard.timeLastSeen)));
-      console.log("old tval: " + (moment.duration(tVal).asMinutes()).toFixed(1) + " minutes.");
-      tVal *= convert[button]; 
+      console.log("convert[button] " + convert[button])
       console.log("new tval: " + (moment.duration(tVal).asMinutes()).toFixed(1) + " minutes.");
       
-      console.log("old time last seen: " + moment(ctrl.currentCard.timeLastSeen).fromNow());
       ctrl.currentCard.timeLastSeen = moment().format(); //it was just seen now.
       console.log("new time last seen: " + moment(ctrl.currentCard.timeLastSeen).fromNow());
       
-      console.log("old time to be seen: " + moment(ctrl.currentCard.toBeSeen).fromNow());
       ctrl.currentCard.toBeSeen = ( 
         moment(ctrl.currentCard.timeLastSeen).clone().add(tVal, 'milliseconds').format()
       );
+
       console.log("new time to be seen: " + moment(ctrl.currentCard.toBeSeen).fromNow());
       
       console.log("next viewing in: " + 
@@ -79,18 +114,28 @@
         " days."
       );
 
-      Deck.binaryInsert(ctrl.index, ctrl.currentDeck.cards, "toBeSeen");
+      if (ctrl.stack === "unseen") Deck.binaryInsert(null, ctrl.currentDeck.cards, "toBeSeen", ctrl.currentCard);
+      else Deck.binaryInsert(ctrl.index, ctrl.currentDeck.cards, "toBeSeen");
+
+      //not sure about this...
+      //want to delete from unseen if rated, because it has been inserted into 'cards'... otherwise will review shared perpetually.
+      if (ctrl.stack === "unseen") currentDeck[ctrl.stack].shift()
+      //index shohuld go down to keep up with shrinking deck.
+      ctrl.index--;
+      //
+
       ctrl.nextCard();
       ctrl.toggleBack();
       console.log(Deck.isSorted(ctrl.currentDeck.cards) ? "Insertion was successful." : "Insertion failed. Please sort manually.");
+      Card.counter()
       User.sync();
     }
 
     viewDeck.noMore = function(){
-      ctrl.remaining = 0;
+      ctrl.remaining = function(){return 0};
       console.log("current card: " + ctrl.currentCard.front);
-      next = ctrl.currentDeck.cards[ctrl.index + 1] ? ctrl.index + 1 : 0;
-      ctrl.cardView =[m("h1", "Great work!"),m('p','No more cards to view for now.'),m('br'),m("p","Next card ready to review: " + 
+      next = ctrl.currentDeck.cards[ctrl.index + 1] ? ctrl.index + 1 : 0; // if true, we hit an unready card; if false, we hit end, and look at card 1.
+      ctrl.cardView =[m("h3", "Great work!"),m('p','No more cards to view for now.'),m('br'),m("p","Next card ready to review: " + 
           moment(ctrl.currentCard.toBeSeen).format("MMM Do, YYYY hh:mm a") + 
           ", " + moment(ctrl.currentDeck.cards[next].toBeSeen).fromNow())] //should be an overtime button.
       m.redraw()
@@ -98,31 +143,30 @@
     }
 
     ctrl.nextCard = function () {
-      //this if condition should also check how many cards have been viewed this day vs max to be viewed (from settings).
-      if(ctrl.currentDeck.cards.length <= ctrl.index +1 || 
-        ctrl.currentDeck.cards[ctrl.index +1].toBeSeen === "shared" ||
-        (moment().diff(ctrl.currentDeck.cards[ctrl.index +1].toBeSeen) < 0)
+      //this if condition should also check how many cards have been viewed this day vs quota (from settings).
+      if(ctrl.currentDeck[ctrl.stack].length <= ctrl.index +1 || //no more cards in stack (also should === true when unseen is empty)
+        (ctrl.stack === "cards" && moment().diff(ctrl.currentDeck.cards[ctrl.index +1].toBeSeen) < 0) //next card in stack isn't ready to be seen
         ) {
-        console.log(ctrl.currentDeck.cards.length <= ctrl.index +1 ? "hit last card" : "hit a card not ready to be shown");
-        // console.log("Next card's toBeSeen timestamp is: " + ctrl.currentDeck.cards[ctrl.index+1].toBeSeen.fromNow());
-        if (moment().diff(ctrl.currentDeck.cards[0].toBeSeen) > 0) {
-          ctrl.index = 0;
-          Card.counter();
+        console.log(ctrl.currentDeck[ctrl.stack].length <= ctrl.index +1 ? "hit last card" : "hit a card not ready to be shown");
+        if (moment().diff(ctrl.currentDeck.cards[0].toBeSeen) > 0) { //check first card in "cards" stack before we can really call it quits
+          ctrl.index = 0; // jump to the first card and go around again until we run into this again
+          ctrl.stack = "cards"; // if we hit the end of 'unseen' and are jumping over to 'cards'
           ctrl.currentCard = ctrl.currentDeck.cards[0];
-          ctrl.remaining = ctrl.currentDeck.cards.length-ctrl.index;
         }
-        else viewDeck.noMore();
+        else { //we've really run out of cards to view
+          viewDeck.noMore();
+        } 
       }
-      else {
+      else { //still cards in this stack.
         ctrl.index++;
-        Card.counter(); 
-        ctrl.currentCard = ctrl.currentDeck.cards[ctrl.index];
-        ctrl.remaining = ctrl.currentDeck.cards.length-ctrl.index;
+        ctrl.currentCard = ctrl.currentDeck[ctrl.stack][ctrl.index];
       }
+      // Card.counter();
     }
 
     ctrl.toggleBack = function(){
-      if (ctrl.remaining > 0) {
+      console.log("ctrl.remaining():",ctrl.remaining())
+      if (ctrl.remaining() > 0) {
         if (ctrl.show !== true ){
           
           ctrl.cardView = [
@@ -171,30 +215,6 @@
       }
     }
 
-    if (ctrl.currentDeck.cards[0].toBeSeen === "shared" || 
-        moment().diff(ctrl.currentDeck.cards[0].toBeSeen) > 0) {
-      ctrl.cardView = [
-        m(".row", [
-          m(".col.s12.m7.l7.offset-l3.offset-m2", [
-            m(".card.blue-grey.darken-1", [
-              m(".card-content.white-text", [
-                m("p.center-align", ctrl.currentCard.front)
-              ]),
-              m(".align-center.card-action.center-align", [
-                m("a.waves-effect.waves-light.btn",{onclick: ctrl.toggleBack, title:'protip: use the spacebar shortcut!'}, [m("i.material-icons.left", "grade"),"Show Back"])
-              ])
-            ])
-          ])
-        ])
-      ]
-
-    } else {
-      ctrl.cardView = [
-        m('br'),m("p","Next card ready to review: " + 
-        moment(ctrl.currentCard.toBeSeen).format("MMM Do, YYYY hh:mm a") + 
-        ", " + moment(ctrl.currentDeck.cards[ctrl.index].toBeSeen).fromNow())]
-        //should add an overtime button.
-    }
 
   }
 })()

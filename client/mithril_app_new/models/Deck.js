@@ -43,16 +43,15 @@ Deck.fetch = function(shared) { //should be the server call to get a Decks objec
 
 Deck.share = function(deck, deckName){
 
-  var share = {}
-
-  for (var key in deck){
-    share[key] = deck[key];
-  }
+  var share = JSON.parse(JSON.stringify(deck));
 
   share.cards.forEach(function(card){  
     card.timeLastSeen = "shared";
     card.toBeSeen = "shared";
   })
+
+  share.unseen = share.cards;
+  share.cards  = [];
 
   console.log("sharing", deckName + ": ", share)
 
@@ -88,9 +87,10 @@ Deck.createDeck = function (name, obj) {
     App.mindSeal.decks[name].creation = moment().format();
     App.mindSeal.decks[name].description = obj.description;
     App.mindSeal.decks[name].cards = obj.cards || [];
+    App.mindSeal.decks[name].author = App.mindSeal.userSettings.username;
   }
   else {
-    App.mindSeal.decks[name] = {creation: moment().format(), cards: [], description:"No description given"}; //initiate an empty deck with the passed in name
+    App.mindSeal.decks[name] = {creation: moment().format(), cards: [], unseen: [], description:"No description given"}; //initiate an empty deck with the passed in name
   }
   User.sync()
 }
@@ -125,6 +125,7 @@ Deck.binaryInsert = function(index,arr,prop,card){
 }
 
 Deck.isSorted = function(array){
+  console.log("checking this array for sortedness:",array)
   var last = array[0];
   console.log("--------BEGIN DISPLAY OF ALL CARD TO-BE-SEEN TIMESTAMPS --------")
   console.log("Card -" + last.front + "-, ready to be seen " + moment(last.toBeSeen).fromNow())

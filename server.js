@@ -47,13 +47,9 @@ app.post('/decks/shared', function(req, res){
   })
 })
 
-// begin shortly borrowed stuff
-
 app.post('/signup', function(req, res) {
   var user = handler.userExists(req.body.username)
-  /*console.log("user is: ", user);
-  user = user*/.then(function(answer){
-    console.log("answer was: " + answer)
+  .then(function(answer){
     if (answer !== null){
       console.log(req.body.username + " was taken")
       res.send({login: false, message: req.body.username + " is taken"});
@@ -74,20 +70,23 @@ app.post('/signup', function(req, res) {
       console.log("this is returned from handler.makeUser: ", x)
       console.log(x.ops[0]._id)
       req.session.user = x.ops[0]._id;
+      var mindSeal = { 
+        userSettings: {
+          username: x.ops[0]._id,
+          newCardLimit: null,
+          tValDefault: 128000000, 
+          lastEdit: req.body.time, 
+          todayCounter: 0,
+          allTimeCounter: 0,
+          cScaleDefault: {0: 0.9, 1: 1.2, 2: 1.8, 3: 2.5},
+          accountMade: req.body.time
+        },
+        decks: {}
+      };
+      handler.setMindSeal(req.session.user, mindSeal, req.body.time);
       res.send({
         login: true, 
-        mindSeal: { 
-          userSettings: {
-            username: x.ops[0]._id,
-            newCardLimit: null,
-            tValDefault: 128000000, 
-            lastEdit: req.body.time, 
-            todayCounter: 0,
-            allTimeCounter: 0,
-            cScaleDefault: {0: 0.9, 1: 1.2, 2: 1.8, 3: 2.5}
-          },
-          decks: {}
-        }
+        mindSeal: mindSeal
       });
     })
     .catch(function(error){
@@ -125,7 +124,6 @@ app.post('/login', function(req, res) {
 });
 
 app.post('/logout', function(req, res) {
-  // console.log(req.body.mindSeal)
   console.log("logging out, attempting to update with the following:",
     req.session.user, req.body.mindSeal, req.body.time);
   handler.setMindSeal(req.session.user, req.body.mindSeal, req.body.time)
@@ -134,8 +132,7 @@ app.post('/logout', function(req, res) {
     req.session.user = null; 
     res.status(200).send({
       logout: true, 
-      message:"You have been successfully logged out."/*,
-      result: result*/
+      message:"You have been successfully logged out."
     });
   })
   .catch(function(err){
@@ -146,11 +143,9 @@ app.post('/logout', function(req, res) {
 });
 
 app.post('/sync', function(req, res) {
-  // console.log(req.body.mindSeal)
   console.log("syncing");
   handler.setMindSeal(req.session.user, req.body.mindSeal, req.body.time)
   .then(function(result){
-    // console.log('after setSettings', result)
     res.status(200).send({
       success: true, 
       message:"sync successful.",
@@ -161,18 +156,7 @@ app.post('/sync', function(req, res) {
     console.log("err caught while syncing",err);
     res.status(404).send({message:"database error:", error:err});
   })
-
 });
-
-//OLD STUFF, REWRITE ALL
-
-
-// app.post('/users',
-//   // Create a new user account
-//   function(req, res) {
-//     handler.createUser(req, res);
-//   }
-// );
 
 app.get('/decks', function(req, res) {
     // console.log(req.session);
