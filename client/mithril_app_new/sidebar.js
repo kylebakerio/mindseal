@@ -41,13 +41,13 @@
         console.log("trying to show")
         window.menuState = 'shown';
         $('.side-nav.fixed').velocity({left: 0 }, 500);
-        $('i.mdi-navigation-menu').velocity({'padding-left': 240 }, 700);
+        $('i.mdi-navigation-menu').velocity({'padding-left': 240 }, 500);
       }
       else if (window.menuState === 'shown'){
         console.log("trying to hide")
         window.menuState = 'hidden';
-        $('.side-nav.fixed').velocity({left: '-105%'}, 500);
-        $('i.mdi-navigation-menu').velocity({'padding-left': 0 }, 400);
+        $('.side-nav.fixed').velocity({left: -240}, 500);
+        $('i.mdi-navigation-menu').velocity({'padding-left': 0 }, 500);
         // $('i.mdi-navigation-menu').velocity("callout.bounce");
       }
       else {
