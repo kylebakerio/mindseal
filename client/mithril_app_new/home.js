@@ -21,7 +21,9 @@
       ] : [
         m(".row", [
           m(".col.s12.m7.l7.offset-l3.offset-m2", [
-            m("p","Download a shared deck or create your own to get started.")
+            m("a.waves-effect.waves-light.btn", {onclick:function(){m.route("/shared")}}, [m("i.material-icons.left", "file_download"),"Get Shared Deck"]),
+            m("br"),
+            m("a.waves-effect.waves-light.btn", {onclick:function(){m.route("/newDeck")}}, [m("i.material-icons.left", "create"),"Create new deck"]),
           ])
         ])
       ],
@@ -48,7 +50,7 @@
       //for materialize fields:
       $("#" + deckName + "-front").trigger('autoresize');
       $("#" + deckName + "-back").trigger('autoresize');
-      
+
       Materialize.toast('Card Added', 4000);
       User.sync();
     }
@@ -87,16 +89,21 @@
         m(".card.blue-grey.darken-1.hoverable", [
           m(".card-content.white-text", [
             m("span.card-title", App.mindSeal.decks[deckName].name),
-            m("p","Date Created: " + moment(App.mindSeal.decks[deckName].creation).format("MMM Do, YYYY")),
-            m("p", [/*"Cards to be seen: todo",m("br"),*/"Cards in deck: " + deckSize, m('br'),
-              ( deckSize > 0 ? 
-                App.mindSeal.decks[deckName].unseen.length > 0 ? 
-                m("p", "Next card ready to review: Now") :
-                [m('br'),("Next card ready to review: " + moment(App.mindSeal.decks[deckName].cards[0].toBeSeen).format("MMM Do, YYYY hh:mm a") +
-                ", " + moment(App.mindSeal.decks[deckName].cards[0].toBeSeen).fromNow() )] : 
-              "Deck is empty.")
-            ])
-          ]),
+             m("p","Date Created: " + moment(App.mindSeal.decks[deckName].creation).format("MMM Do, YYYY")),
+              m("p", /*"Cards to be seen: todo",m("br"),*/"Cards in deck: "+ deckSize),
+              m("p", ( deckSize > 0 ? 
+                          App.mindSeal.decks[deckName].unseen.length > 0 ? 
+                           "Next card ready to review: Now" :
+                            ( "Next card ready to review: " + 
+                            moment(App.mindSeal.decks[deckName].cards[0].toBeSeen).format("MMM Do, YYYY hh:mm a") + ", " + 
+                            moment(App.mindSeal.decks[deckName].cards[0].toBeSeen).fromNow() /*+
+                              moment().diff(App.mindSeal.decks[deckName].cards[0].toBeSeen) > 0 ? 
+                              "No cards ready to view at this time." :
+                              ""*/
+                            ) :
+                        "Deck is empty." 
+                      )
+                ),
           m(".card-action", [
             deckSize < 1 || (App.mindSeal.decks[deckName].unseen.length < 1 && App.mindSeal.decks[deckName].cards.length > 0 && moment().diff(moment(App.mindSeal.decks[deckName].cards[0].toBeSeen)) < 0 ) ?
             m("a.waves-effect.waves-light.btn.disabled", {title:"Add some cards, first!"}, [m("i.material-icons.left", "grade"),"Review"]) :
@@ -115,6 +122,7 @@
         ])
       ])
     ])
+  ])
   }
 
   function deckAddCardsView (ctrl, deckName) {
@@ -126,17 +134,20 @@
           m(".card-content.white-text", [
             m("span.card-title", App.mindSeal.decks[deckName].name),
             m("p","Date Created: " + moment(App.mindSeal.decks[deckName].creation).format("MMM Do, YYYY")),
-            m("p", [/*"Cards to be seen: todo",m("br")*/,"Cards in deck: "+ 
-              deckSize, m("br"), 
-              ( deckSize > 0 ? 
-                App.mindSeal.decks[deckName].unseen.length > 0 ? 
-                m("p", "Next card ready to review: Now") :
-                ( "Next card ready to review: " + 
-                moment(App.mindSeal.decks[deckName].cards[0].toBeSeen).format("MMM Do, YYYY hh:mm a") + ", " + 
-                moment(App.mindSeal.decks[deckName].cards[0].toBeSeen).fromNow() ) :
-              "Deck is empty." 
-              )
-              ]),
+            m("p", /*"Cards to be seen: todo",m("br"),*/"Cards in deck: "+ deckSize),
+            m("p", ( deckSize > 0 ? 
+                        App.mindSeal.decks[deckName].unseen.length > 0 ? 
+                         "Next card ready to review: Now" :
+                          ( "Next card ready to review: " + 
+                          moment(App.mindSeal.decks[deckName].cards[0].toBeSeen).format("MMM Do, YYYY hh:mm a") + ", " + 
+                          moment(App.mindSeal.decks[deckName].cards[0].toBeSeen).fromNow() /*+
+                            moment().diff(App.mindSeal.decks[deckName].cards[0].toBeSeen) > 0 ? 
+                            "No cards ready to view at this time." :
+                            ""*/
+                          ) :
+                      "Deck is empty." 
+                    )
+              ),
             m(".row", [
               m(".input-field.col.s12.m6", [
                 m("input.materialize-textarea", {id:deckName + "-front", type:'text'}),
@@ -150,7 +161,7 @@
             m("a.btn-floating.waves-effect.waves-light.blue",{onclick: function(){ctrl.makeCard(deckName)}, title:"Click here to add the card you're working on."}, [m("i.material-icons", "add")])
           ]),
           m(".card-action", [
-            m("a.waves-effect.waves-light.btn.blue",{onclick:function(){ctrl.toggleDeckView(deckName)}, title:"Click here when you don't want to add any more cards."}, [m("i.material-icons.left", "done_all"),"Finished"])
+            m("a.waves-effect.waves-light.btn.blue",{onclick:function(){ctrl.toggleDeckView(deckName)}, title:"Click here when you don't want to add any more cards."}, [m("i.material-icons.left", "done_all"),"Done Adding Cards"])
           ])
         ])
       ])
