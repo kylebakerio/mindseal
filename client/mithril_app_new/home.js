@@ -36,7 +36,7 @@
 
     ctrl.share    = function(deckName){
       Deck.share(App.mindSeal.decks[deckName], deckName);
-      Materialize.toast('Shared ' + deckName, 4000);
+      Materialize.toast('Shared ' + App.mindSeal.decks[deckName].name, 4000);
     }
 
     ctrl.makeCard = function(deckName){ //populates the values of the card from the form and calls the view
@@ -44,6 +44,11 @@
       Deck.binaryInsert(null, App.mindSeal.decks[deckName].cards, "toBeSeen", Card.vm(newCard));
       $("#" + deckName + "-front").val("")
       $("#" + deckName + "-back").val("")
+
+      //for materialize fields:
+      $("#" + deckName + "-front").trigger('autoresize');
+      $("#" + deckName + "-back").trigger('autoresize');
+      
       Materialize.toast('Card Added', 4000);
       User.sync();
     }
@@ -135,11 +140,11 @@
             m(".row", [
               m(".input-field.col.s12.m6", [
                 m("input.materialize-textarea", {id:deckName + "-front", type:'text'}),
-                m("label", "Card Prompt")
+                m("label",{for:deckName + '-front'}, "Card Prompt")
               ]),
               m(".input-field.col.s12.m6", [
                 m("input.materialize-textarea", {id:deckName + "-back", type:'text'}),
-                m("label", "Card Answer")
+                m("label",{for:deckName + '-back'}, "Card Answer")
               ])
             ]),
             m("a.btn-floating.waves-effect.waves-light.blue",{onclick: function(){ctrl.makeCard(deckName)}, title:"Click here to add the card you're working on."}, [m("i.material-icons", "add")])

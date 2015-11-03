@@ -7,7 +7,7 @@
         m(".hoverable.card-panel.col.m5.offset-m1.l4.offset-l2.s12.top-bottom-pad-mar.valign-wrapper", [
           m("form.col.s12", [
             m(".container.card-content", [
-              m('p','Sign Up or Login here.'),
+              m('p','Sign Up or Login using this form.'),
               m(".row", [
                 m(".input-field.col.s12", [
                   m("input.validate[id='username'][type='text']", {onchange: m.withAttr("value", ctrl.username)}),
@@ -31,7 +31,7 @@
             ])
           ])
         ]),
-        window.innerWidth < 600 ?
+        window.innerWidth < 600 ? 
         null
         :
         m(".card-panel.col.s12.m5.l4.top-bottom-pad-mar.valign-wrapper", [
@@ -42,7 +42,6 @@
             ])
           ])
         ])
-
       ])
     ])
   };
@@ -55,7 +54,15 @@
     ctrl.email    = m.prop()
     
     ctrl.signUp   = function(){
-      User.signUp(ctrl.username(), ctrl.password(), ctrl.email())
+      if (ctrl.username().length < 1){
+        alert("Please enter a username to signup with.")
+      } 
+      if (ctrl.password().length < 4){
+        alert("Please enter a password of at least 4 characters to sign up with.")
+      }
+      else {
+        User.signUp(ctrl.username(), ctrl.password(), ctrl.email())
+      }
     }
     
     ctrl.login    = function(){
@@ -70,5 +77,9 @@
       console.log("App.mindSeal is an object")
       m.route("/home");
     }
+    else {
+      alert("Please excuse our bugs and lack of polish! This is an alpha release. Things should be working, but can break occassionally due to active development. :)")
+    }
+
   };
 })()
