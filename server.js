@@ -114,7 +114,7 @@ app.post('/login', function(req, res) {
     }
     else {
       console.log("password invalid")
-      res.status(401).send({login: false, message:"failed: password invalid."})
+      res.status(401).send({login: false, message:"Your username and/or password are incorrect."})
     }
   })
   .catch(function(error){

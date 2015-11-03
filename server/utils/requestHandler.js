@@ -46,7 +46,7 @@ module.exports = {
     .then(function(userObj){
       if(!userObj){
         console.log("did not find " + username + " in database.");
-        res.send({message:"failed: no such username"});
+        res.send({login:false, message:"Your username and/or password are incorrect."});
       }
       else {
         console.log("found user: " + userObj._id, userObj);
