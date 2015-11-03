@@ -54,10 +54,10 @@
     ctrl.email    = m.prop()
     
     ctrl.signUp   = function(){
-      if (ctrl.username().length < 1){
+      if (typeof ctrl.username() === "undefined"){
         alert("Please enter a username to signup with.")
       } 
-      if (ctrl.password().length < 4){
+      else if (typeof ctrl.password() === "undefined" || ctrl.password().length < 4){
         alert("Please enter a password of at least 4 characters to sign up with.")
       }
       else {

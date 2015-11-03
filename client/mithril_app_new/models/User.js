@@ -12,7 +12,7 @@ User.signUp = function(username, password) {
     if (data.login === true){
       window.App = {};
       console.log("Got the newly minted mindSeal:",data.mindSeal);
-      App.mindSeal = data.mindSeal;
+      App.mindSeal = data.mindSeal;  
       m.route('/home');
     }
     else if (data.login === false){
