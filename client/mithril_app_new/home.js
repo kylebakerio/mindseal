@@ -2,33 +2,29 @@
   window.Home = {};
 
   Home.view = function(ctrl){  
-    return m(".cow.col.s12", [
+    return App.mindSeal && App.mindSeal.decks && Object.keys(App.mindSeal.decks).length !== 0 ? 
+        m(".cow.col.s12", [
+          m(".row", [
+            m(".col.s12.m7.l7.offset-l3.offset-m2", [
+              m("h2", "Welcome!"),
+              m("p", ["You've reviewed ",m("b", App.mindSeal.userSettings.todayCounter)," cards today."]),
+              // m("p", ["You have ",m("b", ctrl.remaining)," cards to go to meet your daily quota."]),
+              m("p", ["You've reviewed ",m("b", App.mindSeal.userSettings.allTimeCounter)," cards since you joined " + moment(App.mindSeal.userSettings.accountMade).fromNow() + " ago."]),
+            ]),
+          Object.keys(App.mindSeal.decks).map(function(deckName) {
+            return deckView(ctrl, deckName)
+          })
+        ])
+      ])
+      : 
       m(".row", [
-        m(".col.s12.m7.l7.offset-l3.offset-m2", [
+        m(".col.s9.offset-s3.m7.l7.offset-l3.offset-m2", [
           m("h2", "Welcome!"),
-          m("p", ["You've reviewed ",m("b", App.mindSeal.userSettings.todayCounter)," cards today."]),
-          // m("p", ["You have ",m("b", ctrl.remaining)," cards to go to meet your daily quota."]),
-          m("p", ["You've reviewed ",m("b", App.mindSeal.userSettings.allTimeCounter)," cards since you joined " + moment(App.mindSeal.userSettings.accountMade).fromNow() + " ago."]),
+          m("a.waves-effect.waves-light.btn", {onclick:function(){m.route("/shared")}}, [m("i.material-icons.left", "file_download"),"Get Shared Deck"]),
+          m("br"),
+          m("a.waves-effect.waves-light.btn", {onclick:function(){m.route("/newDeck")}}, [m("i.material-icons.left", "create"),"Create new deck"]),
         ])
-      ]),
-
-      App.mindSeal && App.mindSeal.decks && Object.keys(App.mindSeal.decks).length !== 0 ? [
-
-        Object.keys(App.mindSeal.decks).map(function(deckName) {
-          return deckView(ctrl, deckName)
-        })
-        
-      ] : [
-        m(".row", [
-          m(".col.s12.m7.l7.offset-l3.offset-m2", [
-            m("a.waves-effect.waves-light.btn", {onclick:function(){m.route("/shared")}}, [m("i.material-icons.left", "file_download"),"Get Shared Deck"]),
-            m("br"),
-            m("a.waves-effect.waves-light.btn", {onclick:function(){m.route("/newDeck")}}, [m("i.material-icons.left", "create"),"Create new deck"]),
-          ])
-        ])
-      ],
-
-    ])
+      ])
   };
 
   Home.controller = function(args){
