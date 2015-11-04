@@ -38,26 +38,19 @@
     window.toggleMenu = function(){
       console.log("window.menuState:",window.menuState)
       if (window.menuState === 'hidden'){
-        console.log("trying to show")
         window.menuState = 'shown';
         $('.side-nav.fixed').velocity({left: 0 }, 500);
         $('i.mdi-navigation-menu').velocity({'padding-left': 240 }, 500);
       }
       else if (window.menuState === 'shown'){
-        console.log("trying to hide")
         window.menuState = 'hidden';
         $('.side-nav.fixed').velocity({left: -240}, 500);
         $('i.mdi-navigation-menu').velocity({'padding-left': 0 }, 500);
         // $('i.mdi-navigation-menu').velocity("callout.bounce");
       }
-      else {
-        console.log("hit nothing, window.menuState:",window.menuState)
-      }
     }
   };
 })()
-
-//User.sync()
 
   // var active = m.prop("active-sidebar");
   // var r = m.route();

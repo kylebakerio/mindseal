@@ -67,7 +67,6 @@
         ( $("#" + deckName + "-front").val() === "" && $("#" + deckName + "-back").val() === "" ) ||
         ( ($("#" + deckName + "-front").val() !== "" || $("#" + deckName + "-back").val() !== "") && confirm("Are you sure you want to exit without saving this card?") )
         ){
-        console.log("fields: ", $("#" + deckName + "-front").val() === "", $("#" + deckName + "-back").val() === "")
         ctrl.deckStates[deckName] = 'dash';
       }
     }
@@ -92,15 +91,15 @@
              m("p","Date Created: " + moment(App.mindSeal.decks[deckName].creation).format("MMM Do, YYYY")),
               m("p", /*"Cards to be seen: todo",m("br"),*/"Cards in deck: "+ deckSize),
               m("p", ( deckSize > 0 ? 
-                          App.mindSeal.decks[deckName].unseen.length > 0 ? 
-                           "Next card ready to review: Now" :
+                          App.mindSeal.decks[deckName].unseen.length > 0 ? // next line: if first & second are true
+                           "Next card ready to review: Now" : //below: if first was true but second was false.
                             ( "Next card ready to review: " + 
                             moment(App.mindSeal.decks[deckName].cards[0].toBeSeen).format("MMM Do, YYYY hh:mm a") + ", " + 
                             moment(App.mindSeal.decks[deckName].cards[0].toBeSeen).fromNow() /*+
                               moment().diff(App.mindSeal.decks[deckName].cards[0].toBeSeen) > 0 ? 
                               "No cards ready to view at this time." :
                               ""*/
-                            ) :
+                            ) : //below: if first condition is false
                         "Deck is empty." 
                       )
                 ),

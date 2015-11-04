@@ -100,7 +100,6 @@ Deck.createDeck = function (name, obj) {
 Deck.binaryInsert = function(index,arr,prop,card){
   //if 'card' argument is supplied, and index is null, we're inserting a new card. 
   //if index is supplied, we've updated arr[index] and need to to find its new home.
-  console.log("index is " + index)
   if (card && index === null) var obj = card;
   else {
     var obj = arr[index];
