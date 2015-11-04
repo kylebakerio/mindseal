@@ -19,7 +19,6 @@
 
   Sidebar.controller = function(args){
     ctrl = this;
-    
     window.menuState = window.innerWidth < 1000 ? 'hidden' : 'shown';
     ctrl.oldWidth    = window.innerWidth;
     window.onresize  = function(){
@@ -46,7 +45,7 @@
         window.menuState = 'hidden';
         $('.side-nav.fixed').velocity({left: -240}, 500);
         $('i.mdi-navigation-menu').velocity({'padding-left': 0 }, 500);
-        // $('i.mdi-navigation-menu').velocity("callout.bounce");
+        $('i.mdi-navigation-menu').velocity("callout.shake");
       }
     }
   };

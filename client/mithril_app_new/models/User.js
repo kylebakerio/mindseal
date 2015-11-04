@@ -30,19 +30,20 @@ User.login = function(username, password) {
     method: 'POST',
     url: '/login',
     data: {username: username, password: password}
-  }).then(function(data){
-      if (data.login === true){
-        window.App = {};
-        App.mindSeal = data.mindSeal;
-        console.log("Got this mindSeal from the server:", App.mindSeal)
-        localStorage.mindSeal = true;
-        m.route('/home');
-      }
-      else if (data.login === false){
-        alert(data.message);
-      }
-      console.log("data was: ", data); 
-      return data;
+  })
+  .then(function(data){
+    if (data.login === true){
+      window.App = {};
+      App.mindSeal = data.mindSeal;
+      console.log("Got this mindSeal from the server:", App.mindSeal)
+      localStorage.mindSeal = true;
+      m.route('/home');
+    }
+    else if (data.login === false){
+      alert(data.message);
+    }
+    console.log("data was: ", data); 
+    return data;
   })
 }
 
