@@ -66,8 +66,9 @@
       Deck.createDeck(deckName,ctrl.shared[deckName])
       User.sync();
       Materialize.toast('You now have ' + App.mindSeal.decks[deckName].name, 4000);
-      $('li').eq(1).velocity("fadeout", { duration: 2500 });
-      $('li').eq(1).velocity("fadeIn", { duration: 2500 });
+      $('li').eq(1).velocity({opacity:0.1}, { duration: 700 })
+      .velocity("fadeIn", { duration: 700 });
+      $('i.mdi-navigation-menu').velocity("callout.shake");
     };
   }
 })();
