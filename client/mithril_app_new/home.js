@@ -35,8 +35,10 @@
     ctrl.remaining = "todo"
     ctrl.deckCount = 0;
     ctrl.onunload = function(){
-      m.startComputation();
-      App.animate($('.card'),true,0,"ex")
+      if ($('.card').length > 0){
+        m.startComputation();
+        App.animate($('.card'),true,0,"ex")
+      }
     }
 
     // App.animate = function(elem,init,num,enEx,context){

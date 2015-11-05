@@ -35,14 +35,15 @@
     <script src="./mithril_app_new/shared.js"></script>
     <script src="./mithril_app_new/newDeck.js"></script>
     <script src="./mithril_app_new/utils.js"></script>
-    <script>
-      if(localStorage.mindSeal === "true") User.getDecks(router);
-      else router();
-    </script>
-
 <!-- 
     <script src="./mithril_app/settings.js"></script>
     <script src="./mithril_app/about.js"></script>
  -->
+    <script>
+      if (typeof localStorage.mindSeal === "undefined") localStorage.mindSeal = true;
+      if (localStorage.mindSeal !== "false") User.getDecks(router);
+      else router();
+    </script>
+
   </body>
 </html>

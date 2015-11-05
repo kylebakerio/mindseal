@@ -6,9 +6,14 @@ var router = function(){
 
     "/landing": {
       controller: function () {
+        console.log("landing router")
+        console.log("localStorage.mindSeal=", localStorage.mindSeal)
         // needs testing to confirm works
         // as expected.
-        if (typeof App === 'object') m.route("/home");
+        if (localStorage.mindSeal !== "false") {
+          console.log("routing home")
+          m.route("/home");
+        }
       },
       view: function (ctrl) {
         return m.component(Landing);
@@ -17,7 +22,9 @@ var router = function(){
 
     "/home": {
       controller: function(){
-        if (typeof App !== 'object') m.route("/landing");
+        console.log("home router")
+        console.log("localStorage.mindSeal=", localStorage.mindSeal)
+        if (localStorage.mindSeal === false) m.route("/landing");
       },
       view: function(ctrl,args,extras) {
         return ('.app', [
@@ -29,6 +36,9 @@ var router = function(){
 
     "/viewDeck/:deckId": {
       controller: function(){
+        console.log("viewDeck router")
+        console.log("localStorage.mindSeal=", localStorage.mindSeal)
+        if (localStorage.mindSeal === false) m.route("/landing");
         this.name = m.route.param('deckId');
         this.deck = Deck.find( this.name ); 
       },
@@ -42,6 +52,9 @@ var router = function(){
 
     "/newDeck": {
       controller: function () {
+        console.log("newDeck router")
+        console.log("localStorage.mindSeal=", localStorage.mindSeal)
+        if (localStorage.mindSeal === false) m.route("/landing");
       },
       view: function (ctrl) {
         return m('.app', [
@@ -65,7 +78,11 @@ var router = function(){
     },
 
     "/shared": {
-      controller: function(){},
+      controller: function(){
+        console.log("shared router")
+        console.log("localStorage.mindSeal=", localStorage.mindSeal)
+        if (localStorage.mindSeal === false) m.route("/landing");
+      },
       view: function() {
         return m('.app', [
           m.component(Sidebar),
@@ -75,7 +92,9 @@ var router = function(){
     },
 
     "/about": {
-      // controller: function(){},
+      controller: function(){
+         m.route("/home");
+      },
       view: function(ctrl) {
         return m('.app', [
           m.component(Sidebar),
@@ -86,8 +105,11 @@ var router = function(){
 
     "/logout": {
       controller: function(){
-        if (typeof App === "undefined") m.route("/landing")
+        console.log("logout router")
+        console.log("localStorage.mindSeal=", localStorage.mindSeal)
+        if (localStorage.mindSeal === false) m.route("/landing");
         else User.logout();
+        console.log("post logout:", localStorage.mindSeal)
       },
       view: function(){
         // nothing gets loaded. User.logout()

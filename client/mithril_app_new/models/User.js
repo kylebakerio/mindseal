@@ -10,7 +10,9 @@ User.signUp = function(username, password) {
   })
   .then(function(data){
     if (data.login === true){
-      window.App = {};
+      localStorage.mindSeal = moment().format();
+      console.log("set localStorage.mindSeal to:",localStorage.mindSeal)
+      if (typeof window.App === "undefined") window.App = {};
       console.log("Got the newly minted mindSeal:",data.mindSeal);
       App.mindSeal = data.mindSeal;  
       m.route('/home');
@@ -33,7 +35,9 @@ User.login = function(username, password) {
   })
   .then(function(data){
     if (data.login === true){
-      if (typeof App === "undefined") window.App = {};
+      localStorage.mindSeal = moment().format();
+      console.log("set localStorage.mindSeal to:",localStorage.mindSeal)
+      if (typeof window.App === "undefined") window.App = {};
       App.mindSeal = data.mindSeal;
       console.log("Got this mindSeal from the server:", App.mindSeal)
       localStorage.mindSeal = true;
@@ -48,8 +52,8 @@ User.login = function(username, password) {
 }
 
 User.logout = function(){
-  if (typeof App.mindSeal.userSettings === "undefined"){
-    console.log("App.mindSeal.userSettings is undefined! Major glitch! overwriting with blank to prevent crash.")
+  if (typeof App === "undefined" || typeof App.mindSeal === "undefined" || App.mindSeal.userSettings === "undefined"){
+    console.log("App.mindSeal.userSettings is undefined! Potential Major glitch! Overwriting with blank to prevent crash.")
     App.mindSeal.userSettings = {};
   }
 
@@ -59,10 +63,11 @@ User.logout = function(){
     url: '/logout',
     data: {time: moment().format(),mindSeal:App.mindSeal}
   }).then(function(data){
-    console.log("logout server response: ", data);
     localStorage.mindSeal = false;
+    console.log("set localStorage.mindSeal to:",localStorage.mindSeal)
+    console.log("logout server response: ", data);
     alert(data.message);
-    window.App = undefined;
+    window.App.mindSeal = {};
     m.route('/landing');
   })
 }

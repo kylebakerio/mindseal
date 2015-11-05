@@ -1,5 +1,4 @@
 if (typeof App === "undefined") {
-  console.log("App was undefined")
   window.App = {};
 }
 

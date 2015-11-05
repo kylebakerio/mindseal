@@ -85,9 +85,5 @@
       //User.forgot(ctrl.email())
     }
 
-    if (/*logged in*/typeof App === 'object' && typeof App.mindSeal === 'object') 
-      console.log("App.mindSeal is an object")
-      m.route("/home");
-
   };
 })()
