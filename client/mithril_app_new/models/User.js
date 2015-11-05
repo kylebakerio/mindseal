@@ -33,7 +33,7 @@ User.login = function(username, password) {
   })
   .then(function(data){
     if (data.login === true){
-      window.App = {};
+      if (typeof App === "undefined") window.App = {};
       App.mindSeal = data.mindSeal;
       console.log("Got this mindSeal from the server:", App.mindSeal)
       localStorage.mindSeal = true;
@@ -86,7 +86,7 @@ User.getDecks = function(router){
     url: '/decks'
   }).then(function(data){
     if (data.login === true){
-      window.App = {};
+      if (typeof App === "undefined") window.App = {};
       App.mindSeal = data.mindSeal;
       console.log("get the newly minted mindSeal:",App.mindSeal)
       localStorage.mindSeal = true;

@@ -3,9 +3,6 @@ html {
   height:100%;
 }
 
-.mdi-navigation-menu {
-  font-size:30px;
-}
 
 body {
   height:100%;
@@ -13,9 +10,17 @@ body {
   background-color:lightblue;
 }
 
+.mdi-navigation-menu {
+  font-size:30px;
+}
+
 .sidebar {
   background-color:grey;
   height:100%;
+}
+
+.side-nav {
+  left:-240 !important;
 }
 
 .cow {
@@ -87,6 +92,7 @@ body {
 
 .card {
   border-radius:5px !important;
+  opacity:0;
 }
 
 .edit {

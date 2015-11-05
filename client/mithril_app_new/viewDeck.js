@@ -27,6 +27,7 @@
     ctrl.name = argObj.name;
     ctrl.deck = argObj.deck;
     ctrl.currentDeck = argObj.deck;
+
     if (ctrl.currentDeck.cards.length > 0 && moment().diff(moment(ctrl.currentDeck.cards[0].toBeSeen)) > 0 ){
       ctrl.currentCard = ctrl.currentDeck.cards[0];
       ctrl.stack = "cards";
@@ -40,36 +41,19 @@
       ctrl.currentCard = ctrl.currentDeck.cards[0];
       m.route('/home')
     }
-    ctrl.show = false;
+
+    //note that the logic for initial declaration of ctrl.cardView happens at the bottom of the page, to use functions declared between here and there.
+
     ctrl.remaining = function(){return ctrl.currentDeck[ctrl.stack].length-ctrl.index}; //should be updated to take dates into account & should live update
 
-    //determine cardView
-    if (ctrl.currentCard.toBeSeen === "shared" || moment().diff(ctrl.currentCard.toBeSeen) > 0) {
-      ctrl.cardView = [
-        m(".row", [
-          m(".col.s12.m7.l7.offset-l3.offset-m2", [
-            m(".card.blue-grey.darken-1", [
-              m(".card-content.white-text", [
-                m("p.center-align", ctrl.currentCard.front)
-              ]),
-              m(".align-center.card-action.center-align", [
-                m("a.waves-effect.waves-light.btn",{onclick: function(){ctrl.toggleBack()}, title:'protip: use the spacebar shortcut!'}, [m("i.material-icons.left", "grade"),"Show Back"])
-              ])
-            ])
-          ])
-        ])
-      ]
-
-    } else {
-      console.log("currentCard was",ctrl.currentCard)
-      ctrl.cardView = [
-        m('br'),m("p","Next card ready to review: " + 
-        moment(ctrl.currentCard.toBeSeen).format("MMM Do, YYYY hh:mm a") + 
-        ", " + moment(ctrl.currentCard.toBeSeen).fromNow())]
-        //should add an overtime button.
+    ctrl.onunload = function(){
+      m.startComputation();
+      App.animate($('.card'),true,0,"ex")
     }
 
-    //end cardView determination
+    //
+    // 
+    //
 
     ctrl.rate = function(button){
       if (ctrl.currentCard.timeLastSeen !== "shared") {
@@ -123,7 +107,6 @@
       //index shohuld go down to keep up with shrinking deck.
       ctrl.index--;
       //
-
       ctrl.nextCard();
       ctrl.toggleBack();
       console.log(Deck.isSorted(ctrl.currentDeck.cards) ? "Insertion was successful." : "Insertion failed. Please sort manually.");
@@ -167,12 +150,17 @@
     ctrl.toggleBack = function(){
       console.log("ctrl.remaining():",ctrl.remaining())
       if (ctrl.remaining() > 0) {
-        if (ctrl.show !== true ){
+        if (ctrl.show === false ){
           
           ctrl.cardView = [
             m(".row", [
               m(".col.s12.m7.l7.offset-l3.offset-m2", [
-                m(".card.blue-grey.darken-1", [
+                m(".card.blue-grey.darken-1", { 
+                  config:function(elem,init,context){
+                    // context.onunload = function() {App.animate(elem,true,0,"ex")};
+                    App.animate(elem,init,0,"in",context);
+                  } 
+                }, [
                   m(".card-content.white-text", [
                     m("p.center-align", ctrl.currentCard.front)
                   ]),
@@ -197,10 +185,16 @@
         }
         else {
           ctrl.show = false;
+          
           ctrl.cardView = [
             m(".row", [
               m(".col.s12.m7.l7.offset-l3.offset-m2", [
-                m(".card.blue-grey.darken-1", [
+                m(".card.blue-grey.darken-1", { 
+                  config:function(elem,init,context){
+                    // context.onunload = function() {App.animate(elem,true,0,"ex")};
+                    App.animate(elem,init,0,"in",context);
+                  } 
+                }, [
                   m(".card-content.white-text", [
                     m("p.center-align", ctrl.currentCard.front)
                   ]),
@@ -212,9 +206,20 @@
             ])
           ]
         }
+
       }
     }
 
+    //determine ctrl.cardView initial definition
+    if (ctrl.currentCard.toBeSeen === "shared" || moment().diff(ctrl.currentCard.toBeSeen) > 0) {
+      ctrl.show = true;
+      ctrl.toggleBack();
+    } else {
+      console.log("currentCard was",ctrl.currentCard)
+      ctrl.noMore();
+      //should add an overtime button.
+    }
+    //end cardView determination
 
   }
 })()

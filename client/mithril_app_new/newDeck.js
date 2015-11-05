@@ -4,7 +4,7 @@
     return m(".cow.col.s12", [
       m(".row", [
         m(".col.s12.m7.l7.offset-l3.offset-m2", [
-          m(".card.blue-grey.darken-1", [
+          m(".card.blue-grey.darken-1", {config:App.animate}, [
             m(".card-content.white-text", [
               m("span.card-title", "New Deck"),
               // m("p", ["Default difficulty for new cards in this deck: ",
@@ -48,5 +48,10 @@
       Materialize.toast('Deck "' + deck.name + '" Added', 4000);
       m.route('/home');
     };
+
+    ctrl.onunload = function(){
+      m.startComputation();
+      App.animate($('.card'),true,0,"ex")
+    }
   };
 })()

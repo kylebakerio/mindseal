@@ -10,7 +10,7 @@
       ]),
       m(".cow.valign-wrapper", [
         m(".row", [
-          m(".hoverable.card-panel.col.m5.offset-m1.l4.offset-l2.s12.top-bottom-pad-mar.valign-wrapper", [
+          m(".hoverable.card-panel.col.m5.offset-m1.l4.offset-l2.s12.top-bottom-pad-mar.valign-wrapper", {config:ctrl.animate}, [
             m("form.col.s12", [
               m(".container.card-content", [
                 m('p','Sign Up or Login using this form.'),
@@ -28,7 +28,7 @@
                 ]),
                 m(".row", [
                   m(".input-field.col.s12", [
-                    m("input.validate[id='email'][type='email']", {onchange: m.withAttr("value", ctrl.email)}),
+                    m("input.validate[id='email'][type='email']", {placeholder: "Enter an email if signing up", onchange: m.withAttr("value", ctrl.email)}),
                     m("label[for='email']", "Email (if signing up)")
                   ])
                 ]),
@@ -40,7 +40,7 @@
           window.innerWidth < 600 ? 
           null
           :
-          m(".card-panel.col.s12.m5.l4.top-bottom-pad-mar.valign-wrapper", [
+          m(".card-panel.col.s12.m5.l4.top-bottom-pad-mar.valign-wrapper", {config:ctrl.animate}, [
             m(".col.s12", [
               m(".container.card-content", [
                 m("h5", [" What is ",m("i", "mind:seal"),"? "]),
@@ -59,6 +59,11 @@
     ctrl.username = m.prop();
     ctrl.password = m.prop();
     ctrl.email    = m.prop()
+
+    ctrl.animate = function(elem,init,num){
+      if (!init) $(elem).velocity("transition.flipYIn"/*, {delay:num*100}*/)
+      // $('#'+deckName).velocity("transition.flipYIn", {delay:200})
+    }
     
     ctrl.signUp   = function(){
       if (typeof ctrl.username() === "undefined"){

@@ -12,8 +12,9 @@
               m("p", ["You've reviewed ",m("b", App.mindSeal.userSettings.allTimeCounter)," cards since you joined " + moment(App.mindSeal.userSettings.accountMade).fromNow() + " ago."]),
             ]),
           Object.keys(App.mindSeal.decks).map(function(deckName) {
-            return deckView(ctrl, deckName)
-          })
+            ctrl.deckCount+=1;
+            return deckView(ctrl, deckName, ctrl.deckCount)
+          }),
         ])
       ])
       : 
@@ -29,8 +30,25 @@
 
   Home.controller = function(args){
     ctrl = this;
+
     ctrl.deckStates = {}
     ctrl.remaining = "todo"
+    ctrl.deckCount = 0;
+    ctrl.onunload = function(){
+      m.startComputation();
+      App.animate($('.card'),true,0,"ex")
+    }
+
+    // App.animate = function(elem,init,num,enEx,context){
+      
+    //   //elem is the element itself, init is whether this is elem has already been initialized,
+    //   //num is what index the item being transitioned is in its list, enEx is for enter/exit,
+    //   //and tells us whether we're animating away or towards us.
+    //   if (!init) $(elem).velocity("transition.flipYIn", {delay:num*100})
+    //   else if (enEx === "ex") {
+    //     $(elem).velocity("transition.flipYOut", { delay:num*100, complete:function(){m.endComputation()} }  )
+    //   }
+    // }
 
     ctrl.share    = function(deckName){
       Deck.share(App.mindSeal.decks[deckName], deckName);
@@ -68,21 +86,30 @@
     }
   };
 
-  function deckView (ctrl, deckName) {
+  function deckView (ctrl, deckName, num) {
     if (ctrl.deckStates[deckName] === 'editing_cards') {
-      return deckAddCardsView(ctrl, deckName)
+      return deckAddCardsView(ctrl, deckName, 0)
+    }
+    else if (ctrl.deckStates[deckName] === 'dash'){
+      return deckDashView(ctrl, deckName, 0)
     }
     else {
-      return deckDashView(ctrl, deckName)
+      return deckDashView(ctrl, deckName, num)
     }
   }
 
-  function deckDashView (ctrl, deckName) {
+  function deckDashView (ctrl, deckName, num) {
+    console.log(num);
     var deckSize = App.mindSeal.decks[deckName].cards.length + App.mindSeal.decks[deckName].unseen.length;
     return m(".row", [
       m(".col.s12.m7.l7.offset-l3.offset-m2", [
-        m(".card.blue-grey.darken-1.hoverable", [
-          m(".card-content.white-text", [
+        m('.card.blue-grey.darken-1.hoverable[id="'+deckName+'"]', { 
+          config:function(elem,init,context){
+            // context.onunload = function() {App.animate(elem,true,0,"ex")};
+            App.animate(elem,init,num,"in",context);
+          } 
+        }, [
+          m('.card-content.white-text', [
             m("span.card-title", App.mindSeal.decks[deckName].name),
              m("p","Date Created: " + moment(App.mindSeal.decks[deckName].creation).format("MMM Do, YYYY")),
               m("p", /*"Cards to be seen: todo",m("br"),*/"Cards in deck: "+ deckSize),
@@ -120,12 +147,12 @@
   ])
   }
 
-  function deckAddCardsView (ctrl, deckName) {
+  function deckAddCardsView (ctrl, deckName, num) {
     // console.log(App.mindSeal.decks[deckName].cards[0].toBeSeen, deckName)
     var deckSize = App.mindSeal.decks[deckName].cards.length + App.mindSeal.decks[deckName].unseen.length;
     return m(".row", [
       m(".col.s12.m7.l7.offset-l3.offset-m2", [
-        m(".card.blue-grey.darken-1", [
+        m(".card.blue-grey.darken-1", {config:function(elem,init){App.animate(elem,init,num,"in")} }, [
           m(".card-content.white-text", [
             m("span.card-title", App.mindSeal.decks[deckName].name),
             m("p","Date Created: " + moment(App.mindSeal.decks[deckName].creation).format("MMM Do, YYYY")),
@@ -145,11 +172,11 @@
               ),
             m(".row", [
               m(".input-field.col.s12.m6", [
-                m("input.materialize-textarea", {id:deckName + "-front", type:'text'}),
+                m("input.materialize-textarea", {id:deckName + "-front", type:'text'/*, placeholder:"Question goes here"*/}),
                 m("label",{for:deckName + '-front'}, "Card Prompt")
               ]),
               m(".input-field.col.s12.m6", [
-                m("input.materialize-textarea", {id:deckName + "-back", type:'text'}),
+                m("input.materialize-textarea", {id:deckName + "-back", type:'text'/*, placeholder:"Answer goes here"*/}),
                 m("label",{for:deckName + '-back'}, "Card Answer")
               ])
             ]),

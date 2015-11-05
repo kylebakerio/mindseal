@@ -19,8 +19,15 @@
 
   Sidebar.controller = function(args){
     ctrl = this;
-    window.menuState = window.innerWidth < 1000 ? 'hidden' : 'shown';
+    window.menuState = 'hidden';
     ctrl.oldWidth    = window.innerWidth;
+    if(window.innerWidth < 1000) window.menuState = 'hidden'
+    else {
+      window.menuState= 'shown';
+      $('.side-nav').velocity({left:0, delay:200});
+    }
+
+
     window.onresize  = function(){
       if (window.innerWidth > 1000 && ctrl.oldWidth < 1000) {
         window.menuState = 'hidden';
