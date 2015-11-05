@@ -1,3 +1,4 @@
+now deployed: mind-seal.com
 
 ##mind:seal
 
