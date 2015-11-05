@@ -24,7 +24,9 @@ var router = function(){
       controller: function(){
         console.log("home router")
         console.log("localStorage.mindSeal=", localStorage.mindSeal)
-        if (localStorage.mindSeal === false) m.route("/landing");
+        if (localStorage.mindSeal === "false") {
+          m.route("/landing");
+        }
       },
       view: function(ctrl,args,extras) {
         return ('.app', [
@@ -38,7 +40,7 @@ var router = function(){
       controller: function(){
         console.log("viewDeck router")
         console.log("localStorage.mindSeal=", localStorage.mindSeal)
-        if (localStorage.mindSeal === false) m.route("/landing");
+        if (localStorage.mindSeal === "false") m.route("/landing");
         this.name = m.route.param('deckId');
         this.deck = Deck.find( this.name ); 
       },
@@ -54,7 +56,7 @@ var router = function(){
       controller: function () {
         console.log("newDeck router")
         console.log("localStorage.mindSeal=", localStorage.mindSeal)
-        if (localStorage.mindSeal === false) m.route("/landing");
+        if (localStorage.mindSeal === "false") m.route("/landing");
       },
       view: function (ctrl) {
         return m('.app', [
@@ -81,7 +83,7 @@ var router = function(){
       controller: function(){
         console.log("shared router")
         console.log("localStorage.mindSeal=", localStorage.mindSeal)
-        if (localStorage.mindSeal === false) m.route("/landing");
+        if (localStorage.mindSeal === "false") m.route("/landing");
       },
       view: function() {
         return m('.app', [
@@ -107,7 +109,7 @@ var router = function(){
       controller: function(){
         console.log("logout router")
         console.log("localStorage.mindSeal=", localStorage.mindSeal)
-        if (localStorage.mindSeal === false) m.route("/landing");
+        if (localStorage.mindSeal === "false") m.route("/landing");
         else User.logout();
         console.log("post logout:", localStorage.mindSeal)
       },
