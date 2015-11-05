@@ -17,10 +17,9 @@
       );
     }
 
+    //else:
     for (var deck in ctrl.shared){
       mArray.push(
-        m(".row", [
-          m(".col.s12.m7.l7.offset-m2", [
             m(".card.blue-grey.darken-1", {config:App.animate},[
               m(".card-content.white-text", [
                 m("span.card-title", ctrl.shared[deck].name),
@@ -38,8 +37,6 @@
                 m("a.waves-effect.waves-light.btn", {value:deck, onclick:function(){alert("This functionality coming soon!")}}, [m("i.material-icons.left", "grade"),"Try Deck"])
               ])
             ])
-          ])
-        ])
       )
     }
 
