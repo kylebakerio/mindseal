@@ -5,7 +5,7 @@
     return m("",[
       m("ul.side-nav.fixed.blue-grey.darken-1[id='slide-out']", [
         m("h3.center-align.logo", "mind:seal"),
-        m("li[class='username']", [m("a.nav-text", "User: "+App.mindSeal.userSettings.username)]), //make non hoverable... center, stylize larger
+        m("li[class='username']", [m("a.nav-text", "User: " + App.mindSeal.userSettings.username)]), //make non hoverable... center, stylize larger
         m("li[class='sidebar-text']", [m("a.nav-text[href='#/home']", "My Decks")]),
         // m("li[class='sidebar-text']", [m("a.nav-text[href='#/settings']", "Settings")]),
         m("li[class='sidebar-text']", [m("a.nav-text[href='#/newDeck']", "Create New Deck")]),
