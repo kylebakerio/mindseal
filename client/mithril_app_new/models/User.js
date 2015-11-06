@@ -100,7 +100,7 @@ User.getDecks = function(router){
       if (m.route() === '/landing') m.route('/home');
     }
     else if (data.login === false){
-      console.log("user not logged in")
+      console.log("cannot get decks, user does not have valid login cookie.");
       router();
       localStorage.mindSeal = false;
       console.log(data.message);

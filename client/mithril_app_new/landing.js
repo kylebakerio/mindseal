@@ -29,7 +29,7 @@
                 ]),
                 m(".row", [
                   m(".input-field.col.s12", [
-                    m("input.validate[id='email'][type='email']", {placeholder: "Enter an email if signing up", onchange: m.withAttr("value", ctrl.email)}),
+                    m("input.validate[id='email'][type='email']", {/*placeholder: "Enter an email if signing up", */onchange: m.withAttr("value", ctrl.email)}),
                     m("label[for='email']", "Email (if signing up)")
                   ])
                 ]),
