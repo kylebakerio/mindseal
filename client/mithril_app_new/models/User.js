@@ -104,7 +104,8 @@ User.getDecks = function(router){
       router();
       localStorage.mindSeal = false;
       console.log(data.message);
-      window.App = undefined;
+      window.App.mindSeal = undefined;
+      window.App.userSettings = undefined;
       m.route('/landing');
     }
     console.log("data was: ", data); 

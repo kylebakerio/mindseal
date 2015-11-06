@@ -20,7 +20,7 @@
       ])
       : 
       m(".row", [
-        m(".col.s10.offset-s2.m7.l7.offset-l3.offset-m2", [
+        m(".col.s10.offset-s2.m7.l7.offset-l3.offset-m2",  {config:function(elem,init){App.animate(elem,init,0,"in")} }, [
           m("h2", "Welcome!"),
           m("a.waves-effect.waves-light.btn", {onclick:function(){m.route("/shared")}}, [m("i.material-icons.left", "file_download"),"Get Shared Deck"]),
           m("br"),
@@ -41,17 +41,6 @@
         App.animate($('.card'),true,0,"ex")
       }
     }
-
-    // App.animate = function(elem,init,num,enEx,context){
-      
-    //   //elem is the element itself, init is whether this is elem has already been initialized,
-    //   //num is what index the item being transitioned is in its list, enEx is for enter/exit,
-    //   //and tells us whether we're animating away or towards us.
-    //   if (!init) $(elem).velocity("transition.flipYIn", {delay:num*100})
-    //   else if (enEx === "ex") {
-    //     $(elem).velocity("transition.flipYOut", { delay:num*100, complete:function(){m.endComputation()} }  )
-    //   }
-    // }
 
     ctrl.share    = function(deckName){
       Deck.share(App.mindSeal.decks[deckName], deckName);

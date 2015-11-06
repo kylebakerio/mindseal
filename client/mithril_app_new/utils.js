@@ -1,3 +1,4 @@
+console.log("declaring animate");
 if (typeof App === "undefined") {
   window.App = {};
 }

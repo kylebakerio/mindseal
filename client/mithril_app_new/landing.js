@@ -8,7 +8,7 @@
         m(".hoverable.card-panel.col.m5.offset-m1.l4.offset-l2.s12.top-bottom-pad-mar.valign-wrapper", {config:ctrl.animate}, [
           m("form.col.s12", [
             m(".container.card-content", [
-              m("b.hide-on-med-and-up", "In Alpha, under active development. Expect bugs."),
+              m("b.hide-on-med-and-up", "In Alpha, under active development; please excuse any 'dust'."),
               m('p','Sign Up/Login'),
               m(".row", [
                 m(".input-field.col.s12", [
@@ -37,7 +37,7 @@
           m(".col.s12", [
             m(".container.card-content", [
               m("h5", [" What is ",m("i", "mind:seal"),"? "]),
-              m("b","Currently in alpha, expect bugs."),
+              m("b","Currently in alpha, please excuse any 'dust'."),
               m("p.home-text", "mind:seal is a spaced repitition flashcard app designed to be as simple, fast, and clean as possible. It uses a machine learning algorithm to determine when you should see facts, and adapts to your personal usage patterns over time, for each individual card. Join to see shared decks, or create your own!")
             ])
           ])
@@ -54,8 +54,7 @@
     ctrl.email    = m.prop()
 
     ctrl.animate = function(elem,init,num){
-      if (!init) $(elem).velocity("transition.flipYIn"/*, {delay:num*100}*/)
-      // $('#'+deckName).velocity("transition.flipYIn", {delay:200})
+      App.animate(elem, init, 0, "in");
     }
     
     ctrl.signUp   = function(){
