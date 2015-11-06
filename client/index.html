@@ -39,7 +39,7 @@
     <script src="./mithril_app/about.js"></script>
  -->
     <script>
-      if (typeof localStorage.mindSeal === "undefined") localStorage.mindSeal = true;
+      if (typeof localStorage.mindSeal === "undefined") localStorage.mindSeal = false;
       if (localStorage.mindSeal !== "false") User.getDecks(router);
       else router();
     </script>

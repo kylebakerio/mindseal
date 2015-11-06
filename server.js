@@ -165,7 +165,7 @@ app.get('/decks', function(req, res) {
       console.log("userObj:",userObj);
       if(!userObj){
         console.log("did not find " + username + " in database.");
-        res.status(401).send({login:false, message:"failed: not a user."});
+        res.status(200).send({login:false, message:"did not find " + username + " in database."});
       }
       else {
         console.log("found user: " + userObj._id);
@@ -173,8 +173,8 @@ app.get('/decks', function(req, res) {
       } 
     })
     .catch(function(err){
-      console.log("error while getting decks");
-      res.status(401).send({login:false, message:"failed: not a user."});
+      console.log("Error caught! while getting decks:", err);
+      res.status(200).send({login:false, message:"failed: error while trying to get decks."});
     })
   }
 );
