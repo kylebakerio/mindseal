@@ -1,4 +1,5 @@
 (function(){
+  console.log("declaring viewDeck")
   window.viewDeck = {};
 
   viewDeck.view = function(ctrl){

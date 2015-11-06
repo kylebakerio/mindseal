@@ -1,5 +1,6 @@
 (function(){
   window.shared = {};
+  console.log("declaring shared")
   shared.view = function(ctrl){
     //refactor to look like gilbert's code in home
     var mArray = [];

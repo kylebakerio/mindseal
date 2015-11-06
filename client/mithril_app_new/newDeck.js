@@ -1,4 +1,5 @@
 (function(){
+  console.log("declaring newDeck")
   window.newDeck = {};
   newDeck.view = function(ctrl){
     return m(".cow.col.s12", [

@@ -21,14 +21,15 @@
     ctrl = this;
     window.menuState = 'hidden';
     ctrl.oldWidth    = window.innerWidth;
-    if(window.innerWidth < 1000) window.menuState = 'hidden'
-    else {
-      window.menuState= 'shown';
-      $('.side-nav').velocity({left:0, delay:200});
+    if (window.innerWidth < 1000) {
+      window.menuState = 'hidden'
     }
+    // else {
+    //   window.menuState = 'shown';
+    //   $('.side-nav').velocity({left:0, delay:200});
+    // }
 
-
-    window.onresize  = function(){
+    window.onresize = function(){
       if (window.innerWidth > 1000 && ctrl.oldWidth < 1000) {
         window.menuState = 'hidden';
         window.toggleMenu();
@@ -41,6 +42,7 @@
     }
 
     console.log("ctrl.menuState = " + window.menuState)
+
     window.toggleMenu = function(){
       console.log("window.menuState:",window.menuState)
       if (window.menuState === 'hidden'){

@@ -1,4 +1,5 @@
 var router = function(){  
+  console.log("declaring router")
   //setup routes to start w/ the `#` symbol
   m.route.mode = "hash";
 

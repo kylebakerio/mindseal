@@ -1,4 +1,5 @@
 (function(){
+  console.log("declaring home")
   window.Home = {};
 
   Home.view = function(ctrl){  

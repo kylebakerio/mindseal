@@ -109,7 +109,7 @@ app.post('/login', function(req, res) {
       res.status(200).send({
         login: true, 
         message:"Login Successful", 
-        mindSeal: obj.mindSeal
+        mindSeal: {decks:obj.mindSeal.decks, userSettings:obj.mindSeal.userSettings}
       });
     }
     else {
@@ -174,6 +174,7 @@ app.get('/decks', function(req, res) {
     })
     .catch(function(err){
       console.log("error while getting decks");
+      res.status(401).send({login:false, message:"failed: not a user."});
     })
   }
 );

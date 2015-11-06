@@ -1,4 +1,5 @@
 (function(){
+  console.log("declaring landing")
   window.Landing = {};
 
   Landing.view = function(ctrl){  

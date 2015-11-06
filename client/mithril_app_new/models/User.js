@@ -91,6 +91,7 @@ User.getDecks = function(router){
     url: '/decks'
   }).then(function(data){
     if (data.login === true){
+      console.log("user logged in");
       if (typeof App === "undefined") window.App = {};
       App.mindSeal = data.mindSeal;
       console.log("get the newly minted mindSeal:",App.mindSeal)
@@ -99,9 +100,10 @@ User.getDecks = function(router){
       if (m.route() === '/landing') m.route('/home');
     }
     else if (data.login === false){
+      console.log("user not logged in")
       router();
       localStorage.mindSeal = false;
-      alert(data.message);
+      console.log(data.message);
       window.App = undefined;
       m.route('/landing');
     }
