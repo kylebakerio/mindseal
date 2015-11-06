@@ -20,7 +20,7 @@
       ])
       : 
       m(".row", [
-        m(".col.s10.offset-s1.m7.l7.offset-l3.offset-m2", [
+        m(".col.s10.offset-s2.m7.l7.offset-l3.offset-m2", [
           m("h2", "Welcome!"),
           m("a.waves-effect.waves-light.btn", {onclick:function(){m.route("/shared")}}, [m("i.material-icons.left", "file_download"),"Get Shared Deck"]),
           m("br"),
