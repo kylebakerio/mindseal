@@ -59,17 +59,21 @@
     }
 
     ctrl.makeCard = function(deckName){ //populates the values of the card from the form and calls the view
-      var newCard = {front: $("#" + deckName + "-front").val(), back: $("#" + deckName + "-back").val()}
-      Deck.binaryInsert(null, App.mindSeal.decks[deckName].cards, "toBeSeen", Card.vm(newCard));
-      $("#" + deckName + "-front").val("")
-      $("#" + deckName + "-back").val("")
+      if ($("#" + deckName + "-front").val() === "" || $("#" + deckName + "-back").val() === "") {
+        alert("Please enter a prompt and and answer.")
+      } else {
+        var newCard = {front: $("#" + deckName + "-front").val(), back: $("#" + deckName + "-back").val()}
+        Deck.binaryInsert(null, App.mindSeal.decks[deckName].cards, "toBeSeen", Card.vm(newCard));
+        $("#" + deckName + "-front").val("")
+        $("#" + deckName + "-back").val("")
 
-      //for materialize fields:
-      $("#" + deckName + "-front").trigger('autoresize');
-      $("#" + deckName + "-back").trigger('autoresize');
+        //for materialize fields:
+        $("#" + deckName + "-front").trigger('autoresize');
+        $("#" + deckName + "-back").trigger('autoresize');
 
-      Materialize.toast('Card Added', 4000);
-      User.sync();
+        Materialize.toast('Card Added', 4000);
+        User.sync();
+      }
     }
 
     ctrl.deleteDeck = function(deckName){
@@ -83,10 +87,11 @@
       if ( 
         ( $("#" + deckName + "-front").val() === "" && $("#" + deckName + "-back").val() === "" ) ||
         ( ($("#" + deckName + "-front").val() !== "" || $("#" + deckName + "-back").val() !== "") && confirm("Are you sure you want to exit without saving this card?") )
-        ){
+      ){
         ctrl.deckStates[deckName] = 'dash';
       }
     }
+        
   };
 
   function deckView (ctrl, deckName, num) {
