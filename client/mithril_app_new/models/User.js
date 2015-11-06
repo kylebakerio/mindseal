@@ -66,7 +66,7 @@ User.logout = function(){
     localStorage.mindSeal = false;
     console.log("set localStorage.mindSeal to:",localStorage.mindSeal)
     console.log("logout server response: ", data);
-    alert(data.message);
+    console.log(data.message);
     window.App.mindSeal = {};
     m.route('/landing');
   })
