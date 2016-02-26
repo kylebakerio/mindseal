@@ -30,12 +30,17 @@ Card.tValSetDefault = function(hours){
 Card.counter = function(){
   // function that keeps track of how many cards a user has seen.
   console.log("counting...")
-  if (moment(App.mindSeal.userSettings.lastEdit).format('MM-DD-YYYY') === moment().format('MM-DD-YYYY')) {
+
+  // needed to update users to new format, eventually this line will be removable.
+  if (!App.mindSeal.userSettings.lastCardReviewDate) App.mindSeal.userSettings.lastCardReviewDate = moment().format();
+
+  if (moment(App.mindSeal.userSettings.lastCardReviewDate).format('MM-DD-YYYY') === moment().format('MM-DD-YYYY')) {
     console.log("it's the same day")
     App.mindSeal.userSettings.todayCounter++;
   }
   else {
     console.log("it's a new day")
+    App.mindSeal.userSettings.lastCardReviewDate = moment().format();
     App.mindSeal.userSettings.todayCounter = 1;
   }
   App.mindSeal.userSettings.allTimeCounter++;

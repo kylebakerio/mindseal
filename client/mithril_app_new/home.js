@@ -4,7 +4,7 @@
 
   Home.view = function(ctrl){  
     return App.mindSeal && App.mindSeal.decks && Object.keys(App.mindSeal.decks).length !== 0 ? 
-        m(".cow.col.s12", [
+        m(".cow", [
           m(".row", [
             m(".col.s12.m7.l7.offset-l3.offset-m2", [
               m("h2", "Welcome!"),
@@ -85,18 +85,17 @@
 
   function deckView (ctrl, deckName, num) {
     if (ctrl.deckStates[deckName] === 'editing_cards') {
-      return deckAddCardsView(ctrl, deckName, 0)
+      return deckAddCardsView(ctrl, deckName, 0);
     }
     else if (ctrl.deckStates[deckName] === 'dash'){
-      return deckDashView(ctrl, deckName, 0)
+      return deckDashView(ctrl, deckName, 0);
     }
     else {
-      return deckDashView(ctrl, deckName, num)
+      return deckDashView(ctrl, deckName, num);
     }
   }
 
   function deckDashView (ctrl, deckName, num) {
-    console.log(num);
     var deckSize = App.mindSeal.decks[deckName].cards.length + App.mindSeal.decks[deckName].unseen.length;
     return m(".row", [
       m(".col.s12.m7.l7.offset-l3.offset-m2", [
@@ -145,7 +144,6 @@
   }
 
   function deckAddCardsView (ctrl, deckName, num) {
-    // console.log(App.mindSeal.decks[deckName].cards[0].toBeSeen, deckName)
     var deckSize = App.mindSeal.decks[deckName].cards.length + App.mindSeal.decks[deckName].unseen.length;
     return m(".row", [
       m(".col.s12.m7.l7.offset-l3.offset-m2", [

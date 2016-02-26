@@ -24,6 +24,7 @@
 
   viewDeck.controller = function(argObj){
     var ctrl = this;
+    ctrl.laskClick = ""; // needs to be evaluated, doesn't seem to work as intended.
     ctrl.index = 0;
     ctrl.name = argObj.name;
     ctrl.deck = argObj.deck;
@@ -57,6 +58,16 @@
     //
 
     ctrl.rate = function(button){
+      //the following lines *should* prevent doubleclicks, or clicks while server is syncing, from causing problems.
+      if (ctrl.lastClick === ctrl.currentCard.front){
+        console.log("doubleclick caught")
+        return ;
+      } 
+      else {
+        console.log("doubleclick not caught.")
+        ctrl.lastClick = ctrl.currentCard.front;
+      }
+
       if (ctrl.currentCard.timeLastSeen !== "shared") {
         var convert = {
           0: ctrl.currentCard.cScale[0],
@@ -121,37 +132,42 @@
       next = ctrl.currentDeck.cards[ctrl.index + 1] ? ctrl.index + 1 : 0; // if true, we hit an unready card; if false, we hit end, and look at card 1.
       ctrl.cardView =[m("h3", "Great work!"),m('p','No more cards to view for now.'),m('br'),m("p","Next card ready to review: " + 
           moment(ctrl.currentCard.toBeSeen).format("MMM Do, YYYY hh:mm a") + 
-          ", " + moment(ctrl.currentDeck.cards[next].toBeSeen).fromNow())] //should be an overtime button.
-      m.redraw()
+          ", " + moment(ctrl.currentDeck.cards[next].toBeSeen).fromNow())] 
+      // should be an optional overtime study button.
+      // m.redraw()
       console.log("noMore ran")
     }
 
     ctrl.nextCard = function () {
-      //this if condition should also check how many cards have been viewed this day vs quota (from settings).
-      if(ctrl.currentDeck[ctrl.stack].length <= ctrl.index +1 || //no more cards in stack (also should === true when unseen is empty)
-        (ctrl.stack === "cards" && moment().diff(ctrl.currentDeck.cards[ctrl.index +1].toBeSeen) < 0) //next card in stack isn't ready to be seen
+      // future feature: this if condition should also check how many cards have been viewed this day vs quota (from settings).
+      if(ctrl.currentDeck[ctrl.stack].length <= ctrl.index +1 || // no more cards in stack (also should === true when unseen is empty)
+        (ctrl.stack === "cards" && moment().diff(ctrl.currentDeck.cards[ctrl.index +1].toBeSeen) < 0) // next card in stack isn't ready to be seen
         ) {
         console.log(ctrl.currentDeck[ctrl.stack].length <= ctrl.index +1 ? "hit last card" : "hit a card not ready to be shown");
-        if (moment().diff(ctrl.currentDeck.cards[0].toBeSeen) > 0) { //check first card in "cards" stack before we can really call it quits
+        if (moment().diff(ctrl.currentDeck.cards[0].toBeSeen) > 0) { // check first card in "cards" stack before we can really call it quits
           ctrl.index = 0; // jump to the first card and go around again until we run into this again
           ctrl.stack = "cards"; // if we hit the end of 'unseen' and are jumping over to 'cards'
           ctrl.currentCard = ctrl.currentDeck.cards[0];
         }
-        else { //we've really run out of cards to view
+        else if (moment().diff(ctrl.currentDeck.unseen.length > 0)) { // check if we can jump to any unseen cards from here
+          ctrl.index = 0; // jump to the first card and go around again until we run into this again
+          ctrl.stack = "unseen"; // if we hit the end of 'unseen' and are jumping over to 'cards'
+          ctrl.currentCard = ctrl.currentDeck.unseen[0];
+        }
+        else { // we've run out of cards in both stacks.
           viewDeck.noMore();
         } 
       }
-      else { //still cards in this stack.
+      else { // still cards in this stack, keep going.
         ctrl.index++;
         ctrl.currentCard = ctrl.currentDeck[ctrl.stack][ctrl.index];
       }
-      // Card.counter();
     }
 
     ctrl.toggleBack = function(){
       console.log("ctrl.remaining():",ctrl.remaining())
-      if (ctrl.remaining() > 0) {
-        if (ctrl.show === false ){
+      if (ctrl.remaining() > 0) { // there are still cards in this deck.
+        if (ctrl.show === false ){ // the back is currentl not shown
           
           ctrl.cardView = [
             m(".row", [
@@ -182,17 +198,17 @@
             ])
           ]
 
-          ctrl.show = true;
+          ctrl.show = true; // the back is now shown.
         }
         else {
-          ctrl.show = false;
           
           ctrl.cardView = [
             m(".row", [
               m(".col.s12.m7.l7.offset-l3.offset-m2", [
                 m(".card.blue-grey.darken-1", { 
                   config:function(elem,init,context){
-                    // context.onunload = function() {App.animate(elem,true,0,"ex")};
+                    // pattern to potentially explore to allow onunload animation of individual elements:
+                    // context.onunload = function() {App.animate(elem,true,0,"ex")}; 
                     App.animate(elem,init,0,"in",context);
                   } 
                 }, [
@@ -206,21 +222,22 @@
               ])
             ])
           ]
+          ctrl.show = false; // the back is now hidden.
         }
 
       }
     }
-
-    //determine ctrl.cardView initial definition
+    //
+    // determine ctrl.cardView initial definition before view is loaded.
     if (ctrl.currentCard.toBeSeen === "shared" || moment().diff(ctrl.currentCard.toBeSeen) > 0) {
       ctrl.show = true;
       ctrl.toggleBack();
     } else {
       console.log("currentCard was",ctrl.currentCard)
       ctrl.noMore();
-      //should add an overtime button.
+      // should add an overtime button.
     }
-    //end cardView determination
-
+    // end cardView determination
+    //
   }
 })()

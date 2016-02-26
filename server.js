@@ -159,35 +159,28 @@ app.post('/sync', function(req, res) {
 });
 
 app.get('/decks', function(req, res) {
-    // console.log(req.session);
-    handler.userExists(req.session.user)
-    .then(function(userObj){
-      console.log("userObj:",userObj);
-      if(!userObj){
-        console.log("did not find " + username + " in database.");
-        res.status(200).send({login:false, message:"did not find " + username + " in database."});
-      }
-      else {
-        console.log("found user: " + userObj._id);
-        res.send({login:true, user:userObj._id, mindSeal: {decks: userObj.decks, userSettings: userObj.userSettings}})
-      } 
-    })
-    .catch(function(err){
-      console.log("Error caught! while getting decks:", err);
-      res.status(200).send({login:false, message:"failed: error while trying to get decks."});
-    })
-  }
-);
+  handler.userExists(req.session.user)
+  .then(function(userObj){
+    console.log("userObj:",userObj);
+    if(!userObj){
+      console.log("did not find " + username + " in database.");
+      res.status(200).send({login:false, message:"did not find " + username + " in database."});
+    }
+    else {
+      console.log("found user: " + userObj._id);
+      res.send({login:true, user:userObj._id, mindSeal: {decks: userObj.decks, userSettings: userObj.userSettings}})
+    } 
+  })
+  .catch(function(err){
+    console.log("Error caught! while getting decks:", err);
+    res.status(200).send({login:false, message:"failed: error while trying to get decks."});
+  })
+});
 
 app.post('/decks', function(req, res) {
-    console.log(req.session);
-    handler.createDecks(req, res);
-  }
-  // Create a deck
-  // req should look like { deckName: "deckname" }
-  // res will contain new unique ID of newly created deck
-
-);
+  console.log(req.session);
+  handler.createDecks(req, res);
+});
 
 app.get('/whoami', function(req,res){
   //definitely a security no-no. remove before production.
@@ -195,43 +188,6 @@ app.get('/whoami', function(req,res){
   res.send(req.session.user)
 })
 
-// app.post('/refresh',
-//   // Refresh server decks
-//   function(req, res) {
-//     handler.refreshDecks(req, res);
-//   }
-// );
-
-// app.delete('/decks',
-//   // Delete a deck
-//   function(req, res) {
-//     res.send('Remove a deck!')
-//   }
-// );
-
-// app.get('/decks/*',
-//   // Get a specific deck
-//   function(req, res) {
-//     res.send(200, 'Get cards in ' + req.path)
-//   }
-// );
-
-// app.post('/decks/*/cards',
-//   // Update or create cards in a deck
-//   // expects array of card objects that are newly user generated
-//   //* === will be primary key of deck
-//   function(req, res) {
-//     var path = req.path;
-//     res.send('Create a card in ' + path)
-//   }
-// );
-
-// app.delete('/decks/*/cards',
-//   // Delete a card (or cards)
-//   function(req, res) {
-//     handler.addCards(req, res)
-//   }
-// );
 
 console.log('App is listening on port ' + PORT);
 app.listen(PORT);

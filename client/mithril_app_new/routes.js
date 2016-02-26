@@ -30,7 +30,7 @@ var router = function(){
         }
       },
       view: function(ctrl,args,extras) {
-        return ('.app', [
+        return m('.app', [
           m.component(Sidebar),
           m.component(Home)
         ])
