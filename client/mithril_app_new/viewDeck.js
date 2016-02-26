@@ -16,7 +16,7 @@
             m("p", ["You've reviewed ",m("b", App.mindSeal.userSettings.allTimeCounter)," cards since you joined " + moment(App.mindSeal.userSettings.accountMade).fromNow() + " ago."]),
             m('br'),
           ]),
-          m("",ctrl.cardView)
+          m("div",ctrl.cardView)
         ])
       ])
     ])

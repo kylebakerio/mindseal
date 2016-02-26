@@ -29,7 +29,7 @@
                 m("p", "Author: " + ctrl.shared[deck].author),
                 m("br"),
                 ctrl.shared[deck].description ?
-                  m("",[m("p", "Description: " + ctrl.shared[deck].description), m("br") ])
+                  m("div",[m("p", "Description: " + ctrl.shared[deck].description), m("br") ])
                 :
                   m("p", "No description given.")
               ]),
@@ -45,7 +45,7 @@
      m(".row", [
         m(".col.s12.m7.l7.offset-l3.offset-m2", [
           m("h5.", "Select a shared deck to add to your own decks:"),
-          m("", mArray)
+          m("div", mArray)
         ])
       ])
     ])
