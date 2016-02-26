@@ -16,10 +16,11 @@ non-overlapping information for each user */
 
 var MongoClient = require('mongodb').MongoClient
 var assert = require('assert');
+var connection = require('../mongolabCredentials.js');
 var collection;
 
 // Connection URL
-var url = "mongodb://finetype:fsadfefhuasefh783479837945h89ehwt@ds045644.mongolab.com:45644/mindseal";
+var url = connection.connectionString
 // Use connect method to connect to the Server
 MongoClient.connect(url, function(err, db) {
   assert.equal(null, err);
