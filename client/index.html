@@ -26,7 +26,9 @@
     <div id="SPA">
       <div class="row"> 
         <div class=".col.s4.offset-s4.valign-wrapper"> 
-           <img src="./misc/ring.gif" />
+          <div class="valign-wrapper">
+            <img src="./misc/ring.gif" />
+          </div>
         </div>
       </div>
     </div>
@@ -42,12 +44,9 @@
     <script src="./mithril_app_new/shared.js"></script>
     <script src="./mithril_app_new/newDeck.js"></script>
     <script src="./mithril_app_new/utils.js"></script>
-<!-- 
-    <script src="./mithril_app/settings.js"></script>
-    <script src="./mithril_app/about.js"></script>
- -->
+
     <script>
-      // debugger;
+      debugger;
       if (typeof localStorage.mindSeal === "undefined") localStorage.mindSeal = false;
       if (localStorage.mindSeal !== "false") User.getDecks(router);
       else router();
