@@ -2,7 +2,7 @@
   window.Sidebar = {};
 
   Sidebar.view = function(ctrl){  
-    return m("",[
+    return m("div",[
       m("ul.side-nav.fixed.blue-grey.darken-1[id='slide-out']", [
         m("h3.center-align.logo", "mind:seal"),
         m("li[class='username']", [m("a.nav-text", "User: " + App.mindSeal.userSettings.username)]), //make non hoverable... center, stylize larger
