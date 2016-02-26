@@ -2,3 +2,4 @@ bower_components
 node_modules
 testQueries.js
 manifest.json
+server/models/mongolabCredentials.js
