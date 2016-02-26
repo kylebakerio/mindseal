@@ -234,7 +234,7 @@
       ctrl.toggleBack();
     } else {
       console.log("currentCard was",ctrl.currentCard)
-      ctrl.noMore();
+      viewDeck.noMore();
       // should add an overtime button.
     }
     // end cardView determination
