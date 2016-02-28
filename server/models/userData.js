@@ -16,7 +16,7 @@ non-overlapping information for each user */
 
 var MongoClient = require('mongodb').MongoClient
 var assert = require('assert');
-var connection = require('./mongolabCredentials.js')['connectionString']
+var connection = require('./mongolabCred.js')['connectionString']
 var collection;
 
 // Connection URL
