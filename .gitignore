@@ -3,3 +3,4 @@ node_modules
 testQueries.js
 manifest.json
 server/models/mongolabCredentials.js
+server/models/test.js
