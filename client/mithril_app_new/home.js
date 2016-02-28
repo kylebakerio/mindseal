@@ -10,7 +10,7 @@
               m("h2", "Welcome!"),
               m("p", ["You've reviewed ",m("b", App.mindSeal.userSettings.todayCounter)," cards today."]),
               // m("p", ["You have ",m("b", ctrl.remaining)," cards to go to meet your daily quota."]),
-              m("p", ["You've reviewed ",m("b", App.mindSeal.userSettings.allTimeCounter)," cards since you joined " + moment(App.mindSeal.userSettings.accountMade).fromNow() + " ago."]),
+              m("p", ["You've reviewed ",m("b", App.mindSeal.userSettings.allTimeCounter)," cards since you joined " + moment(App.mindSeal.userSettings.accountMade).fromNow() ]),
             ]),
           Object.keys(App.mindSeal.decks).map(function(deckName) {
             ctrl.deckCount+=1;
