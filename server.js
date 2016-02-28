@@ -18,9 +18,6 @@ app.use(session({
   signed: true
 }))
 
-//if using browserify:
-// app.get('/bundle.js')
-
 app.get('/decks/shared', function(req, res){
   console.log("trying to get shared decks");
   handler.getShared(req,res)
@@ -38,7 +35,7 @@ app.post('/decks/shared', function(req, res){
   console.log(req.body);
   handler.shareDeck(req.body.deck, req.body.deckName)
   .then(function(answer){
-    console.log("seems sharDeck was successful");
+    console.log("seems shareDeck was successful");
     res.send({message: "success"});
   })
   .catch(function(err){
@@ -155,7 +152,7 @@ app.post('/sync', function(req, res) {
   .catch(function(err){
     console.log("err caught while syncing",err);
     res.status(404).send({message:"database error:", error:err});
-  })
+  });
 });
 
 app.get('/decks', function(req, res) {
@@ -174,7 +171,7 @@ app.get('/decks', function(req, res) {
   .catch(function(err){
     console.log("Error caught! while getting decks:", err);
     res.status(200).send({login:false, message:"failed: error while trying to get decks."});
-  })
+  });
 });
 
 app.post('/decks', function(req, res) {
@@ -183,9 +180,8 @@ app.post('/decks', function(req, res) {
 });
 
 app.get('/whoami', function(req,res){
-  //definitely a security no-no. remove before production.
-  console.log(req.session);
-  res.send(req.session.user)
+  console.log("whoami requrest: ", req.session);
+  res.send(req.session.user);
 })
 
 

@@ -1,6 +1,5 @@
 var router = function(){  
   console.log("declaring router")
-  //setup routes to start w/ the `#` symbol
   m.route.mode = "hash";
 
   m.route(document.getElementById("SPA"), "/landing", {
@@ -96,13 +95,14 @@ var router = function(){
 
     "/about": {
       controller: function(){
-         m.route("/home");
+        alert("Coming soon!");
+        m.route("/home");
       },
       view: function(ctrl) {
-        return m('.app', [
-          m.component(Sidebar),
-          m.component(about)
-        ])
+        // return m('.app', [
+        //   m.component(Sidebar),
+        //   m.component(about)
+        // ])
       }
     },
 
@@ -115,8 +115,7 @@ var router = function(){
         console.log("post logout:", localStorage.mindSeal)
       },
       view: function(){
-        // nothing gets loaded. User.logout()
-        // redirects to #/landing.
+        // nothing gets loaded. User.logout() redirects to #/landing.
       }
     }
 
