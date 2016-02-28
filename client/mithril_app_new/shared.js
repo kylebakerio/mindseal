@@ -21,23 +21,23 @@
     //else:
     for (var deck in ctrl.shared){
       mArray.push(
-            m(".card.blue-grey.darken-1", {config:App.animate},[
-              m(".card-content.white-text", [
-                m("span.card-title", ctrl.shared[deck].name),
-                m("p", "Size of deck: " + (ctrl.shared[deck].cards.length + ctrl.shared[deck].unseen.length)), 
-                m("br"),
-                m("p", "Author: " + ctrl.shared[deck].author),
-                m("br"),
-                ctrl.shared[deck].description ?
-                  m("div",[m("p", "Description: " + ctrl.shared[deck].description), m("br") ])
-                :
-                  m("p", "No description given.")
-              ]),
-              m(".card-action", [
-                m("a.waves-effect.waves-light.btn", {value:deck, onclick:m.withAttr("value", ctrl.addDeck)}, [m("i.material-icons.left", "library_add"),"Get Deck"]),
-                m("a.waves-effect.waves-light.btn", {value:deck, onclick:function(){alert("This functionality coming soon!")}}, [m("i.material-icons.left", "grade"),"Try Deck"])
-              ])
-            ])
+        m(".card.blue-grey.darken-1", {config:App.animate},[
+          m(".card-content.white-text", [
+            m("span.card-title", ctrl.shared[deck].name),
+            m("p", "Size of deck: " + (ctrl.shared[deck].cards.length + ctrl.shared[deck].unseen.length)), 
+            m("br"),
+            m("p", "Author: " + ctrl.shared[deck].author),
+            m("br"),
+            ctrl.shared[deck].description ?
+              m("div",[m("p", "Description: " + ctrl.shared[deck].description), m("br") ])
+            :
+              m("p", "No description given.")
+          ]),
+          m(".card-action", [
+            m("a.waves-effect.waves-light.btn", {value:deck, onclick:m.withAttr("value", ctrl.addDeck)}, [m("i.material-icons.left", "library_add"),"Get Deck"]),
+            m("a.waves-effect.waves-light.btn", {value:deck, onclick:function(){alert("This functionality coming soon!")}}, [m("i.material-icons.left", "grade"),"Try Deck"])
+          ])
+        ])
       )
     }
 
