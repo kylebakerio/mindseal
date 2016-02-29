@@ -13,7 +13,7 @@
             m("p", "you have " + ctrl.currentDeck.unseen.length + " unseen cards in this deck."),
             m("p", ["You've reviewed ",m("b", App.mindSeal.userSettings.todayCounter)," cards today."]),
             // m("p", ["You have ",m("b", "todo" + " remaining to meet your quota.")]),
-            m("p", ["You've reviewed ",m("b", App.mindSeal.userSettings.allTimeCounter)," cards since you joined " + moment(App.mindSeal.userSettings.accountMade).fromNow() + " ago."]),
+            m("p", ["You've reviewed ",m("b", App.mindSeal.userSettings.allTimeCounter)," cards since you joined " + moment(App.mindSeal.userSettings.accountMade).fromNow()]),
             m('br'),
           ]),
           m("div",ctrl.cardView)
