@@ -1,0 +1,1 @@
+/home/kajo/code/github/mindseal/server/modelsmongolabsCred.js
