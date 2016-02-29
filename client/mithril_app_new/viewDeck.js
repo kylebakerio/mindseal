@@ -52,7 +52,7 @@
 
     ctrl.onunload = function(){
       m.startComputation();
-      App.animate($('.card'),true,0,"ex")
+      App.animate($('.exit-message'),true,0,"ex")
     }
 
     ctrl.rate = function(button){
@@ -132,12 +132,11 @@
       ctrl.remaining = function(){return 0};
       console.log("current card: " + ctrl.currentCard.front);
       next = ctrl.currentDeck.cards[ctrl.index + 1] ? ctrl.index + 1 : 0; // if truthy, we hit an unready card; if falsy, we hit end, and look at card 1.
-      ctrl.cardView =[m("h3", "Great work!"),m('p','No more cards to view for now.'),m('br'),m("p","Next card ready to review: " + 
-          moment(ctrl.currentCard.toBeSeen).format("MMM Do, YYYY hh:mm a") + 
-          ", " + moment(ctrl.currentDeck.cards[next].toBeSeen).fromNow())] 
+      ctrl.cardView = m(".exit-message",[m("h3", "Great work!"),m('p','No more cards to view for now.'),m('br'),m("p","Next card ready to review: " + 
+          moment(ctrl.currentCard.toBeSeen).format("MMM Do, YYYY hh:mm a") +
+          ", " + moment(ctrl.currentDeck.cards[next].toBeSeen).fromNow())])
       // should be an optional overtime study button here.
       console.log("noMore ran");
-      m.route('/home');
     }
 
     ctrl.nextCard = function () {

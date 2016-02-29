@@ -126,15 +126,12 @@
             deckSize < 1 || (App.mindSeal.decks[deckName].unseen.length < 1 && App.mindSeal.decks[deckName].cards.length > 0 && moment().diff(moment(App.mindSeal.decks[deckName].cards[0].toBeSeen)) < 0 ) ?
             m("a.waves-effect.waves-light.btn.disabled", {title:"Add some cards, first!"}, [m("i.material-icons.left", "grade"),"Review"]) :
             m("a.waves-effect.waves-light.btn", {href:('#/viewDeck/' + deckName)}, [m("i.material-icons.left", "grade"),"Review"]),
-
             m("a.waves-effect.waves-light.btn", {onclick:function(){ctrl.deckStates[deckName] = 'editing_cards'}}, [m("i.material-icons.left", "library_add"),"Add Cards"]),
-
             m("a.waves-effect.waves-light.btn", {onclick:function(){alert("feature coming soon")}}, [m("i.material-icons.left.large.material-icons", "settings"),"Options"]),
             
             deckSize < 1 ?
             m("a.waves-effect.waves-light.btn.disabled", {title:"Can't share an empty deck with other users."} , [m("i.material-icons.left", "call_split"),"Share"]) :
             m("a.waves-effect.waves-light.btn", {onclick:function(){ctrl.share(deckName)}, title:"Share this deck in the public repository for other users to download." }, [m("i.material-icons.left", "call_split"),"Share"]),
-            
             m("a.waves-effect.waves-light.btn", {onclick:function(){ctrl.deleteDeck(deckName)}}, [m("i.material-icons.left", "delete"),"Delete"])
           ])
         ])
