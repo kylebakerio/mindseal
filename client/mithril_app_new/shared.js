@@ -2,7 +2,6 @@
   window.shared = {};
   console.log("declaring shared")
   shared.view = function(ctrl){
-    //refactor to look like gilbert's code in home
     var mArray = [];
     
     if (Object.keys(ctrl.shared).length < 1) {
@@ -18,7 +17,6 @@
       );
     }
 
-    //else:
     for (var deck in ctrl.shared){
       mArray.push(
         m(".card.blue-grey.darken-1", {config:App.animate},[
@@ -59,17 +57,6 @@
       ctrl.shared = res.decks;
     })
 
-    // App.animate = function(elem,init,num,enEx,context){
-      
-    //   //elem is the element itself, init is whether this is elem has already been initialized,
-    //   //num is what index the item being transitioned is in its list, enEx is for enter/exit,
-    //   //and tells us whether we're animating away or towards us.
-    //   if (!init) $(elem).velocity("transition.flipYIn", {delay:num*100})
-    //   else if (enEx === "ex") {
-    //     $(elem).velocity("transition.flipYOut", { delay:num*100, complete:function(){m.endComputation()} }  )
-    //   }
-    // }
-
     ctrl.addDeck = function(deckName){
       Deck.createDeck(deckName,ctrl.shared[deckName])
       User.sync();
@@ -80,7 +67,6 @@
     };
 
     ctrl.onunload = function(){
-      console.log("unloading shared")
       m.startComputation();
       App.animate($('.card'),true,0,"ex")
     }

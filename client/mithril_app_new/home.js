@@ -31,10 +31,17 @@
 
   Home.controller = function(args){
     ctrl = this;
-
     ctrl.deckStates = {}
-    ctrl.remaining = "todo"
-    ctrl.deckCount = 0;
+    ctrl.remaining  = "todo"
+    ctrl.deckCount  = 0;
+
+    var lastUpdated = moment(App.mindSeal.userSettings.lastCardReviewDate).format("MM DD YYYY");
+    var today       = moment().format("MM DD YYYY");
+    if (lastUpdated !== today) {
+      App.mindSeal.userSettings.todayCounter = 0;
+      console.log("today's counter was reset");
+    }
+
     ctrl.onunload = function(){
       if ($('.card').length > 0){
         m.startComputation();

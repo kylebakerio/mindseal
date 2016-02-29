@@ -39,9 +39,9 @@
       ctrl.stack = "unseen";
     }
     else {
-      console.log("empty deck... routing home")
+      console.log("empty deck... routing home");
       ctrl.currentCard = ctrl.currentDeck.cards[0];
-      m.route('/home')
+      m.route('/home');
     }
 
     //note that the logic for initial declaration of ctrl.cardView happens at the bottom of the page, to use functions declared between here and there.
@@ -115,15 +115,15 @@
         Deck.binaryInsert(ctrl.index, ctrl.currentDeck.cards, "toBeSeen");
       }
 
-      //want to delete from unseen if rated, because it has been inserted into 'cards'... otherwise will review shared perpetually.
+      //want to delete from 'unseen' if rated, because now inserted into 'cards'.
       if (ctrl.stack === "unseen") {
         currentDeck[ctrl.stack].shift();
       }
-      //index should go down to keep up with shrinking deck.
+
       ctrl.index--;
       ctrl.nextCard();
       ctrl.toggleBack();
-      console.log(Deck.isSorted(ctrl.currentDeck.cards) ? "Insertion was successful." : "Insertion failed. Please sort manually.");
+      // console.log(Deck.isSorted(ctrl.currentDeck.cards) ? "Insertion was successful." : "Insertion failed. Please sort manually.");
       Card.counter();
       User.sync();
     }
@@ -131,12 +131,11 @@
     viewDeck.noMore = function(){
       ctrl.remaining = function(){return 0};
       console.log("current card: " + ctrl.currentCard.front);
-      next = ctrl.currentDeck.cards[ctrl.index + 1] ? ctrl.index + 1 : 0; // if truthy, we hit an unready card; if falsy, we hit end, and look at card 1.
+      next = ctrl.currentDeck.cards[ctrl.index + 1] ? ctrl.index + 1 : 0; // if truthy, we hit an unready card; if falsy, we hit end, and prepare first card.
       ctrl.cardView = m(".exit-message",[m("h3", "Great work!"),m('p','No more cards to view for now.'),m('br'),m("p","Next card ready to review: " + 
           moment(ctrl.currentCard.toBeSeen).format("MMM Do, YYYY hh:mm a") +
           ", " + moment(ctrl.currentDeck.cards[next].toBeSeen).fromNow())])
       // should be an optional overtime study button here.
-      console.log("noMore ran");
     }
 
     ctrl.nextCard = function () {
@@ -228,17 +227,16 @@
 
       }
     }
-    //
+
     // determine ctrl.cardView initial definition before view is loaded.
     if (ctrl.currentCard.toBeSeen === "shared" || moment().diff(ctrl.currentCard.toBeSeen) > 0) {
       ctrl.show = true;
       ctrl.toggleBack();
     } else {
-      console.log("currentCard was",ctrl.currentCard)
+      console.log("currentCard was", ctrl.currentCard)
       viewDeck.noMore();
       // should add an overtime button.
     }
-    // end cardView determination
-    //
-  }
+
+  } // end cardView determination
 })()
