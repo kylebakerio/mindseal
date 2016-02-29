@@ -3,11 +3,17 @@ html {
   height:100%;
 }
 
-
 body {
   height:100%;
   /*background-color:rgb(255, 255, 204);*/
   background-color:lightblue;
+}
+
+/* this fixes a bizarre bug that does not occur on my machine,
+but does on monisha's, and on heroku. This rule is in materialize.min.css,
+but it does not get applied unless specified here manually. */
+.card .card-action a {
+  margin-right: 20px;
 }
 
 .mdi-navigation-menu {
