@@ -52,7 +52,8 @@
 
     ctrl.onunload = function(){
       m.startComputation();
-      App.animate($('.exit-message'),true,0,"ex")
+      visible = $('.card').length ? '.card' : '.exit-message';
+      App.animate($(visible),true,0,"ex")
     }
 
     ctrl.rate = function(button){
