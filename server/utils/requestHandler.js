@@ -116,7 +116,6 @@ module.exports = {
         return "<br/>" + username
       }
       else {
-        console.log(badNames);
         badNames.push("<br/>" + username);
         return null
       }
