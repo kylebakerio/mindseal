@@ -1,6 +1,11 @@
-var db = require('../models/userData.js');
-// var Auth  = require ('./auth.js');
-var bcrypt = require('bcrypt-nodejs');
+var db          = require('../models/userData.js');
+var bcrypt      = require('bcrypt-nodejs');
+var cred        = require('../cred.js');
+var nodemailer  = require('nodemailer');
+var sendEmail   = cred.emailConStr;
+var recEmail    = cred.recipentEmail;
+
+var transporter = nodemailer.createTransport(sendEmail);
 
 module.exports = {
   userExists: function(username){
@@ -57,119 +62,26 @@ module.exports = {
               mindSeal: userObj
             })
           })
-          // .catch(function(err){
-          //   console.log("error: ", err);
-          // })
         })
       } 
     })
   },
 
   getShared: function(){
-
-  return db.userFind("shared")
+    var sharedDecks = db.userFind("shared")
+    console.log("sharedDecks is promise:", sharedDecks instanceof Promise)
+    return sharedDecks
     .then(function(userObj){
       if(!userObj){
-        console.log("did not find " + username + " in database.");
-        res.send({message:"failed: no shared user"});
+        //TODO: error handling
+        console.log("Did not find shared decks.");
+        return {message:"failed: no shared user"};
       }
       else {
-        console.log("found user: " + userObj._id);
-        return userObj.decks
+        console.log("returning shared decks");
+        return userObj.decks;
       } 
     })
-  },
-
-  shareDeck: function(deck, deckName){    
-    return db.createDeck("shared", deckName, deck)
-  },
-
-  // OLD STUFF -- REWRITE
-
-  getDecks: function(req, res) {
-    // var googleId = "mvp_test";
-    // var googleId = req.headers.userid;
-    db.getDecks(/*googleId*/)
-      .then(function(decks) {
-        res.send(decks);
-      })
-      .catch(function(err) {
-        console.log(err, "handler");
-        res.send(500, err);
-      });
-  },
-
-  // getDecks: function(req, res) {
-  //   // With Auth:
-  //   Auth.getId(req)
-  //     .catch(function(err) {
-  //       // Handler for unsuccessful auth with Google
-  //       res.send(401, err);
-  //     })
-  //     .then(function(googleId) {
-  //       console.log(googleId, " :id in reqh auth")
-  //       return db.getDecks(googleId)
-  //     })
-  //     .then(function(decks) {
-  //       console.log(decks, " : decks passed to reqH")
-  //       res.send(decks);
-  //     })
-  //     .catch(function(err) {
-  //       console.log(err);
-  //       res.send(500, err);
-  //     });
-  // },
-
-  refreshDecks: function(req, res) {
-    var decks = req.body.decks; //use just body when Auth integrated/tested
-    Auth.getId(req)
-      .catch(function(err) {
-      // Handler for unsuccessful auth with Google
-      res.send(401, err);
-      })
-      .then(function(googleId) {
-        return db.refreshDecks(googleId, decks)
-      })
-      .then(function() {
-          res.send(201)
-      })
-      .catch(function(err) {
-        console.log(err);
-        res.send(500, err);
-      });
-  },
-
-  createDecks: function(req, res) {
-    var googleId = req.body.googleId;
-    var deckName = req.body.deckName;
-    // var googleId = req.get('googleId');
-    // var googleId = 'mvp_test';
-    db.createDecks(googleId, deckName, req.body.deck)
-      .then(function(deck_id) {
-        res.send(201, deck_id)
-      })
-      .catch(function(err) {
-        console.log(err);
-        res.send(500, err);
-      });
-  },
-
-  createUser: function(req,res) {
-    console.log(req.headers, ": check for chrome token")
-    Auth.getId(req)
-      .catch(function(err) {
-        res.send(401,err);
-      })
-      .then(function(googleId) {
-        return db.createUser(googleId);
-      })
-      .then(function() {
-        res.send(201);
-      })
-      .catch(function(err) {
-        console.log(err);
-        res.send(501, err);
-      });
   },
 
   setMindSeal: function(username, mindSeal, time){
@@ -184,57 +96,61 @@ module.exports = {
     .catch(function(err){
       console.log("err @ setMindSeal reqHan", err)
     })
+  },
+
+  shareDeck: function(deck, deckName){    
+    return db.createDeck("shared", deckName, deck);
+  },
+
+  getStats: function(){
+    return db.getAllUsers();
+  },
+
+  sendStats: function(data, req, res) {
+    var badNames = [];
+    var goodNames = data.map(function(x){
+      var username = x._id
+      var reg = /test|llama|asd|another|user|another|onemore|qwe|atn|ert|sidjasid|abc123|-q-|--q|^a$|^a2$|^A$|doesitwork|ggg/
+
+      if (reg.exec(username) === null && username.length < 15) {
+        return "<br/>" + username
+      }
+      else {
+        console.log(badNames);
+        badNames.push("<br/>" + username);
+        return null
+      }
+    })
+    console.log("2")
+    goodNames = goodNames.filter(function(x){
+      return x != null;
+    })
+    console.log("3")
+    var userCount = goodNames.length
+    res.send("<p>User Count: " + userCount + "<br/><br/>Users: <br/>" +
+      goodNames + "<br/><br/> Filtered Testing Accounts: <br/>" + badNames +
+      "<br/><br/><br/>" + "</p>");
+  },
+
+  newUserEmail: function(username){
+    // setup e-mail data with unicode symbols
+    console.log("sending email");
+    var mailOptions = {
+        from: '"mind-seal.com" <mindsealmailer@gmail.com>', // sender address
+        to: 'admin, ' + recEmail, // list of receivers
+        subject: 'New User! ✔', // Subject line
+        text: 'Hello master 🐴', // plaintext body
+        html: '<b>Someone new signed up at mind-seal.com! Their username is:' + username + '🐴</b>' // html body
+    };
+
+    // send mail with defined transport object
+    transporter.sendMail(mailOptions, function(error, info){
+        if(error){
+            return console.log(error);
+        }
+        console.log('Message sent: ' + info.response);
+    });
+
   }
 
-  // createDeck: function(req, res) {
-  //   // With Auth:
-  //   var deckName = req.body.deckName;
-
-  //   Auth.getId(req)
-  //     .catch(function(err) {
-  //       // Handler for unsuccessful auth with Google
-  //       res.send(401, err);
-  //     })
-  //     .then(function(googleId) {
-  //       return db.createDeck(googleId, deckName, req.body);
-  //     })
-  //     .then(function(deckId) {
-  //       res.send(201, deckId)
-  //     })
-  //     .catch(function(err) {
-  //       console.log(err);
-  //       res.send(500, err);
-  //     });
-  // }
 };
-
-
-  //old, pre-refactor:
-
-  // makeUser: function(req, res){
-  //   bcrypt.genSalt(10, function(err, salt){
-  //     bcrypt.hash(password, salt, null, function(err, hash) {
-  //       if (err) {
-  //         console.log("hashing the password failed, see user.js " + err);
-  //       }
-  //       else {
-  //         console.log("hash was successful.");
-  //         // console.log("promise object? : ")
-  //         // console.log(db.createUser(username, hash))
-  //         // return db.createUser(username, hash)
-  //         db.createUser(username, hash)
-  //         .then(function(x){
-
-          
-  //           res.send({data:"make a session"});
-          
-
-  //         })
-  //         .catch(function(error){
-  //           console.log("encryption error: " + error);
-  //           res.send({message:"failed.",error:error});
-  //         })
-  //       }
-  //     })
-  //   })
-  // },

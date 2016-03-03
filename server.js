@@ -4,6 +4,7 @@ var morgan      = require('morgan');
 var handler     = require('./server/utils/requestHandler.js');
 var app         = express();
 var PORT        = process.env.PORT || 6060;
+var moment      = require('moment');
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/client'));
@@ -53,6 +54,7 @@ app.post('/signup', function(req, res) {
       return null;
     } else if (answer === null) {
       console.log("username not taken")
+      handler.newUserEmail(req.body.username);
       return handler.makeUser(req, res);
     }
   })
@@ -184,6 +186,13 @@ app.get('/whoami', function(req,res){
   res.send(req.session.user);
 })
 
+app.get('/admin', function(req, res){
+  var mostRecent
+  handler.getStats()
+  .then(function(data){
+    handler.sendStats(data, req, res)
+  })
+})
 
 console.log('App is listening on port ' + PORT);
 app.listen(PORT);
