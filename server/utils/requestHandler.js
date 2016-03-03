@@ -73,7 +73,7 @@ module.exports = {
     return sharedDecks
     .then(function(userObj){
       if(!userObj){
-        //TODO: error handling
+        //TODO: error handling, should not fail silently
         console.log("Did not find shared decks.");
         return {message:"failed: no shared user"};
       }
