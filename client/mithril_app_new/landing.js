@@ -22,12 +22,12 @@
                   m("label[for='password']", "Password")
                 ])
               ]),
-              m(".row", [
-                m(".input-field.col.s12", [
-                  m("input.validate[id='email'][type='email']", {/*placeholder: "Enter an email if signing up", */onchange: m.withAttr("value", ctrl.email)}),
-                  m("label[for='email']", "Email (if signing up)")
-                ])
-              ]),
+              //m(".row", [
+              //  m(".input-field.col.s12", [
+              //    m("input.validate[id='email'][type='email']", {/*placeholder: "Enter an email if signing up", */onchange: m.withAttr("value", ctrl.email)}),
+              //    m("label[for='email']", "Email (if signing up)")
+              //  ])
+              //]),
               m("a.col.s4.waves-effect.waves-light.btn-large", {onclick:ctrl.signUp}, [m("i.material-icons.right", "person_add"),"Sign Up"]),
               m("a.col.s4.waves-effect.waves-light.btn-large", {onclick:ctrl.login}, [m("i.material-icons.right", "person"),"Login"])
             ])

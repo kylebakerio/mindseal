@@ -120,36 +120,34 @@ module.exports = {
         return null
       }
     })
-    console.log("2")
+
     goodNames = goodNames.filter(function(x){
       return x != null;
     })
-    console.log("3")
+
     var userCount = goodNames.length
+    
     res.send("<p>User Count: " + userCount + "<br/><br/>Users: <br/>" +
       goodNames + "<br/><br/> Filtered Testing Accounts: <br/>" + badNames +
       "<br/><br/><br/>" + "</p>");
   },
 
   newUserEmail: function(username){
-    // setup e-mail data with unicode symbols
     console.log("sending email");
     var mailOptions = {
-        from: '"mind-seal.com" <mindsealmailer@gmail.com>', // sender address
-        to: 'admin, ' + recEmail, // list of receivers
-        subject: 'New User! ✔', // Subject line
-        text: 'Hello master 🐴', // plaintext body
-        html: '<b>Someone new signed up at mind-seal.com! Their username is:' + username + '🐴</b>' // html body
+      from: '"mind-seal.com" <mindsealmailer@gmail.com>', // sender address
+      to: 'admin, ' + recEmail, // list of receivers
+      subject: 'New User! ✔', // Subject line
+      text: 'Hello master 🐴', // plaintext body
+      html: '<b>Someone new signed up at mind-seal.com! Their username is:' + username + '🐴</b>' // html body
     };
 
-    // send mail with defined transport object
     transporter.sendMail(mailOptions, function(error, info){
-        if(error){
-            return console.log(error);
-        }
-        console.log('Message sent: ' + info.response);
+      if(error){
+        return console.log(error);
+      }
+      console.log('Message sent: ' + info.response);
     });
-
   }
 
 };

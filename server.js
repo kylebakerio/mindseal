@@ -104,7 +104,7 @@ app.post('/login', function(req, res) {
       req.session.user = obj.user;
       console.log("obj is:", obj)
       var mindSeal = {decks:obj.mindSeal.decks, userSettings:obj.mindSeal.userSettings};
-      console.log("mindSeal sending:", mindSeal);
+      console.log("mindSeal sending: (disabled, enable if desired)"/*, mindSeal*/);
       res.status(200).send({
         login: true, 
         message:"Login Successful", 
@@ -123,12 +123,12 @@ app.post('/login', function(req, res) {
 });
 
 app.post('/logout', function(req, res) {
-  req.session.user = null; 
   console.log("logging out, attempting to update with the following:",
-    req.session.user, req.body.mindSeal, req.body.time);
+    req.session.user, /*req.body.mindSeal,*/ req.body.time);
   handler.setMindSeal(req.session.user, req.body.mindSeal, req.body.time)
   .then(function(result){
     console.log('success, blanking out cookie');
+    req.session.user = null; 
     res.status(200).send({
       logout: true, 
       message:"You have been successfully logged out."
