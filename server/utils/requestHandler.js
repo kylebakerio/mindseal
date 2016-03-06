@@ -108,8 +108,8 @@ module.exports = {
 
   sendStats: function(data, req, res) {
     var badNames = [];
-    var goodNames = data.map(function(x){
-      var username = x._id
+    var goodNames = data.map(userObj => {
+      var username = userObj._id
       var reg = /test|llama|asd|another|user|another|onemore|qwe|atn|ert|sidjasid|abc123|-q-|--q|^a$|^a2$|^A$|doesitwork|ggg/
 
       if (reg.exec(username) === null && username.length < 15) {
@@ -121,14 +121,12 @@ module.exports = {
       }
     })
 
-    goodNames = goodNames.filter(function(x){
-      return x != null;
-    })
+    goodNames = goodNames.filter(name => name !== null);
 
     var userCount = goodNames.length
     
-    res.send("<p>User Count: " + userCount + "<br/><br/>Users: <br/>" +
-      goodNames + "<br/><br/> Filtered Testing Accounts: <br/>" + badNames +
+    res.send("<p><b>User Count:</b>" + userCount + "<br/><br/><b>Users: </b><br/>" +
+      goodNames + "<br/><br/><b> Filtered Testing Accounts: </b><br/>" + badNames +
       "<br/><br/><br/>" + "</p>");
   },
 

@@ -1,29 +1,47 @@
 window.User = {}
 
 User.signUp = function(username, password) {
-  console.log("trying to call server (signup) with u/p: " + username + " " + password)
-  return m.request({
-    method: 'POST',
-    url: '/signup',
-    // config: xhrConfig,
-    data: {username: username, password: password, time: moment().format()}
-  })
-  .then(function(data){
-    if (data.login === true){
-      localStorage.mindSeal = moment().format();
-      console.log("set localStorage.mindSeal to:",localStorage.mindSeal)
-      if (typeof window.App === "undefined") window.App = {};
-      console.log("Got the newly minted mindSeal:",data.mindSeal);
-      App.mindSeal = data.mindSeal;  
-      m.route('/home');
-    }
-    else if (data.login === false){
-      console.log("signup failed, username taken")
-      alert(data.message);
-    }
-    console.log("data.login was: ", data.login); 
-    return data;
-  })
+  console.log("trying to call server (signup) with u/p: " + username + " " + password);
+
+  var protectedReg = /test|llama|asd|another|user|another|onemore|qwe|sidjasid|abc123|-q-|--q/;
+
+  if (typeof ctrl.username() === "undefined"){
+    alert("Please enter a username to signup with.");
+  } 
+  else if (protectedReg.exec(ctrl.username()) !== null && ctrl.password() !== "testq") {
+    // this is a lie, but they are protected:
+    alert("That username is taken, please try another."); 
+  }
+  else if (username.length > 14){
+    alert("Please enter a username shorter than 14 characters.");
+  }
+  else if (typeof ctrl.password() === "undefined" || ctrl.password().length < 4){
+    alert("Please enter a password of at least 4 characters to sign up with.");
+  }
+  else {
+    return m.request({
+      method: 'POST',
+      url: '/signup',
+      // config: xhrConfig,
+      data: {username: username, password: password, time: moment().format()}
+    })
+    .then(function(data){
+      if (data.login === true){
+        localStorage.mindSeal = moment().format();
+        console.log("set localStorage.mindSeal to:",localStorage.mindSeal)
+        if (typeof window.App === "undefined") window.App = {};
+        console.log("Got the newly minted mindSeal:", data.mindSeal);
+        App.mindSeal = data.mindSeal;  
+        m.route('/home');
+      }
+      else if (data.login === false){
+        console.log("signup failed, username taken")
+        alert(data.message);
+      }
+      console.log("data.login was: ", data.login); 
+      return data;
+    })
+  }
 }
 
 User.login = function(username, password) {

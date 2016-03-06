@@ -58,19 +58,7 @@
     }
     
     ctrl.signUp   = function(){
-      var reg = /test|llama|asd|another|user|another|onemore|qwe|sidjasid|abc123|-q-|--q/
-      if (typeof ctrl.username() === "undefined"){
-        alert("Please enter a username to signup with.")
-      } 
-      else if (reg.exec(ctrl.username()) !== null && ctrl.password() !== "testq") {
-        alert("That username is taken, please try another.");
-      }
-      else if (typeof ctrl.password() === "undefined" || ctrl.password().length < 4){
-        alert("Please enter a password of at least 4 characters to sign up with.")
-      }
-      else {
-        User.signUp(ctrl.username(), ctrl.password(), ctrl.email())
-      }
+      User.signUp(ctrl.username(), ctrl.password(), ctrl.email())
     }
     
     ctrl.login    = function(){
