@@ -38,6 +38,15 @@ module.exports = {
     return collection.update({_id: username}, {$set: {decks: decks}}) //returns a success or error
   },
 
+ createDeck: function(username, deckName, deck) { //create a deck for a specific user    
+    var setObject = {};   
+    setObject["$set"] = {}; //creating a variable for the set part of the update query    
+    setObject["$set"]["decks."+deckName] = deck; //creating a variable key to take in the name of the deck    
+    
+    console.log("adding deck: ", username, deckName, deck);   
+    return collection.update({_id: username}, setObject) /* collection.update({_id: "uniqueUserGoogleId"}, setObject)*/   
+  },
+
   setSettings: function(username, settings){ //overwrites settings with new settings.
     console.log("settings to add:", settings);
     if (Object.keys(settings).length === 0) console.log("empty settings object, not updating.")
