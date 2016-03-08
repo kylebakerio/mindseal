@@ -1,6 +1,6 @@
 window.User = {}
 
-User.signUp = function(username, password) {
+User.signUp = function(username, password) { //add email in the post request
   console.log("trying to call server (signup) with u/p: " + username + " " + password);
 
   var protectedReg = /test|llama|asd|another|user|another|onemore|qwe|sidjasid|abc123|-q-|--q/;

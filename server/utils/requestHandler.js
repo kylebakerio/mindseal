@@ -18,6 +18,7 @@ module.exports = {
   makeUser: function(req, res){
     var username = req.body.username;
     var password = req.body.password;
+    //get email from the req body
 
     console.log("attempting to make user: " + username + " " + password);
     
@@ -37,6 +38,7 @@ module.exports = {
     })
     .then(function(hash){
       console.log("hash to model: " + hash)
+      //send email to the model function
       return db.createUser(username, hash)
     })
   },

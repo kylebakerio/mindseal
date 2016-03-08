@@ -29,7 +29,7 @@ module.exports = {
     return collection.findOne({_id: username});
   },
 
-  createUser: function(username, hashword){
+  createUser: function(username, hashword){ //add email param and insert
     console.log(username, hashword, "data as recieved by the model");
     return collection.insert({ _id: username, hashword: hashword, decks: {} });
   },
