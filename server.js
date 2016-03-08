@@ -4,6 +4,7 @@ var morgan      = require('morgan');
 var handler     = require('./server/utils/requestHandler.js');
 var app         = express();
 var PORT        = process.env.PORT || 6060;
+var moment      = require('moment');
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/client'));
@@ -17,9 +18,6 @@ app.use(session({
   secure: (!! process.env.SESSION_SECRET),
   signed: true
 }))
-
-//if using browserify:
-// app.get('/bundle.js')
 
 app.get('/decks/shared', function(req, res){
   console.log("trying to get shared decks");
@@ -38,7 +36,7 @@ app.post('/decks/shared', function(req, res){
   console.log(req.body);
   handler.shareDeck(req.body.deck, req.body.deckName)
   .then(function(answer){
-    console.log("seems sharDeck was successful");
+    console.log("seems shareDeck was successful");
     res.send({message: "success"});
   })
   .catch(function(err){
@@ -56,6 +54,7 @@ app.post('/signup', function(req, res) {
       return null;
     } else if (answer === null) {
       console.log("username not taken")
+      handler.newUserEmail(req.body.username);
       return handler.makeUser(req, res);
     }
   })
@@ -105,7 +104,7 @@ app.post('/login', function(req, res) {
       req.session.user = obj.user;
       console.log("obj is:", obj)
       var mindSeal = {decks:obj.mindSeal.decks, userSettings:obj.mindSeal.userSettings};
-      console.log("mindSeal sending:", mindSeal);
+      console.log("mindSeal sending: (disabled, enable if desired)"/*, mindSeal*/);
       res.status(200).send({
         login: true, 
         message:"Login Successful", 
@@ -124,12 +123,12 @@ app.post('/login', function(req, res) {
 });
 
 app.post('/logout', function(req, res) {
-  req.session.user = null; 
   console.log("logging out, attempting to update with the following:",
-    req.session.user, req.body.mindSeal, req.body.time);
+    req.session.user, /*req.body.mindSeal,*/ req.body.time);
   handler.setMindSeal(req.session.user, req.body.mindSeal, req.body.time)
   .then(function(result){
     console.log('success, blanking out cookie');
+    req.session.user = null; 
     res.status(200).send({
       logout: true, 
       message:"You have been successfully logged out."
@@ -155,7 +154,7 @@ app.post('/sync', function(req, res) {
   .catch(function(err){
     console.log("err caught while syncing",err);
     res.status(404).send({message:"database error:", error:err});
-  })
+  });
 });
 
 app.get('/decks', function(req, res) {
@@ -174,7 +173,7 @@ app.get('/decks', function(req, res) {
   .catch(function(err){
     console.log("Error caught! while getting decks:", err);
     res.status(200).send({login:false, message:"failed: error while trying to get decks."});
-  })
+  });
 });
 
 app.post('/decks', function(req, res) {
@@ -183,11 +182,17 @@ app.post('/decks', function(req, res) {
 });
 
 app.get('/whoami', function(req,res){
-  //definitely a security no-no. remove before production.
-  console.log(req.session);
-  res.send(req.session.user)
+  console.log("whoami requrest: ", req.session);
+  res.send(req.session.user);
 })
 
+app.get('/admin', function(req, res){
+  var mostRecent
+  handler.getStats()
+  .then(function(data){
+    handler.sendStats(data, req, res)
+  })
+})
 
 console.log('App is listening on port ' + PORT);
 app.listen(PORT);

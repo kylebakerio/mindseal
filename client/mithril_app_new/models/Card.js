@@ -1,8 +1,5 @@
 window.Card = {};
 
-//can be modified in settings page.
-// console.log("App.mindSeal: ", App.mindSeal);
-
 Card.vm = function (card) {
 // ViewModel for creating cards 
 // usage example: Card.vm( { front: "front of card", back: "backofCard"  } )
@@ -28,18 +25,10 @@ Card.tValSetDefault = function(hours){
 }
 
 Card.counter = function(){
-  // function that keeps track of how many cards a user has seen.
-  console.log("counting...")
-
-  // needed to update users to new format, eventually this line will be removable.
-  if (!App.mindSeal.userSettings.lastCardReviewDate) App.mindSeal.userSettings.lastCardReviewDate = moment().format();
-
   if (moment(App.mindSeal.userSettings.lastCardReviewDate).format('MM-DD-YYYY') === moment().format('MM-DD-YYYY')) {
-    console.log("it's the same day")
     App.mindSeal.userSettings.todayCounter++;
   }
   else {
-    console.log("it's a new day")
     App.mindSeal.userSettings.lastCardReviewDate = moment().format();
     App.mindSeal.userSettings.todayCounter = 1;
   }

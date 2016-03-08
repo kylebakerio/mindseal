@@ -10,7 +10,7 @@
               m("h2", "Welcome!"),
               m("p", ["You've reviewed ",m("b", App.mindSeal.userSettings.todayCounter)," cards today."]),
               // m("p", ["You have ",m("b", ctrl.remaining)," cards to go to meet your daily quota."]),
-              m("p", ["You've reviewed ",m("b", App.mindSeal.userSettings.allTimeCounter)," cards since you joined " + moment(App.mindSeal.userSettings.accountMade).fromNow() + " ago."]),
+              m("p", ["You've reviewed ",m("b", App.mindSeal.userSettings.allTimeCounter)," cards since you joined " + moment(App.mindSeal.userSettings.accountMade).fromNow() ]),
             ]),
           Object.keys(App.mindSeal.decks).map(function(deckName) {
             ctrl.deckCount+=1;
@@ -31,10 +31,17 @@
 
   Home.controller = function(args){
     ctrl = this;
-
     ctrl.deckStates = {}
-    ctrl.remaining = "todo"
-    ctrl.deckCount = 0;
+    ctrl.remaining  = "todo"
+    ctrl.deckCount  = 0;
+
+    var lastUpdated = moment(App.mindSeal.userSettings.lastCardReviewDate).format("MM DD YYYY");
+    var today       = moment().format("MM DD YYYY");
+    if (lastUpdated !== today) {
+      App.mindSeal.userSettings.todayCounter = 0;
+      console.log("today's counter was reset");
+    }
+
     ctrl.onunload = function(){
       if ($('.card').length > 0){
         m.startComputation();
@@ -126,15 +133,12 @@
             deckSize < 1 || (App.mindSeal.decks[deckName].unseen.length < 1 && App.mindSeal.decks[deckName].cards.length > 0 && moment().diff(moment(App.mindSeal.decks[deckName].cards[0].toBeSeen)) < 0 ) ?
             m("a.waves-effect.waves-light.btn.disabled", {title:"Add some cards, first!"}, [m("i.material-icons.left", "grade"),"Review"]) :
             m("a.waves-effect.waves-light.btn", {href:('#/viewDeck/' + deckName)}, [m("i.material-icons.left", "grade"),"Review"]),
-
             m("a.waves-effect.waves-light.btn", {onclick:function(){ctrl.deckStates[deckName] = 'editing_cards'}}, [m("i.material-icons.left", "library_add"),"Add Cards"]),
-
             m("a.waves-effect.waves-light.btn", {onclick:function(){alert("feature coming soon")}}, [m("i.material-icons.left.large.material-icons", "settings"),"Options"]),
             
             deckSize < 1 ?
             m("a.waves-effect.waves-light.btn.disabled", {title:"Can't share an empty deck with other users."} , [m("i.material-icons.left", "call_split"),"Share"]) :
             m("a.waves-effect.waves-light.btn", {onclick:function(){ctrl.share(deckName)}, title:"Share this deck in the public repository for other users to download." }, [m("i.material-icons.left", "call_split"),"Share"]),
-            
             m("a.waves-effect.waves-light.btn", {onclick:function(){ctrl.deleteDeck(deckName)}}, [m("i.material-icons.left", "delete"),"Delete"])
           ])
         ])

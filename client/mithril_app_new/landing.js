@@ -22,12 +22,12 @@
                   m("label[for='password']", "Password")
                 ])
               ]),
-              m(".row", [
-                m(".input-field.col.s12", [
-                  m("input.validate[id='email'][type='email']", {/*placeholder: "Enter an email if signing up", */onchange: m.withAttr("value", ctrl.email)}),
-                  m("label[for='email']", "Email (if signing up)")
-                ])
-              ]),
+              //m(".row", [
+              //  m(".input-field.col.s12", [
+              //    m("input.validate[id='email'][type='email']", {/*placeholder: "Enter an email if signing up", */onchange: m.withAttr("value", ctrl.email)}),
+              //    m("label[for='email']", "Email (if signing up)")
+              //  ])
+              //]),
               m("a.col.s4.waves-effect.waves-light.btn-large", {onclick:ctrl.signUp}, [m("i.material-icons.right", "person_add"),"Sign Up"]),
               m("a.col.s4.waves-effect.waves-light.btn-large", {onclick:ctrl.login}, [m("i.material-icons.right", "person"),"Login"])
             ])
@@ -58,15 +58,7 @@
     }
     
     ctrl.signUp   = function(){
-      if (typeof ctrl.username() === "undefined"){
-        alert("Please enter a username to signup with.")
-      } 
-      else if (typeof ctrl.password() === "undefined" || ctrl.password().length < 4){
-        alert("Please enter a password of at least 4 characters to sign up with.")
-      }
-      else {
-        User.signUp(ctrl.username(), ctrl.password(), ctrl.email())
-      }
+      User.signUp(ctrl.username(), ctrl.password(), ctrl.email())
     }
     
     ctrl.login    = function(){
