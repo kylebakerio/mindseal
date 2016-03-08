@@ -18,6 +18,11 @@ User.signUp = function(username, password, email) {
   else if (typeof ctrl.password() === "undefined" || ctrl.password().length < 4){
     alert("Please enter a password of at least 4 characters to sign up with.");
   }
+  else if (ctrl.email ){
+  //validate email
+  // /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/ //accept special characters
+
+  }
   else {
     return m.request({
       method: 'POST',
