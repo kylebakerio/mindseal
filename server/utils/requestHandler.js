@@ -109,21 +109,21 @@ module.exports = {
   sendStats: function(data, req, res) {
     var badNames = [];
     var goodNames = data.map(userObj => {
-      var username = userObj._id
-      var reg = /test|llama|asd|another|user|another|onemore|qwe|atn|ert|sidjasid|abc123|-q-|--q|^a$|^a2$|^A$|doesitwork|ggg/
+      var username = userObj._id;
+      var reg = /test|llama|asd|another|user|another|onemore|qwe|atn|ert|sidjasid|abc123|-q-|--q|^a$|^a2$|^A$|doesitwork|ggg/;
 
       if (reg.exec(username) === null && username.length < 15) {
-        return "<br/>" + username
+        return "<br/>" + username;
       }
       else {
         badNames.push("<br/>" + username);
         return null
       }
-    })
+    });
 
     goodNames = goodNames.filter(name => name !== null);
 
-    var userCount = goodNames.length
+    var userCount = goodNames.length;
     
     res.send("<p><b>User Count:</b>" + userCount + "<br/><br/><b>Users: </b><br/>" +
       goodNames + "<br/><br/><b> Filtered Testing Accounts: </b><br/>" + badNames +

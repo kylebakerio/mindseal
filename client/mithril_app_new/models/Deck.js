@@ -4,40 +4,24 @@ window.Deck = {};
 // App.newDeck.addCard(/*new card model*/)
 
 //maybe refresh with server or fetch from local storage
-Deck.fetch = function(shared) { //should be the server call to get a Decks object
-  if (!shared){
+
+Deck.fetch = function(getShared) {
+  // todo: rewrite, this is ugly
+  // argument is optional.
+  // if run without an argument, gets user's decks.
+  // else, gets shared decks.
+  if (getShared === undefined){
     console.log("fetching user's decks!");
-    //get all decks
     return m.request({
       method: 'GET', 
       url: '/decks/'
-    }).then(function(res){
-
-    })
-  } else if (shared === "shared") {
+    });
+  } else {
     console.log("get shared decks!");
-    //stopgap for what is desired to be returned from server.
-   
     return m.request({
       method: 'GET', 
       url: '/decks/shared'
-    })
-
-    // return 
-    // {
-    //   sharedDeck1: {
-    //     cards:[Card.vm({front:"front1!!", back:"back111!!!"}), Card.vm({front:"front2!!", back:"back222 holy shit this works!!!!"})],
-    //     description: "this is the description for deck 1",
-    //     creation: moment('1989-12-30T20:05:41-05:00').format()
-    //   },
-    //   sharedDeck2: {
-    //     cards:[Card.vm({front:"front21!!", back:"back2111!!!"}), Card.vm({front:"front22!!", back:"back2222222 holy shit this works!!!!"})],
-    //     description: "this is the description for deck 2",
-    //     creation: moment("1969-10-20T20:05:41-05:00").format()
-    //   }
-    // }
-  } else {
-    console.log("bad input on Deck.fetch: " + shared);
+    });
   }
 }
 
@@ -45,7 +29,7 @@ Deck.share = function(deck, deckName){
 
   var share = JSON.parse(JSON.stringify(deck));
 
-  share.cards.forEach(function(card){  
+  share.cards.forEach(function(card){
     card.timeLastSeen = "shared";
     card.toBeSeen = "shared";
   })
@@ -55,7 +39,7 @@ Deck.share = function(deck, deckName){
 
   console.log("sharing", deckName + ": ", share)
 
-  m.request({
+  return m.request({
     method: 'POST',
     url: '/decks/shared',
     data: {deck: share, deckName: deckName}
@@ -66,13 +50,12 @@ Deck.share = function(deck, deckName){
 }
 
 
-Deck.find = function (id) {
-  // Get deck matching id
+Deck.find = function (deckName) {
   console.log("App:",App);
-  if(App.mindSeal.decks[id] === undefined) {
-    alert("Deck.find failed, could not find the requested deck: " + id)
+  if(App.mindSeal.decks[deckName] === undefined) {
+    alert("Deck.find failed, could not find the requested deck: " + deckName)
   } else {
-  return App.mindSeal.decks[id]
+  return App.mindSeal.decks[deckName]
   }
 }
 
@@ -137,57 +120,4 @@ Deck.isSorted = function(array){
   }
   console.log("--------------SUCCESS?----------------")
   return true;
-}
-
-//old code, needs redoing.
-Deck.sync = function() {
-  //Uncaught ReferenceError: Deck is not defined App.js 53. temp fix below, untill correct data in db
-  return 1;
-  //step1: A GET request to make sure the client and server are synched up
-
-  var xhrConfig = function(xhr) {
-    getToken(function(token){
-      
-      xhr.setRequestHeader("api-token", token); //test user is 'mvp_tester', if bypassing auth
-    })
-  }
-    var dbData = m.request({
-      method: 'GET',
-      url: '/decks',
-      config: xhrConfig,
-    })
-    .then(function(data){
-      console.log("data recieved from server below: ");
-      console.log(data); 
-      return data;
-    })
-
-  //step2: Compare timestamps
-  //Kyle TODO: add moment.js function to compare
-  if (dbData.userSettings.lastEdit > localStorage.getObject('mindSeal').userSettings.lastEdit) {
-    //step3: Either keep fetched data (refresh localStorage)
-    //make sure the format is the same as db
-    if(prompt("It appears there are remote changes that need to be synced with your machine.\
-      do you want to update your local data with the remote data? You could lose all of your cards.\
-      type 'yes' to continue.") === 'yes'){
-        localStorage.setObject('mindSeal', dbData);
-    }
-  } else {
-    //or POST request (refresh db)
-    //make sure the format is
-    //{ userid string, deck object }, userid only needed until auth takes over
-    //test token "ya29.7gEsxQFWSnC61hqtKmtfTRBfd9afp6426-71s1I_15KbOYDba5I-ZPZ66-Hil_7-OUON"
-
-    var sendData = {'userid': 'mvp_test', 'decks': localStorage.getObject('mindSeal').decks};
-
-    m.request({
-      method: 'POST',
-      url: '/refresh',
-      data: sendData
-    })
-    .then(function(response){
-      console.log("server post response below:");
-      console.log(response);
-    })
-  }
 }

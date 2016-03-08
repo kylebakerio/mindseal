@@ -49,9 +49,12 @@
       }
     }
 
-    ctrl.share    = function(deckName){
-      Deck.share(App.mindSeal.decks[deckName], deckName);
-      Materialize.toast('Shared ' + App.mindSeal.decks[deckName].name, 4000);
+    ctrl.share = function(deckName){
+      Deck.share(App.mindSeal.decks[deckName], deckName)
+      .then(function(res){
+        console.log("RES?", res);
+        Materialize.toast('Shared ' + App.mindSeal.decks[deckName].name, 4000);
+      })
     }
 
     ctrl.makeCard = function(deckName){ //populates the values of the card from the form and calls the view
