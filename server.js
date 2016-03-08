@@ -68,10 +68,12 @@ app.post('/signup', function(req, res) {
     .then(function(x){
       console.log("this is returned from handler.makeUser: ", x)
       console.log(x.ops[0]._id)
+      console.log("email is ", req.body.email)
       req.session.user = x.ops[0]._id;
       var mindSeal = { 
         userSettings: {
           username: x.ops[0]._id,
+          email: req.body.email,
           newCardLimit: null,
           tValDefault: 128000000, 
           lastEdit: req.body.time, 

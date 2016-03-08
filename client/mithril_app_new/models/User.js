@@ -1,7 +1,7 @@
 window.User = {}
 
-User.signUp = function(username, password) { //add email in the post request
-  console.log("trying to call server (signup) with u/p: " + username + " " + password);
+User.signUp = function(username, password, email) {
+  console.log("trying to call server (signup) with u/p/em: " + username + " " + password + " " + email);
 
   var protectedReg = /test|llama|asd|another|user|another|onemore|qwe|sidjasid|abc123|-q-|--q/;
 
@@ -23,7 +23,7 @@ User.signUp = function(username, password) { //add email in the post request
       method: 'POST',
       url: '/signup',
       // config: xhrConfig,
-      data: {username: username, password: password, time: moment().format()}
+      data: {username: username, password: password, time: moment().format(), email: email}
     })
     .then(function(data){
       if (data.login === true){
