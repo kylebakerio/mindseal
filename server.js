@@ -33,7 +33,7 @@ app.get('/decks/shared', function(req, res){
 
 app.post('/decks/shared', function(req, res){
   console.log("trying to share: ", req.body.deckName, req.body.deck);
-  console.log(req.body);
+  // console.log(req.body);
   handler.shareDeck(req.body.deck, req.body.deckName)
   .then(function(answer){
     console.log("seems shareDeck was successful");
