@@ -19,9 +19,9 @@ User.signUp = function(username, password, email) {
   else if (typeof ctrl.password() === "undefined" || ctrl.password().length < 4){
     alert("Please enter a password of at least 4 characters to sign up with.");
   }
-  else if (email === '' || email === "undefined" || !emailReg.test(email) ){
+  else if (email === "undefined" || !emailReg.test(email) ){
     console.log("invalid email ", email, " was entered");
-    alert('Please enter a valid email.');
+    alert("Please enter a valid email.");
   }
   else {
     return m.request({
