@@ -4,7 +4,7 @@ User.signUp = function(username, password, email) {
   console.log("trying to call server (signup) with u/p/em: " + username + " " + password + " " + email);
 
   var protectedReg = /test|llama|asd|another|user|another|onemore|qwe|sidjasid|abc123|-q-|--q/;
-
+  var emailReg = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
   if (typeof ctrl.username() === "undefined"){
     alert("Please enter a username to signup with.");
   } 
@@ -18,10 +18,11 @@ User.signUp = function(username, password, email) {
   else if (typeof ctrl.password() === "undefined" || ctrl.password().length < 4){
     alert("Please enter a password of at least 4 characters to sign up with.");
   }
-  else if (ctrl.email ){
-  //validate email
-  // /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/ //accept special characters
-
+  else if (email === '' || email === "undefined" || !emailReg.test(email) ){
+    //validate email
+    // /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/ //accept additional special characters
+    console.log(email, " email was entered");
+    alert('Please enter a valid email.');
   }
   else {
     return m.request({
