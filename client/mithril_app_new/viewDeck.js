@@ -58,28 +58,48 @@
 
     ctrl.rate = function(button){
       //the following lines *should* prevent doubleclicks, or clicks while server is syncing, from causing problems.
-      if (ctrl.lastClick === ctrl.currentCard.front){
+      var tVal = ctrl.currentCard.tVal;
+      var timeLastSeen = ctrl.currentCard.timeLastSeen;
+      var toBeSeen = ctrl.currentCard.toBeSeen;
+      var currentFront = ctrl.currentCard.front;
+      var cScale = ctrl.currentCard.cScale;
+
+      if (ctrl.lastClick === currentFront){
         console.log("doubleclick caught")
         return ;
       } 
       else {
         console.log("doubleclick not caught.")
-        ctrl.lastClick = ctrl.currentCard.front;
+        ctrl.lastClick = currentFront;
       }
 
-      if (ctrl.currentCard.timeLastSeen !== "shared") {
+      if (timeLastSeen !== "shared") {
         var convert = {
-          0: ctrl.currentCard.cScale[0],
-          1: ctrl.currentCard.cScale[1],
-          2: ctrl.currentCard.cScale[2],
-          3: ctrl.currentCard.cScale[3]
+          0: cScale[0],
+          1: cScale[1],
+          2: cScale[2],
+          3: cScale[3]
         }
+        
         console.log("old tval: " + (moment.duration(tVal).asMinutes()).toFixed(1) + " minutes.");
-        console.log("old time last seen: " + moment(ctrl.currentCard.timeLastSeen).fromNow());
-        console.log("old time to be seen: " + moment(ctrl.currentCard.toBeSeen).fromNow());
-        var tVal = moment.duration(moment().diff(moment(ctrl.currentCard.timeLastSeen)));
-        tVal *= convert[button]; 
+        console.log("old time last seen: " + moment(timeLastSeen).fromNow());
+        console.log("old time to be seen: " + moment(toBeSeen).fromNow());
+        
+        var desiredDuration = moment(toBeSeen).diff(moment(timeLastSeen)) // tval?
+        var realDuration = moment().diff(timeLastSeen);
+        var tookTooLong = realDuration > desiredDuration;
+        var forgot = !!(button == 0);
+
+        if (forgot && tookTooLong) {
+          console.log("forgot and took too long. Here is button, forgot, desiredDuration, realDuration, tookTooLong:", button, forgot, desiredDuration, realDuration, tookTooLong);
+          tVal *= convert[button];
+        } else {
+          console.log("did not take too long. Here is button, forgot, desiredDuration, realDuration, tookTooLong:", button, forgot, desiredDuration, realDuration, tookTooLong);
+          tVal = moment.duration(moment().diff(moment(timeLastSeen))) * convert[button];
+        }
+
       }
+
       else {
         console.log("rating a previously unseen card.");
         var convert = 
@@ -93,6 +113,8 @@
       }
       
       console.log("convert[button] " + convert[button]);
+
+      ctrl.currentCard.tVal = tVal;
       console.log("new tval: " + (moment.duration(tVal).asMinutes()).toFixed(1) + " minutes.");
       
       ctrl.currentCard.timeLastSeen = moment().format(); //it was just seen now.
@@ -101,7 +123,6 @@
       ctrl.currentCard.toBeSeen = ( 
         moment(ctrl.currentCard.timeLastSeen).clone().add(tVal, 'milliseconds').format()
       );
-
       console.log("new time to be seen: " + moment(ctrl.currentCard.toBeSeen).fromNow());
       
       console.log("next viewing in: " + 
@@ -118,7 +139,9 @@
 
       //want to delete from 'unseen' if rated, because now inserted into 'cards'.
       if (ctrl.stack === "unseen") {
-        currentDeck[ctrl.stack].shift();
+        // changing this from currentDeck to ctrl.currentDeck; seems bad to rely on window, since that's just for debugging.
+        // but if something breaks, look here.
+        ctrl.currentDeck[ctrl.stack].shift();
       }
 
       ctrl.index--;
