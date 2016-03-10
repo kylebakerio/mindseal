@@ -39,7 +39,7 @@
       ctrl.oldWidth = window.innerWidth;
     }
 
-    console.log("ctrl.menuState = " + window.menuState)
+    // console.log("ctrl.menuState = " + window.menuState)
 
     window.toggleMenu = function(){
       console.log("window.menuState:",window.menuState)
