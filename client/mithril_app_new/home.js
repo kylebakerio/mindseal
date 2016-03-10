@@ -52,8 +52,12 @@
     ctrl.share = function(deckName){
       Deck.share(App.mindSeal.decks[deckName], deckName)
       .then(function(res){
-        console.log("RES?", res);
-        Materialize.toast('Shared ' + App.mindSeal.decks[deckName].name, 4000);
+        if (res.success === true) {
+          Materialize.toast('Shared ' + App.mindSeal.decks[deckName].name, 4000);
+        }
+        else if (res.success === false) {
+          alert("Was not able to share");
+        }
       })
     }
 

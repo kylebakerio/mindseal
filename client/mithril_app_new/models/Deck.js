@@ -39,14 +39,22 @@ Deck.share = function(deck, deckName){
 
   console.log("sharing", deckName + ": ", share)
 
-  return m.request({
+  var promisedResponse = m.request({
     method: 'POST',
     url: '/decks/shared',
-    data: {deck: share, deckName: deckName}
+    data: {
+      deck: share, 
+      deckName: deckName,
+      owner: App.mindSeal.userSettings.username
+    }
   })
-  .then(function(res){
+
+  promisedResponse.then(function(res){
+    console.log("RES FROM MODEL:", res);
     console.log(res.message);
   })
+
+  return promisedResponse;
 }
 
 
