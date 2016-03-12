@@ -146,6 +146,24 @@ module.exports = {
       }
       console.log('Message sent: ' + info.response);
     });
+  },
+
+  errorEmail: function(err){
+    console.log("sending email");
+    var mailOptions = {
+      from: '"mind-seal.com" <mindsealmailer@gmail.com>', // sender address
+      to: 'admin, ' + recEmail, // list of receivers
+      subject: 'New User! ✔', // Subject line
+      text: 'Hello master 🐴', // plaintext body
+      html: '<b>There was an error on production</b>' + err // html body
+    };
+
+    transporter.sendMail(mailOptions, function(error, info){
+      if(error){
+        return console.log(error);
+      }
+      console.log('Message sent: ' + info.response);
+    });
   }
 
 };
