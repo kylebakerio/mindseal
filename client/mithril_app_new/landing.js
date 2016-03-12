@@ -22,12 +22,12 @@
                   m("label[for='password']", "Password")
                 ])
               ]),
-              //m(".row", [
-              //  m(".input-field.col.s12", [
-              //    m("input.validate[id='email'][type='email']", {/*placeholder: "Enter an email if signing up", */onchange: m.withAttr("value", ctrl.email)}),
-              //    m("label[for='email']", "Email (if signing up)")
-              //  ])
-              //]),
+              m(".row", [
+               m(".input-field.col.s12", [
+                 m("input.validate[id='email'][type='email']", { onchange: m.withAttr("value", ctrl.email)}),
+                 m("label[for='email']", "Email (if signing up)")
+               ])
+              ]),
               m("a.col.s4.waves-effect.waves-light.btn-large", {onclick:ctrl.signUp}, [m("i.material-icons.right", "person_add"),"Sign Up"]),
               m("a.col.s4.waves-effect.waves-light.btn-large", {onclick:ctrl.login}, [m("i.material-icons.right", "person"),"Login"])
             ])
@@ -38,7 +38,7 @@
             m(".container.card-content", [
               m("h5", [" What is ",m("i", "mind:seal"),"? "]),
               m("b","Currently in alpha, please excuse any 'dust'."),
-              m("p.home-text", "mind:seal is a spaced repitition flashcard app designed to be as simple, fast, and clean as possible. It uses a machine learning algorithm to determine when you should see facts, and adapts to your personal usage patterns over time, for each individual card. Join to see shared decks, or create your own!")
+              m("p.home-text", "mind:seal is a spaced repetition flashcard app designed to be as simple, fast, and clean as possible. It uses a machine learning algorithm to determine when you should see facts, and adapts to your personal usage patterns over time, for each individual card. Join to see shared decks, or create your own!")
             ])
           ])
         ])

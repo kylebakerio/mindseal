@@ -72,6 +72,7 @@ app.post('/signup', function(req, res) {
       var mindSeal = { 
         userSettings: {
           username: x.ops[0]._id,
+          email: req.body.email,
           newCardLimit: null,
           tValDefault: 128000000, 
           lastEdit: req.body.time, 
