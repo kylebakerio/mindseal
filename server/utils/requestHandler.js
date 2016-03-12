@@ -153,7 +153,7 @@ module.exports = {
     var mailOptions = {
       from: '"mind-seal.com" <mindsealmailer@gmail.com>', // sender address
       to: 'admin, ' + recEmail, // list of receivers
-      subject: 'New User! ✔', // Subject line
+      subject: 'Error on production! ✔', // Subject line
       text: 'Hello master 🐴', // plaintext body
       html: '<b>There was an error on production</b>' + err // html body
     };
