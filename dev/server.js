@@ -1,4 +1,5 @@
 var express     = require('express');
+var path        = require('path');
 var bodyParser  = require('body-parser');
 var morgan      = require('morgan');
 var handler     = require('./server/utils/requestHandler.js');
@@ -8,8 +9,12 @@ var moment      = require('moment');
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/client'));
-app.use('/bower_components', express.static(__dirname + '/bower_components'));
+app.use('/bower_components', express.static(path.join(__dirname, '../bower_components')));
 app.use(morgan('dev'));
+
+const abf = {"x": "Your babel is working."};
+let {x: test} = abf;
+console.log(test);
 
 var session = require('cookie-session')
 app.use(session({
