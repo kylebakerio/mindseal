@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon dev/server.js --exec babel-node --presets es2015,stage-2",
     "build": "babel dev -d dist --presets es2015,stage-2",
-    "serve": "node dist/server.js",
+    "serve": "nodemon dist/server.js",
     "postinstall": "./node_modules/bower/bin/bower install"
   },
   "author": "Kyle Baker",
